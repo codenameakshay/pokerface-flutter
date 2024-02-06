@@ -91,6 +91,7 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
                 await HapticFeedback.lightImpact();
               }
               await animationController.forward();
+              MyAppX.soundPlayer.clickSoundEffect();
               widget.onPressed?.call();
               await animationController.reverse();
             },

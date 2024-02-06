@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
 import 'package:pokerface/presentation/app/app_extensions/theme/policies/text_theme.dart';
 import 'package:pokerface/presentation/app/core_widgets/confetti/confetti.dart';
@@ -20,6 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
+part 'audio_player/audio_player.dart';
 part 'app_review/app_review.dart';
 part 'device_info/device_info.dart';
 part 'dynamic_icon/dynamic_icon.dart';
@@ -168,4 +171,6 @@ class MyAppX {
   static DynamicIcon dynamicIcon = DynamicIcon.instance;
 
   static VisualAppSettings settings = VisualAppSettings._();
+
+  static SoundPlayer soundPlayer = SoundPlayer.instance;
 }

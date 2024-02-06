@@ -58,6 +58,7 @@ dependencies:
   sprung: ^3.0.1
   url_launcher: ^6.2.4
   uuid: ^4.3.3
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -120,9 +121,10 @@ flutter:
     # - assets/images/app_icons/
     # - assets/images/onboarding/
     - assets/svgs/
-    - assets/svgs/backs
-    - assets/svgs/fronts
-    - assets/svgs/other
+    - assets/svgs/backs/
+    - assets/svgs/fronts/
+    - assets/svgs/other/
+    - assets/sounds/
     - assets/lotties/
 
   # To add assets to your application, add an assets section, like this:
