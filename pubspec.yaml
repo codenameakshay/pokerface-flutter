@@ -119,7 +119,10 @@ flutter:
     - assets/images/
     # - assets/images/app_icons/
     # - assets/images/onboarding/
-    # - assets/svgs/
+    - assets/svgs/
+    - assets/svgs/backs
+    - assets/svgs/fronts
+    - assets/svgs/other
     - assets/lotties/
 
   # To add assets to your application, add an assets section, like this:
