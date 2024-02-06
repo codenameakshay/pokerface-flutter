@@ -117,9 +117,9 @@ flutter:
   # generate: true
   assets:
     - assets/images/
-    - assets/images/app_icons/
-    - assets/images/onboarding/
-    - assets/svgs/
+    # - assets/images/app_icons/
+    # - assets/images/onboarding/
+    # - assets/svgs/
     - assets/lotties/
 
   # To add assets to your application, add an assets section, like this:

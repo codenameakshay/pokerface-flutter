@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
+import 'package:pokerface/presentation/app/core_widgets/cta_clickable.dart';
+import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 
 part 'controller.dart';
 
@@ -31,9 +33,58 @@ class _HomeViewState extends ConsumerState<HomeView> {
             color: theme.colors.background,
           ),
           child: Center(
-            child: Text(
-              'HomeView',
-              style: theme.themeText.headline5,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.toAutoScaledWidth),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Spacer(),
+                  Text(
+                    'Pokerface',
+                    style: theme.themeText.headline2,
+                  ),
+                  const Spacer(),
+                  SquareButton(
+                    onPressed: () {
+                      // context.router.push(const HomeRoute());
+                    },
+                    text: 'New Game',
+                    type: ButtonType.primary,
+                  ),
+                  SquareButton(
+                    onPressed: () {
+                      // context.router.push(const HomeRoute());
+                    },
+                    text: 'New Game',
+                    type: ButtonType.secondary,
+                  ),
+                  SquareButton(
+                    onPressed: () {
+                      // context.router.push(const HomeRoute());
+                    },
+                    text: 'New Game',
+                    type: ButtonType.tertiary,
+                  ),
+                  SquareButton(
+                    onPressed: () {
+                      // context.router.push(const HomeRoute());
+                    },
+                    text: 'New Game',
+                    type: ButtonType.warning,
+                  ),
+                  SquareButton(
+                    onPressed: () {
+                      MyAppX.theme.nextTo();
+
+                      // context.router.push(const HomeRoute());
+                    },
+                    text: 'Next theme',
+                    type: ButtonType.error,
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
           ),
         ),

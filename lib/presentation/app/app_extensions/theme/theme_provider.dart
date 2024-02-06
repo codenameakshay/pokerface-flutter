@@ -123,6 +123,10 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
       ),
     );
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [SystemUiOverlay.top]);
+
+    MyAppX.showToast(
+      message: 'Theme switched to ${themeType.label}',
+    );
   }
 
   void nextTheme() {

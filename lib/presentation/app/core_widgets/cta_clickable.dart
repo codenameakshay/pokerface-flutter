@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
@@ -24,7 +26,8 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
   late final AnimationController animationController;
   late final Animation<double> opacityAnimation;
   late final Animation<double> scaleAnimation;
-  late final Animation<Offset> offsetAnimation;
+  late final Animation<Offset> verticalOffsetAnimation;
+  late final Animation<Offset> horizontalOffsetAnimation;
 
   @override
   void initState() {
@@ -47,7 +50,7 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
 
     scaleAnimation = Tween<double>(
       begin: 1,
-      end: 0.95,
+      end: 1,
     ).animate(
       CurvedAnimation(
         parent: animationController,
@@ -55,9 +58,19 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
       ),
     );
 
-    offsetAnimation = Tween<Offset>(
+    verticalOffsetAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0, 0.2),
+      end: Offset.fromDirection(pi / 2, 0.1),
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.linearToEaseOut,
+      ),
+    );
+
+    horizontalOffsetAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset.fromDirection(0, 0.01),
     ).animate(
       CurvedAnimation(
         parent: animationController,
@@ -101,12 +114,15 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
               animationController.reverse();
             },
             child: SlideTransition(
-              position: offsetAnimation,
-              child: ScaleTransition(
-                scale: scaleAnimation,
-                child: FadeTransition(
-                  opacity: opacityAnimation,
-                  child: widget.child,
+              position: horizontalOffsetAnimation,
+              child: SlideTransition(
+                position: verticalOffsetAnimation,
+                child: ScaleTransition(
+                  scale: scaleAnimation,
+                  child: FadeTransition(
+                    opacity: opacityAnimation,
+                    child: widget.child,
+                  ),
                 ),
               ),
             ),
