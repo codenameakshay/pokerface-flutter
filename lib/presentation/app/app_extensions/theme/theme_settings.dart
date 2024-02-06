@@ -85,8 +85,8 @@ class ThemeSettings
   AutoDisposeStateNotifierProvider<ThemeStateNotifier, ThemeState> get current => _themeProvider;
 
   @override
-  void switchTo(ThemeType type) {
-    MyAppX.currentRef?.read(_themeProvider.notifier).switchTheme(type);
+  void switchTo(ThemeType type, {bool showToast = true}) {
+    MyAppX.currentRef?.read(_themeProvider.notifier).switchTheme(type, showToast: showToast);
   }
 
   @override

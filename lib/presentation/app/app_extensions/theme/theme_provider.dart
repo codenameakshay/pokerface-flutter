@@ -100,10 +100,10 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
         ) ??
         ThemeType.dark;
 
-    switchTheme(themeType);
+    switchTheme(themeType, showToast: false);
   }
 
-  void switchTheme(ThemeType themeType) {
+  void switchTheme(ThemeType themeType, {bool showToast = true}) {
     MyAppX.prefs.update(
       key: themeTypeKey,
       updatedData: themeType,
@@ -124,9 +124,11 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
     );
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [SystemUiOverlay.top]);
 
-    MyAppX.showToast(
-      message: 'Theme switched to ${themeType.label}',
-    );
+    if (showToast) {
+      MyAppX.showToast(
+        message: 'Theme switched to ${themeType.label}',
+      );
+    }
   }
 
   void nextTheme() {
