@@ -38,7 +38,7 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
   @override
   void initState() {
     super.initState();
-    speed = widget.speed;
+    speed = widget.speed * 100;
     direction = widget.initialDirection;
     position = widget.initialPosition;
     startAnimationLoop();
@@ -74,7 +74,7 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
     double cardHeight = (widget.width * 333) / 234; // Height of the Card, assuming aspect ratio
 
     // Calculate new position based on direction and speed
-    final newPosition = position + direction * (speed * 100) * delta;
+    final newPosition = position + direction * speed * delta;
 
     // Initialize flags to determine collision type
     bool collidedWithVerticalEdge = false;
@@ -117,7 +117,11 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
   void randomizeMovement() {
     setState(() {
       direction = Offset(Random().nextDouble() * 2 - 1, Random().nextDouble() * 2 - 1);
-      speed = Random().nextDouble() * 0.6 + 0.4;
+      if (speed < 1000) {
+        speed += 250;
+      } else {
+        speed = Random().nextDouble() * 60 + 40;
+      }
     });
   }
 

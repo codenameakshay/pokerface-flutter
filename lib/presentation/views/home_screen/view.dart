@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
+import 'package:pokerface/presentation/app/core_widgets/shake_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
 
@@ -39,6 +40,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
           child: Stack(
             children: [
               const StackCards(),
+              SizedBox.expand(
+                child: Container(color: theme.colors.background.withOpacity(0.5)),
+              ),
               Center(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.toAutoScaledWidth),
@@ -47,9 +51,24 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Spacer(),
-                      Text(
-                        'Pokerface',
-                        style: theme.themeText.headline2,
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Text(
+                            'Pokerface',
+                            style: theme.themeText.headline2?.copyWith(
+                              fontSize: (theme.themeText.headline2?.fontSize ?? 10) * 1.02,
+                              fontWeight: FontWeight.bold,
+                              color: theme.colors.background,
+                            ),
+                          ),
+                          Text(
+                            'Pokerface',
+                            style: theme.themeText.headline2?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       const Spacer(),
                       SquareButton(
