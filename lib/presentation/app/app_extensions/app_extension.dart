@@ -28,6 +28,7 @@ part 'device_info/device_info.dart';
 part 'dynamic_icon/dynamic_icon.dart';
 part 'haptics/haptics.dart';
 part 'routing/observers/route_observer.dart';
+part 'routing/observers/page_route_observer.dart';
 part 'routing/registry/path_registry.dart';
 part 'routing/registry/routes_registry.dart';
 part 'routing/router.dart';
@@ -173,4 +174,8 @@ class MyAppX {
   static VisualAppSettings settings = VisualAppSettings._();
 
   static SoundPlayer soundPlayer = SoundPlayer.instance;
+
+  static MyAppRouterObserver routeObserver = MyAppRouterObserver();
+
+  static RouteObserver<PageRoute> pageRouteObserver = pagerouteObserver;
 }

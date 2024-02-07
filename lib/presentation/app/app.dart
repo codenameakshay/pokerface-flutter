@@ -84,7 +84,8 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       routerDelegate: AutoRouterDelegate(
         MyAppX.router,
         navigatorObservers: () => [
-          MyAppRouterObserver(),
+          MyAppX.routeObserver,
+          MyAppX.pageRouteObserver,
         ],
       ),
       theme: ThemeData.from(
