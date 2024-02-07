@@ -1,6 +1,8 @@
 part of '../view.dart';
 
 class DiagonalMovingCard extends StatefulWidget {
+  final GlobalKey<DiagonalMovingCardState> cardKey;
+
   const DiagonalMovingCard({
     super.key,
     required this.card,
@@ -8,6 +10,7 @@ class DiagonalMovingCard extends StatefulWidget {
     this.speed = 1,
     this.initialDirection = const Offset(1, 1),
     this.initialPosition = const Offset(0, 0),
+    required this.cardKey,
   });
 
   final String card;
@@ -18,18 +21,24 @@ class DiagonalMovingCard extends StatefulWidget {
 
   @override
   DiagonalMovingCardState createState() => DiagonalMovingCardState();
+
+  void randomizeMovement() {
+    cardKey.currentState?.randomizeMovement();
+  }
 }
 
 class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProviderStateMixin {
   AnimationController? _controller;
   AnimationController? _glowController;
   Animation<Color?>? _glowColorAnimation;
+  late double speed; // Initial speed
   late Offset direction; // Initial direction
   late Offset position; // Initial position
 
   @override
   void initState() {
     super.initState();
+    speed = widget.speed;
     direction = widget.initialDirection;
     position = widget.initialPosition;
     startAnimationLoop();
@@ -65,7 +74,7 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
     double cardHeight = (widget.width * 333) / 234; // Height of the Card, assuming aspect ratio
 
     // Calculate new position based on direction and speed
-    final newPosition = position + direction * (widget.speed * 100) * delta;
+    final newPosition = position + direction * (speed * 100) * delta;
 
     // Initialize flags to determine collision type
     bool collidedWithVerticalEdge = false;
@@ -103,6 +112,13 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
     position = Offset(newXPosition, newYPosition);
 
     setState(() {}); // Trigger a rebuild with the new position
+  }
+
+  void randomizeMovement() {
+    setState(() {
+      direction = Offset(Random().nextDouble() * 2 - 1, Random().nextDouble() * 2 - 1);
+      speed = Random().nextDouble() * 0.6 + 0.4;
+    });
   }
 
   @override
