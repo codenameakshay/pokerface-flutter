@@ -20,8 +20,10 @@ class DiagonalMovingCard extends StatefulWidget {
   DiagonalMovingCardState createState() => DiagonalMovingCardState();
 }
 
-class DiagonalMovingCardState extends State<DiagonalMovingCard> with SingleTickerProviderStateMixin {
+class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProviderStateMixin {
   AnimationController? _controller;
+  AnimationController? _glowController;
+  Animation<Color?>? _glowColorAnimation;
   late Offset direction; // Initial direction
   late Offset position; // Initial position
 
@@ -31,6 +33,18 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with SingleTicke
     direction = widget.initialDirection;
     position = widget.initialPosition;
     startAnimationLoop();
+
+    _glowController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 50),
+    );
+    _glowColorAnimation = ColorTween(
+      begin: Colors.black.withOpacity(0),
+      end: Colors.black,
+    ).animate(_glowController!)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   void startAnimationLoop() {
@@ -65,6 +79,15 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with SingleTicke
       collidedWithHorizontalEdge = true;
     }
 
+    // Corner detection
+    bool isCornerHit = (newPosition.dx <= 0 || newPosition.dx >= screenSize.width - cardWidth) &&
+        (newPosition.dy <= 0 || newPosition.dy >= screenSize.height - cardHeight);
+
+    if (isCornerHit || collidedWithHorizontalEdge || collidedWithVerticalEdge) {
+      // Trigger glow effect
+      _glowController!.forward(from: 0).then((_) => _glowController!.reverse());
+    }
+
     // Adjust direction based on collision type
     if (collidedWithVerticalEdge) {
       direction = Offset(-direction.dx, direction.dy); // Invert horizontal component
@@ -86,13 +109,23 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with SingleTicke
   Widget build(BuildContext context) {
     return Transform.translate(
       offset: position,
-      child: CardsPNG.drawCard(widget.card, width: widget.width),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: _glowColorAnimation!.value ?? Colors.black.withOpacity(0),
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: CardsPNG.drawCard(widget.card, width: widget.width),
+      ),
     );
   }
 
   @override
   void dispose() {
     _controller?.dispose();
+    _glowController?.dispose();
     super.dispose();
   }
 }
