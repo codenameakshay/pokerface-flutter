@@ -25,6 +25,14 @@ class DiagonalMovingCard extends StatefulWidget {
   void randomizeMovement() {
     cardKey.currentState?.randomizeMovement();
   }
+
+  void pauseAnimation() {
+    cardKey.currentState?.pauseAnimation();
+  }
+
+  void resumeAnimation() {
+    cardKey.currentState?.resumeAnimation();
+  }
 }
 
 class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProviderStateMixin {
@@ -60,12 +68,14 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 8), // Approx. 120 FPS
-    )..addListener(() {
-        const delta = 1 / 120.0; // Assuming 120 FPS for smooth animation
-        updatePosition(delta);
-      });
+    )..addListener(listener);
 
     _controller!.repeat();
+  }
+
+  void listener() {
+    const delta = 1 / 120.0; // Assuming 120 FPS for smooth animation
+    updatePosition(delta);
   }
 
   void updatePosition(double delta) {
@@ -123,6 +133,14 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
         speed = Random().nextDouble() * 60 + 40;
       }
     });
+  }
+
+  void pauseAnimation() {
+    _controller?.removeListener(listener);
+  }
+
+  void resumeAnimation() {
+    _controller!.addListener(listener);
   }
 
   @override

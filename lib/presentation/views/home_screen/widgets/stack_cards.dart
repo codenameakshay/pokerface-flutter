@@ -34,23 +34,35 @@ class StackCardsState extends State<StackCards> with SingleTickerProviderStateMi
 
   @override
   Widget build(BuildContext context) {
-    return ShakeDetectorWidget(
-      onShake: randomizeCards,
-      child: Stack(
-        children: List.generate(cards.length, (index) {
-          return DiagonalMovingCard(
-            key: cardKeys[index], // Use the specific key for this card
-            card: cards[index],
-            width: widget.width,
-            speed: Random().nextDouble() * 0.6 + 0.4,
-            initialDirection: Offset(Random().nextDouble() * 2 - 1, Random().nextDouble() * 2 - 1),
-            initialPosition: Offset(
-              Random().nextDouble() * MediaQuery.of(context).size.width,
-              Random().nextDouble() * MediaQuery.of(context).size.height,
-            ),
-            cardKey: cardKeys[index],
-          );
-        }),
+    return RouteDetectorWidget(
+      onHidden: () {
+        for (var key in cardKeys) {
+          key.currentState?.pauseAnimation();
+        }
+      },
+      onShown: () {
+        for (var key in cardKeys) {
+          key.currentState?.resumeAnimation();
+        }
+      },
+      child: ShakeDetectorWidget(
+        onShake: randomizeCards,
+        child: Stack(
+          children: List.generate(cards.length, (index) {
+            return DiagonalMovingCard(
+              key: cardKeys[index], // Use the specific key for this card
+              card: cards[index],
+              width: widget.width,
+              speed: Random().nextDouble() * 0.6 + 0.4,
+              initialDirection: Offset(Random().nextDouble() * 2 - 1, Random().nextDouble() * 2 - 1),
+              initialPosition: Offset(
+                Random().nextDouble() * MediaQuery.of(context).size.width,
+                Random().nextDouble() * MediaQuery.of(context).size.height,
+              ),
+              cardKey: cardKeys[index],
+            );
+          }),
+        ),
       ),
     );
   }
