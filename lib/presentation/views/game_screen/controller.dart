@@ -39,10 +39,6 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState() {}
 
-  void navigateToNewGame() {
-    MyAppX.router.navigate(const GameRoute());
-  }
-
   // @override
   // void dispose() {
   //   super.dispose();

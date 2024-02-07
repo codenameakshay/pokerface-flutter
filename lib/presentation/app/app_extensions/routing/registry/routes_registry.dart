@@ -12,6 +12,10 @@ class MyAppRoutesRegistry {
       path: MyAppPathsRegistry.home,
       page: HomeRoute.page,
     ),
+    AdaptiveRoute(
+      path: MyAppPathsRegistry.game,
+      page: GameRoute.page,
+    ),
     // CustomRoute(
     //   path: MyAppPathsRegistry.appVersion,
     //   page: AppVersionRoute.page,

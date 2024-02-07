@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
+import 'package:pokerface/presentation/views/game_screen/view.dart';
 import 'package:pokerface/presentation/views/home_screen/view.dart';
 import 'package:pokerface/presentation/views/splash_screen/view.dart';
 

@@ -15,6 +15,12 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    GameRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const GameView(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -28,6 +34,20 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [GameView]
+class GameRoute extends PageRouteInfo<void> {
+  const GameRoute({List<PageRouteInfo>? children})
+      : super(
+          GameRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GameRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
