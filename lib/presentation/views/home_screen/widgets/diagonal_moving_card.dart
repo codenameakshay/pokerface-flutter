@@ -36,9 +36,9 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with SingleTicke
   void startAnimationLoop() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 16), // Approx. 120 FPS
+      duration: const Duration(milliseconds: 8), // Approx. 120 FPS
     )..addListener(() {
-        const delta = 1 / 60.0; // Assuming 120 FPS for smooth animation
+        const delta = 1 / 120.0; // Assuming 120 FPS for smooth animation
         updatePosition(delta);
       });
 
@@ -48,53 +48,45 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with SingleTicke
   void updatePosition(double delta) {
     Size screenSize = MediaQuery.of(context).size;
     double cardWidth = widget.width; // Width of the Card
-    double cardHeight = (widget.width * 333) / 234; // Height of the Card
+    double cardHeight = (widget.width * 333) / 234; // Height of the Card, assuming aspect ratio
 
     // Calculate new position based on direction and speed
     final newPosition = position + direction * (widget.speed * 100) * delta;
 
-    // Adjust newPosition to consider the card's dimensions for edge collisions
-    // Check for collisions with the right and bottom edges by subtracting cardWidth and cardHeight respectively
-    bool isCollidingRightOrBottom =
-        newPosition.dx > screenSize.width - cardWidth || newPosition.dy > screenSize.height - cardHeight;
-    bool isCollidingLeftOrTop = newPosition.dx < 0 || newPosition.dy < 0;
+    // Initialize flags to determine collision type
+    bool collidedWithVerticalEdge = false;
+    bool collidedWithHorizontalEdge = false;
 
-    if (isCollidingRightOrBottom || isCollidingLeftOrTop) {
-      direction = pickRandomDirection(); // Pick a new direction
-
-      // Adjust position to prevent the card from moving beyond the screen edges
-      double newXPosition = max(0, min(screenSize.width - cardWidth, newPosition.dx));
-      double newYPosition = max(0, min(screenSize.height - cardHeight, newPosition.dy));
-      position = Offset(newXPosition, newYPosition);
-    } else {
-      position = newPosition;
+    // Check for collisions and set flags
+    if (newPosition.dx <= 0 || newPosition.dx >= screenSize.width - cardWidth) {
+      collidedWithVerticalEdge = true;
     }
+    if (newPosition.dy <= 0 || newPosition.dy >= screenSize.height - cardHeight) {
+      collidedWithHorizontalEdge = true;
+    }
+
+    // Adjust direction based on collision type
+    if (collidedWithVerticalEdge) {
+      direction = Offset(-direction.dx, direction.dy); // Invert horizontal component
+    }
+    if (collidedWithHorizontalEdge) {
+      direction = Offset(direction.dx, -direction.dy); // Invert vertical component
+    }
+
+    // Calculate new position after collision adjustment
+    // This prevents the card from going beyond the screen edges
+    double newXPosition = max(0, min(screenSize.width - cardWidth, newPosition.dx));
+    double newYPosition = max(0, min(screenSize.height - cardHeight, newPosition.dy));
+    position = Offset(newXPosition, newYPosition);
 
     setState(() {}); // Trigger a rebuild with the new position
-  }
-
-  Offset pickRandomDirection() {
-    Random random = Random();
-    int choice = random.nextInt(4); // Pick a random direction
-    switch (choice) {
-      case 0:
-        return const Offset(1, 1);
-      case 1:
-        return const Offset(-1, 1);
-      case 2:
-        return const Offset(-1, -1);
-      case 3:
-        return const Offset(1, -1);
-      default:
-        return const Offset(1, 1);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
       offset: position,
-      child: Cards.drawCard(widget.card, width: widget.width),
+      child: CardsPNG.drawCard(widget.card, width: widget.width),
     );
   }
 
