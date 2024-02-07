@@ -118,6 +118,9 @@ flutter:
   # generate: true
   assets:
     - assets/images/
+    - assets/images/backs/
+    - assets/images/fronts/
+    - assets/images/other/
     # - assets/images/app_icons/
     # - assets/images/onboarding/
     - assets/svgs/
