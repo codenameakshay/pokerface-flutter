@@ -8,8 +8,12 @@ class SoundPlayer {
 
   static final player = AudioPlayer();
 
-  Future<void> play(String source) async {
-    await player.play(AssetSource(source.split('/').sublist(1).join('/')));
+  Future<void> play() async {
+    await player.resume();
+  }
+
+  Future<void> setSource(String source) async {
+    await player.setSource(AssetSource(source.split('/').sublist(1).join('/')));
   }
 
   Future<void> stop() async {
@@ -18,6 +22,10 @@ class SoundPlayer {
 
   Future<void> clickSoundEffect() async {
     await player.stop();
-    await play(Assets.sounds.buttonClick);
+    await play();
+  }
+
+  Future<void> initClickSoundEffect() async {
+    await setSource(Assets.sounds.buttonClick);
   }
 }

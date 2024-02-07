@@ -30,6 +30,7 @@ class AppBooter extends StateNotifier<AppBootStatus> {
     final bootUpProcesses = [
       PrefsBooter.instance.bootUp(),
       ThemeBooter.instance.bootUp(),
+      MyAppX.soundPlayer.initClickSoundEffect(),
       // PurchaseBooter.instance.bootUp(),
       // FlutterDownloader.initialize(),
       // WallpaperBooter.instance.bootUp(),
