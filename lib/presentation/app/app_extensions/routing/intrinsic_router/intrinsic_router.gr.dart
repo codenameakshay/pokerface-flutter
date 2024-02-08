@@ -47,9 +47,15 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
       );
     },
     GameRoute.name: (routeData) {
+      final args = routeData.argsAs<GameRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const GameView(),
+        child: GameView(
+          key: args.key,
+          userSelectedCards: args.userSelectedCards,
+          numberOfPlayers: args.numberOfPlayers,
+          numberOfHouseCards: args.numberOfHouseCards,
+        ),
       );
     },
     HomeRoute.name: (routeData) {
@@ -191,16 +197,49 @@ class CardsListBottomSheetRouteArgs {
 
 /// generated route for
 /// [GameView]
-class GameRoute extends PageRouteInfo<void> {
-  const GameRoute({List<PageRouteInfo>? children})
-      : super(
+class GameRoute extends PageRouteInfo<GameRouteArgs> {
+  GameRoute({
+    Key? key,
+    required List<String> userSelectedCards,
+    required double numberOfPlayers,
+    required double numberOfHouseCards,
+    List<PageRouteInfo>? children,
+  }) : super(
           GameRoute.name,
+          args: GameRouteArgs(
+            key: key,
+            userSelectedCards: userSelectedCards,
+            numberOfPlayers: numberOfPlayers,
+            numberOfHouseCards: numberOfHouseCards,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'GameRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<GameRouteArgs> page = PageInfo<GameRouteArgs>(name);
+}
+
+class GameRouteArgs {
+  const GameRouteArgs({
+    this.key,
+    required this.userSelectedCards,
+    required this.numberOfPlayers,
+    required this.numberOfHouseCards,
+  });
+
+  final Key? key;
+
+  final List<String> userSelectedCards;
+
+  final double numberOfPlayers;
+
+  final double numberOfHouseCards;
+
+  @override
+  String toString() {
+    return 'GameRouteArgs{key: $key, userSelectedCards: $userSelectedCards, numberOfPlayers: $numberOfPlayers, numberOfHouseCards: $numberOfHouseCards}';
+  }
 }
 
 /// generated route for

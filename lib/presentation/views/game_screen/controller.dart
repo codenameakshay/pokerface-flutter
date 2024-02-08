@@ -1,9 +1,17 @@
 part of 'view.dart';
 
 class _VSControllerParams extends Equatable {
-  const _VSControllerParams({required this.context});
+  const _VSControllerParams({
+    required this.context,
+    required this.userSelectedCards,
+    required this.numberOfPlayers,
+    required this.numberOfHouseCards,
+  });
 
   final BuildContext context;
+  final List<String> userSelectedCards;
+  final double numberOfPlayers;
+  final double numberOfHouseCards;
 
   @override
   List<Object> get props => [];
@@ -24,12 +32,23 @@ final _vsProvider =
 });
 
 class _ViewState {
-  _ViewState();
+  _ViewState({
+    required this.houseCards,
+  });
 
-  _ViewState.initial() : this();
+  final List<String> houseCards;
 
-  _ViewState copyWith() {
-    return _ViewState();
+  _ViewState.initial()
+      : this(
+          houseCards: [],
+        );
+
+  _ViewState copyWith({
+    List<String>? houseCards,
+  }) {
+    return _ViewState(
+      houseCards: houseCards ?? this.houseCards,
+    );
   }
 }
 
@@ -39,20 +58,37 @@ class _VSController extends StateNotifier<_ViewState> {
   }) : super(_ViewState.initial());
   _VSControllerParams params;
 
-  void initState(BuildContext context) {
-    Future.delayed(
-      Duration.zero,
-      () => showSelectCardsBottomSheet(context),
-    );
-  }
+  void initState(BuildContext context) {}
 
-  void showSelectCardsBottomSheet(BuildContext context) {
-    showCupertinoModalBottomSheet(
+  Future<String?> showCardsListBottomSheet(BuildContext context, String? selectedCard) async {
+    return showCupertinoModalBottomSheet<String>(
       context: context,
-      builder: (context) => const SelectCardsBottomSheet(),
+      builder: (context) => CardsListBottomSheet(
+        initialSelectedCard: selectedCard,
+      ),
     );
   }
 
+  Future<void> showSelectCardSheet(BuildContext context, int index) async {
+    // if (state.houseCards.length > index) {
+    // }
+    // final card = await showCardsListBottomSheet(context, state.houseCards.elementAt(index));
+    // if (card != null) {
+    //   setSecondCard(card);
+    // }
+  }
+
+  void selectHouseCard(String card) {
+    if (state.houseCards.contains(card)) {
+      return;
+    }
+
+    if (state.houseCards.length == params.numberOfHouseCards.toInt()) {
+      return;
+    }
+
+    state = state.copyWith(houseCards: [...state.houseCards, card]);
+  }
   // @override
   // void dispose() {
   //   super.dispose();

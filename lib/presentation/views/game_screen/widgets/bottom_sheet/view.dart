@@ -104,7 +104,11 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
                   child: SquareButton(
-                    onPressed: () => {},
+                    onPressed: () => MyAppX.router.pop({
+                      'userSelectedCards': [state.firstSelectedCard!, state.secondSelectedCard!],
+                      'numberOfPlayers': state.numberOfPlayers,
+                      'numberOfHouseCards': state.openCards,
+                    }),
                     text: 'Start game',
                     enabled: state.firstSelectedCard != null && state.secondSelectedCard != null,
                   ),

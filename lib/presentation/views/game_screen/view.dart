@@ -5,12 +5,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/view.dart';
+import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/widgets/bottom_sheet/view.dart';
 
 part 'controller.dart';
 
 @RoutePage(name: 'GameRoute')
 class GameView extends ConsumerStatefulWidget {
-  const GameView({super.key});
+  const GameView({
+    super.key,
+    required this.userSelectedCards,
+    required this.numberOfPlayers,
+    required this.numberOfHouseCards,
+  });
+
+  final List<String> userSelectedCards;
+  final double numberOfPlayers;
+  final double numberOfHouseCards;
 
   @override
   ConsumerState<GameView> createState() => _GameViewState();
@@ -19,7 +29,12 @@ class GameView extends ConsumerStatefulWidget {
 class _GameViewState extends ConsumerState<GameView> {
   @override
   Widget build(BuildContext context) {
-    final params = _VSControllerParams(context: context);
+    final params = _VSControllerParams(
+      context: context,
+      userSelectedCards: widget.userSelectedCards,
+      numberOfPlayers: widget.numberOfPlayers,
+      numberOfHouseCards: widget.numberOfHouseCards,
+    );
     final theme = ref.watch(MyAppX.theme.current);
     final state = ref.watch(_vsProvider(params));
     final stateController = ref.watch(_vsProvider(params).notifier);
@@ -35,10 +50,36 @@ class _GameViewState extends ConsumerState<GameView> {
             alignment: Alignment.center,
             children: [
               Positioned(
-                bottom: 400,
-                child: ElevatedButton(
-                  onPressed: () => stateController.showSelectCardsBottomSheet(context),
-                  child: const Text('Open Bottom Sheet'),
+                bottom: 0,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.colors.background,
+                    border: Border(
+                      top: BorderSide(
+                        color: theme.colors.secondary,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 24.toAutoScaledHeight),
+                  child: SafeArea(
+                    top: false,
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      runSpacing: 16.toAutoScaledWidth,
+                      spacing: 16.toAutoScaledWidth,
+                      children: List.generate(
+                        params.numberOfHouseCards.toInt(),
+                        (index) => DashedCardButton(
+                          onPressed: () => stateController.showSelectCardSheet(context, index),
+                          width: MediaQuery.of(context).size.width * 0.7 / params.numberOfHouseCards,
+                          card: state.houseCards.length > index ? state.houseCards[index] : null,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

@@ -39,13 +39,21 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState() {}
 
-  void navigateToNewGame() {
+  void navigateToNewGame({
+    required List<String> userSelectedCards,
+    required double numberOfPlayers,
+    required double numberOfHouseCards,
+  }) {
     MyAppX.router.navigate(
-      const GameRoute(),
+      GameRoute(
+        userSelectedCards: userSelectedCards,
+        numberOfPlayers: numberOfPlayers,
+        numberOfHouseCards: numberOfHouseCards,
+      ),
     );
   }
 
-  void showSelectCardsBottomSheet(BuildContext context) {
+  Future<void> showSelectCardsBottomSheet(BuildContext context) async {
     // MyAppX.router.pushNativeRoute(
     //   MaterialWithModalsPageRoute(
     //     fullscreenDialog: true,
@@ -65,10 +73,19 @@ class _VSController extends StateNotifier<_ViewState> {
     //     ),
     //   ),
     // );
-    showCupertinoModalBottomSheet(
+    final data = await showCupertinoModalBottomSheet(
       context: context,
       builder: (context) => const SelectCardsBottomSheet(),
     );
+
+    if (data != null) {
+      print(data);
+      navigateToNewGame(
+        userSelectedCards: data['userSelectedCards'],
+        numberOfPlayers: data['numberOfPlayers'],
+        numberOfHouseCards: data['numberOfHouseCards'],
+      );
+    }
   }
 
   // @override
