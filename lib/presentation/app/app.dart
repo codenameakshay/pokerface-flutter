@@ -114,9 +114,9 @@ class CustomError extends ConsumerWidget {
   final FlutterErrorDetails errorDetails;
 
   const CustomError({
-    Key? key,
+    super.key,
     required this.errorDetails,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -145,7 +145,7 @@ class CustomError extends ConsumerWidget {
               style: theme.themeText.bodyText1,
             ),
             8.toAutoScaledHeight.toVerticalSizedBox,
-            const UrlBuilder('info@one4studio.com', url: 'mailto:info@one4studio.com'),
+            const UrlBuilder('akshaymaurya3006@gmail.com', url: 'mailto:akshaymaurya3006@gmail.com'),
             16.toAutoScaledHeight.toVerticalSizedBox,
             Container(
               decoration: BoxDecoration(
