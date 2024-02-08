@@ -6,4 +6,5 @@ class MyAppPathsRegistry {
   static const String splash = '/';
   static const String home = '/home';
   static const String game = '/game';
+  static const String selectCardsBottomSheet = '/bottomSheet/selectCards';
 }

@@ -16,10 +16,10 @@ class MyAppRoutesRegistry {
       path: MyAppPathsRegistry.game,
       page: GameRoute.page,
     ),
-    // CustomRoute(
-    //   path: MyAppPathsRegistry.appVersion,
-    //   page: AppVersionRoute.page,
-    //   transitionsBuilder: MyAppTransitionBuilders.slideBottom,
-    // ),
+    CustomRoute(
+      path: MyAppPathsRegistry.selectCardsBottomSheet,
+      page: SelectCardsBottomSheetRoute.page,
+      transitionsBuilder: MyAppTransitionBuilders.iOSDialog,
+    ),
   ];
 }

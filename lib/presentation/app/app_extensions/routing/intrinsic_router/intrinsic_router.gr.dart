@@ -27,6 +27,12 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
         child: const HomeView(),
       );
     },
+    SelectCardsBottomSheetRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SelectCardsBottomSheet(),
+      );
+    },
     SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -60,6 +66,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SelectCardsBottomSheet]
+class SelectCardsBottomSheetRoute extends PageRouteInfo<void> {
+  const SelectCardsBottomSheetRoute({List<PageRouteInfo>? children})
+      : super(
+          SelectCardsBottomSheetRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SelectCardsBottomSheetRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
