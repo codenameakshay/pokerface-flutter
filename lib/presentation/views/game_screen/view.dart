@@ -4,10 +4,78 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pokerface/presentation/utils/cards/cards_png.dart';
 import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/view.dart';
 import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/widgets/bottom_sheet/view.dart';
 
 part 'controller.dart';
+part 'widgets/card_preview.dart';
+
+final pncs = [
+  [
+    CardsPNG.fronts.heartsJack,
+    CardsPNG.fronts.heartsQueen,
+    CardsPNG.fronts.heartsKing,
+    CardsPNG.fronts.heartsAce,
+    CardsPNG.fronts.hearts2,
+  ],
+  [
+    CardsPNG.fronts.diamondsJack,
+    CardsPNG.fronts.diamondsQueen,
+    CardsPNG.fronts.diamondsKing,
+    CardsPNG.fronts.diamondsAce,
+    CardsPNG.fronts.diamonds2,
+  ],
+  [
+    CardsPNG.fronts.clubsJack,
+    CardsPNG.fronts.clubsQueen,
+    CardsPNG.fronts.clubsKing,
+    CardsPNG.fronts.clubsAce,
+    CardsPNG.fronts.clubs2,
+  ],
+  [
+    CardsPNG.fronts.spadesJack,
+    CardsPNG.fronts.spadesQueen,
+    CardsPNG.fronts.spadesKing,
+    CardsPNG.fronts.spadesAce,
+    CardsPNG.fronts.spades2,
+  ],
+  [
+    CardsPNG.fronts.heartsJack,
+    CardsPNG.fronts.heartsQueen,
+    CardsPNG.fronts.heartsKing,
+    CardsPNG.fronts.heartsAce,
+    CardsPNG.fronts.hearts2,
+  ],
+  [
+    CardsPNG.fronts.heartsJack,
+    CardsPNG.fronts.heartsQueen,
+    CardsPNG.fronts.heartsKing,
+    CardsPNG.fronts.heartsAce,
+    CardsPNG.fronts.hearts2,
+  ],
+  [
+    CardsPNG.fronts.heartsJack,
+    CardsPNG.fronts.heartsQueen,
+    CardsPNG.fronts.heartsKing,
+    CardsPNG.fronts.heartsAce,
+    CardsPNG.fronts.hearts2,
+  ],
+  [
+    CardsPNG.fronts.heartsJack,
+    CardsPNG.fronts.heartsQueen,
+    CardsPNG.fronts.heartsKing,
+    CardsPNG.fronts.heartsAce,
+    CardsPNG.fronts.hearts2,
+  ],
+  [
+    CardsPNG.fronts.heartsJack,
+    CardsPNG.fronts.heartsQueen,
+    CardsPNG.fronts.heartsKing,
+    CardsPNG.fronts.heartsAce,
+    CardsPNG.fronts.hearts2,
+  ],
+];
 
 @RoutePage(name: 'GameRoute')
 class GameView extends ConsumerStatefulWidget {
@@ -49,6 +117,32 @@ class _GameViewState extends ConsumerState<GameView> {
           child: Stack(
             alignment: Alignment.center,
             children: [
+              SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (final pnc in pncs) ...[
+                        24.toAutoScaledHeight.toVerticalSizedBox,
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          runSpacing: 8.toAutoScaledWidth,
+                          spacing: 8.toAutoScaledWidth,
+                          children: List.generate(
+                            pnc.length,
+                            (index) => CardPreview(
+                              width: MediaQuery.of(context).size.width * 0.8 / pnc.length,
+                              card: pnc[index],
+                            ),
+                          ),
+                        ),
+                      ],
+                      256.toAutoScaledHeight.toVerticalSizedBox,
+                    ],
+                  ),
+                ),
+              ),
               Positioned(
                 bottom: 0,
                 width: MediaQuery.of(context).size.width,
