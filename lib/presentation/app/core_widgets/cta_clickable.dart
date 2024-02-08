@@ -128,7 +128,10 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
               ),
             ),
           )
-        : widget.child;
+        : ColorFiltered(
+            colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcATop),
+            child: widget.child,
+          );
   }
 
   @override

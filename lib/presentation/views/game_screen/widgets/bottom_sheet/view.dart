@@ -101,12 +101,12 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
                   ),
                 ),
                 32.toAutoScaledHeight.toVerticalSizedBox,
-                //Start game button
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
                   child: SquareButton(
                     onPressed: () => {},
                     text: 'Start game',
+                    enabled: state.firstSelectedCard != null && state.secondSelectedCard != null,
                   ),
                 ),
                 16.toAutoScaledHeight.toVerticalSizedBox,
