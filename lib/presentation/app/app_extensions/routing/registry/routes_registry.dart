@@ -21,7 +21,16 @@ class MyAppRoutesRegistry {
     //   page: SelectCardsBottomSheetRoute.page,
     //   transitionsBuilder: MyAppTransitionBuilders.iOSDialog,
     // ),
-
+    CustomRoute(
+      path: MyAppPathsRegistry.cardPhoto,
+      page: CardPhotoRoute.page,
+      transitionsBuilder: MyAppTransitionBuilders.fadeIn,
+      barrierColor: Colors.black38,
+      barrierDismissible: true,
+      fullscreenDialog: true,
+      maintainState: false,
+      opaque: false,
+    ),
     // add a blank route
     CustomRoute(
       path: MyAppPathsRegistry.blank,

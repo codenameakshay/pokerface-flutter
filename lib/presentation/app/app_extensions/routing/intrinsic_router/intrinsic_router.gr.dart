@@ -25,10 +25,25 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
         ),
       );
     },
-    CardsListBottomSheetRoute.name: (routeData) {
+    CardPhotoRoute.name: (routeData) {
+      final args = routeData.argsAs<CardPhotoRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CardsListBottomSheet(),
+        child: CardPhotoView(
+          key: args.key,
+          onInit: args.onInit,
+          card: args.card,
+        ),
+      );
+    },
+    CardsListBottomSheetRoute.name: (routeData) {
+      final args = routeData.argsAs<CardsListBottomSheetRouteArgs>(orElse: () => const CardsListBottomSheetRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CardsListBottomSheet(
+          key: args.key,
+          initialSelectedCard: args.initialSelectedCard,
+        ),
       );
     },
     GameRoute.name: (routeData) {
@@ -96,17 +111,82 @@ class BlankRouteArgs {
 }
 
 /// generated route for
+/// [CardPhotoView]
+class CardPhotoRoute extends PageRouteInfo<CardPhotoRouteArgs> {
+  CardPhotoRoute({
+    Key? key,
+    Future<dynamic> Function()? onInit,
+    required String card,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CardPhotoRoute.name,
+          args: CardPhotoRouteArgs(
+            key: key,
+            onInit: onInit,
+            card: card,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CardPhotoRoute';
+
+  static const PageInfo<CardPhotoRouteArgs> page = PageInfo<CardPhotoRouteArgs>(name);
+}
+
+class CardPhotoRouteArgs {
+  const CardPhotoRouteArgs({
+    this.key,
+    this.onInit,
+    required this.card,
+  });
+
+  final Key? key;
+
+  final Future<dynamic> Function()? onInit;
+
+  final String card;
+
+  @override
+  String toString() {
+    return 'CardPhotoRouteArgs{key: $key, onInit: $onInit, card: $card}';
+  }
+}
+
+/// generated route for
 /// [CardsListBottomSheet]
-class CardsListBottomSheetRoute extends PageRouteInfo<void> {
-  const CardsListBottomSheetRoute({List<PageRouteInfo>? children})
-      : super(
+class CardsListBottomSheetRoute extends PageRouteInfo<CardsListBottomSheetRouteArgs> {
+  CardsListBottomSheetRoute({
+    Key? key,
+    String? initialSelectedCard,
+    List<PageRouteInfo>? children,
+  }) : super(
           CardsListBottomSheetRoute.name,
+          args: CardsListBottomSheetRouteArgs(
+            key: key,
+            initialSelectedCard: initialSelectedCard,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'CardsListBottomSheetRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<CardsListBottomSheetRouteArgs> page = PageInfo<CardsListBottomSheetRouteArgs>(name);
+}
+
+class CardsListBottomSheetRouteArgs {
+  const CardsListBottomSheetRouteArgs({
+    this.key,
+    this.initialSelectedCard,
+  });
+
+  final Key? key;
+
+  final String? initialSelectedCard;
+
+  @override
+  String toString() {
+    return 'CardsListBottomSheetRouteArgs{key: $key, initialSelectedCard: $initialSelectedCard}';
+  }
 }
 
 /// generated route for

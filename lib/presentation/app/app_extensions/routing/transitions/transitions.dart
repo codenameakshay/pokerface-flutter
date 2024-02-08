@@ -83,4 +83,26 @@ class MyAppTransitionBuilders {
       ),
     );
   }
+
+  static const RouteTransitionsBuilder fadeIn = _fadeIn;
+
+  static Widget _fadeIn(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    final curve = CurvedAnimation(
+      curve: Curves.easeOutCubic,
+      reverseCurve: Curves.easeOutCubic,
+      parent: animation,
+    );
+    return FadeTransition(
+      opacity: Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(curve),
+      child: child,
+    );
+  }
 }
