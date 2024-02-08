@@ -16,10 +16,22 @@ class MyAppRoutesRegistry {
       path: MyAppPathsRegistry.game,
       page: GameRoute.page,
     ),
+    // CustomRoute(
+    //   path: MyAppPathsRegistry.selectCardsBottomSheet,
+    //   page: SelectCardsBottomSheetRoute.page,
+    //   transitionsBuilder: MyAppTransitionBuilders.iOSDialog,
+    // ),
+
+    // add a blank route
     CustomRoute(
-      path: MyAppPathsRegistry.selectCardsBottomSheet,
-      page: SelectCardsBottomSheetRoute.page,
-      transitionsBuilder: MyAppTransitionBuilders.iOSDialog,
+      path: MyAppPathsRegistry.blank,
+      page: BlankRoute.page,
+      transitionsBuilder: MyAppTransitionBuilders.none,
+      barrierColor: Colors.white,
+      barrierDismissible: true,
+      fullscreenDialog: true,
+      maintainState: false,
+      opaque: false,
     ),
   ];
 }

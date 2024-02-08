@@ -40,10 +40,34 @@ class _VSController extends StateNotifier<_ViewState> {
   void initState() {}
 
   void navigateToNewGame() {
-    MyAppX.router.pushNativeRoute(
-      MaterialWithModalsPageRoute(
-        builder: (BuildContext context) => const GameView(),
-      ),
+    MyAppX.router.navigate(
+      const GameRoute(),
+    );
+  }
+
+  void showSelectCardsBottomSheet(BuildContext context) {
+    // MyAppX.router.pushNativeRoute(
+    //   MaterialWithModalsPageRoute(
+    //     fullscreenDialog: true,
+    //     builder: (BuildContext context) => BlankView(
+    //       onInit: () => showCupertinoModalBottomSheet(
+    //         context: context,
+    //         builder: (context) => const SelectCardsBottomSheet(),
+    //       ),
+    //     ),
+    //   ),
+    // );
+    // MyAppX.router.navigate(
+    //   BlankRoute(
+    //     onInit: () => showCupertinoModalBottomSheet(
+    //       context: context,
+    //       builder: (context) => const SelectCardsBottomSheet(),
+    //     ),
+    //   ),
+    // );
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => const SelectCardsBottomSheet(),
     );
   }
 
