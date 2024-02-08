@@ -40,22 +40,16 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSControllerParams params;
 
   void initState(BuildContext context) {
-    // Future.delayed(
-    //   Duration.zero,
-    //   () => MyAppX.router.pushNativeRoute(
-    //     SheetRoute<void>(
-    //       builder: (BuildContext context) => const SelectCardsBottomSheet(),
-    //       initialExtent: 0.6,
-    //       barrierColor: Colors.black.withOpacity(0.5),
-    //     ),
-    //   ),
-    // );
     Future.delayed(
       Duration.zero,
-      () => showCupertinoModalBottomSheet(
-        context: context,
-        builder: (context) => const SelectCardsBottomSheet(),
-      ),
+      () => showSelectCardsBottomSheet(context),
+    );
+  }
+
+  void showSelectCardsBottomSheet(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => const SelectCardsBottomSheet(),
     );
   }
 

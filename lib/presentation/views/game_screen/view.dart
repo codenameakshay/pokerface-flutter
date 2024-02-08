@@ -31,6 +31,18 @@ class _GameViewState extends ConsumerState<GameView> {
           decoration: BoxDecoration(
             color: theme.colors.background,
           ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                bottom: 400,
+                child: ElevatedButton(
+                  onPressed: () => stateController.showSelectCardsBottomSheet(context),
+                  child: const Text('Open Bottom Sheet'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -39,6 +39,14 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState() {}
 
+  void showCardsListBottomSheet(BuildContext context) {
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => const CardsListBottomSheet(),
+      barrierColor: Colors.black.withOpacity(0.5),
+    );
+  }
+
   // @override
   // void dispose() {
   //   super.dispose();
