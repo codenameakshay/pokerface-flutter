@@ -1,7 +1,9 @@
 part of 'view.dart';
 
 class _VSControllerParams extends Equatable {
-  const _VSControllerParams();
+  const _VSControllerParams({required this.context});
+
+  final BuildContext context;
 
   @override
   List<Object> get props => [];
@@ -16,7 +18,7 @@ final _vsProvider =
     StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
   final stateController = _VSController(
     params: params,
-  )..initState();
+  )..initState(params.context);
 
   return stateController;
 });
@@ -37,7 +39,25 @@ class _VSController extends StateNotifier<_ViewState> {
   }) : super(_ViewState.initial());
   _VSControllerParams params;
 
-  void initState() {}
+  void initState(BuildContext context) {
+    // Future.delayed(
+    //   Duration.zero,
+    //   () => MyAppX.router.pushNativeRoute(
+    //     SheetRoute<void>(
+    //       builder: (BuildContext context) => const SelectCardsBottomSheet(),
+    //       initialExtent: 0.6,
+    //       barrierColor: Colors.black.withOpacity(0.5),
+    //     ),
+    //   ),
+    // );
+    Future.delayed(
+      Duration.zero,
+      () => showCupertinoModalBottomSheet(
+        context: context,
+        builder: (context) => const SelectCardsBottomSheet(),
+      ),
+    );
+  }
 
   // @override
   // void dispose() {

@@ -40,7 +40,11 @@ class _VSController extends StateNotifier<_ViewState> {
   void initState() {}
 
   void navigateToNewGame() {
-    MyAppX.router.navigate(const GameRoute());
+    MyAppX.router.pushNativeRoute(
+      MaterialWithModalsPageRoute(
+        builder: (BuildContext context) => const GameView(),
+      ),
+    );
   }
 
   // @override
