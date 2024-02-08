@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/core_widgets/clickable.dart';
 import 'package:pokerface/presentation/app/core_widgets/dashed_rect_painter.dart';
+import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
 import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/widgets/bottom_sheet/view.dart';
@@ -35,22 +36,90 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
           decoration: BoxDecoration(
             color: theme.colors.background,
           ),
-          child: Center(
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runSpacing: 16.toAutoScaledWidth,
-              spacing: 16.toAutoScaledWidth,
+          child: SingleChildScrollView(
+            controller: ModalScrollController.of(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                DashedCardButton(
-                  onPressed: () => stateController.openFirstCardList(context),
-                  width: 120.toAutoScaledWidth,
-                  card: state.firstSelectedCard,
+                32.toAutoScaledHeight.toVerticalSizedBox,
+                Text(
+                  'Select your hand',
+                  textAlign: TextAlign.center,
+                  style: theme.themeText.headline4,
                 ),
-                DashedCardButton(
-                  onPressed: () => stateController.openSecondCardList(context),
-                  width: 120.toAutoScaledWidth,
-                  card: state.secondSelectedCard,
+                16.toAutoScaledHeight.toVerticalSizedBox,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  runSpacing: 16.toAutoScaledWidth,
+                  spacing: 16.toAutoScaledWidth,
+                  children: [
+                    DashedCardButton(
+                      onPressed: () => stateController.openFirstCardList(context),
+                      width: 120.toAutoScaledWidth,
+                      card: state.firstSelectedCard,
+                    ),
+                    DashedCardButton(
+                      onPressed: () => stateController.openSecondCardList(context),
+                      width: 120.toAutoScaledWidth,
+                      card: state.secondSelectedCard,
+                    ),
+                  ],
+                ),
+                32.toAutoScaledHeight.toVerticalSizedBox,
+                Text(
+                  'Number of players (${state.numberOfPlayers.round()})',
+                  textAlign: TextAlign.center,
+                  style: theme.themeText.headline4,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
+                  child: Slider(
+                    value: state.numberOfPlayers,
+                    divisions: 9,
+                    onChanged: stateController.changeNumberOfPlayers,
+                    max: 10,
+                    min: 1,
+                    label: state.numberOfPlayers.round().toString(),
+                  ),
+                ),
+                32.toAutoScaledHeight.toVerticalSizedBox,
+                Text(
+                  'Open cards (${state.openCards.round()})',
+                  textAlign: TextAlign.center,
+                  style: theme.themeText.headline4,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
+                  child: Slider(
+                    value: state.openCards,
+                    divisions: 4,
+                    onChanged: stateController.changeOpenCards,
+                    max: 5,
+                    min: 1,
+                    label: state.openCards.round().toString(),
+                  ),
+                ),
+                32.toAutoScaledHeight.toVerticalSizedBox,
+                //Start game button
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
+                  child: SquareButton(
+                    onPressed: () => {},
+                    text: 'Start game',
+                  ),
+                ),
+                16.toAutoScaledHeight.toVerticalSizedBox,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
+                  child: Text(
+                    'Texas Hold\'em, a poker variation, involves players receiving two private cards and using five community cards, dealt in stages, to form the best five-card hand. Betting occurs pre-flop and post each deal, with the best hand winning the pot.',
+                    textAlign: TextAlign.center,
+                    style: theme.themeText.caption?.copyWith(
+                      fontSize: 8.toAutoScaledWidth,
+                      color: theme.colors.onBackground.withOpacity(0.5),
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -25,24 +25,34 @@ class _ViewState {
   _ViewState({
     this.firstSelectedCard,
     this.secondSelectedCard,
+    required this.numberOfPlayers,
+    required this.openCards,
   });
 
   final String? firstSelectedCard;
   final String? secondSelectedCard;
+  final double numberOfPlayers;
+  final double openCards;
 
   _ViewState.initial()
       : this(
           firstSelectedCard: null,
           secondSelectedCard: null,
+          numberOfPlayers: 4,
+          openCards: 5,
         );
 
   _ViewState copyWith({
     String? firstSelectedCard,
     String? secondSelectedCard,
+    double? numberOfPlayers,
+    double? openCards,
   }) {
     return _ViewState(
       firstSelectedCard: firstSelectedCard ?? this.firstSelectedCard,
       secondSelectedCard: secondSelectedCard ?? this.secondSelectedCard,
+      numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
+      openCards: openCards ?? this.openCards,
     );
   }
 }
@@ -92,6 +102,18 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void resetSelectedCards() {
     state = _ViewState.initial();
+  }
+
+  void changeNumberOfPlayers(double value) {
+    state = state.copyWith(
+      numberOfPlayers: value,
+    );
+  }
+
+  void changeOpenCards(double value) {
+    state = state.copyWith(
+      openCards: value,
+    );
   }
 
   // @override
