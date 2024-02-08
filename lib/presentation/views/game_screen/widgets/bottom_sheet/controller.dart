@@ -55,22 +55,24 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState() {}
 
-  Future<String?> showCardsListBottomSheet(BuildContext context) async {
+  Future<String?> showCardsListBottomSheet(BuildContext context, String? selectedCard) async {
     return showCupertinoModalBottomSheet<String>(
       context: context,
-      builder: (context) => const CardsListBottomSheet(),
+      builder: (context) => CardsListBottomSheet(
+        initialSelectedCard: selectedCard,
+      ),
     );
   }
 
   void openFirstCardList(BuildContext context) async {
-    final card = await showCardsListBottomSheet(context);
+    final card = await showCardsListBottomSheet(context, state.firstSelectedCard);
     if (card != null) {
       setFirstCard(card);
     }
   }
 
   void openSecondCardList(BuildContext context) async {
-    final card = await showCardsListBottomSheet(context);
+    final card = await showCardsListBottomSheet(context, state.secondSelectedCard);
     if (card != null) {
       setSecondCard(card);
     }

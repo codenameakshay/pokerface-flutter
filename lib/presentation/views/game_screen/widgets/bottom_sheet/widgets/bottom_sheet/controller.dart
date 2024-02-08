@@ -1,7 +1,9 @@
 part of 'view.dart';
 
 class _VSControllerParams extends Equatable {
-  const _VSControllerParams();
+  const _VSControllerParams({this.initialSelectedCard});
+
+  final String? initialSelectedCard;
 
   @override
   List<Object> get props => [];
@@ -22,12 +24,16 @@ final _vsProvider =
 });
 
 class _ViewState {
-  _ViewState();
+  _ViewState({this.selectedCard});
 
-  _ViewState.initial() : this();
+  final String? selectedCard;
 
-  _ViewState copyWith() {
-    return _ViewState();
+  _ViewState.initial() : this(selectedCard: null);
+
+  _ViewState copyWith({String? selectedCard}) {
+    return _ViewState(
+      selectedCard: selectedCard ?? this.selectedCard,
+    );
   }
 }
 
@@ -37,7 +43,22 @@ class _VSController extends StateNotifier<_ViewState> {
   }) : super(_ViewState.initial());
   _VSControllerParams params;
 
-  void initState() {}
+  void initState() {
+    state = state.copyWith(selectedCard: params.initialSelectedCard);
+  }
+
+  Future<void> showCardPreview(String card) async {
+    final data = await MyAppX.router.push(
+      CardPhotoRoute(
+        card: card,
+      ),
+    ) as bool?;
+
+    if (data == true) {
+      state = state.copyWith(selectedCard: card);
+      MyAppX.router.pop(card);
+    }
+  }
 
   // @override
   // void dispose() {
