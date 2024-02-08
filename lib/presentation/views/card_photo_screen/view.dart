@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
-import 'package:pokerface/presentation/app/core_widgets/cta_clickable.dart';
+import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 
 @RoutePage(name: 'CardPhotoRoute')
 class CardPhotoView extends ConsumerStatefulWidget {
@@ -64,56 +64,26 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CtaClickable(
-                onPressed: () => MyAppX.router.pop(true),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: theme.colors.primary,
-                    borderRadius: BorderRadius.circular(500),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.check,
-                        color: theme.colors.onPrimary,
-                        size: 18,
-                      ),
-                      6.toAutoScaledWidth.toHorizontalSizedBox,
-                      Text(
-                        'Select',
-                        style: theme.themeText.button?.copyWith(color: theme.colors.onPrimary),
-                      ),
-                    ],
-                  ),
+              const Spacer(
+                flex: 1,
+              ),
+              Expanded(
+                child: SquareButton(
+                  type: ButtonType.primary,
+                  text: 'Select',
+                  onPressed: () => MyAppX.router.pop(true),
                 ),
               ),
               8.toAutoScaledWidth.toHorizontalSizedBox,
-              CtaClickable(
-                onPressed: () => MyAppX.router.pop(false),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: theme.colors.error,
-                    borderRadius: BorderRadius.circular(500),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.close,
-                        color: theme.colors.onError,
-                        size: 18,
-                      ),
-                      6.toAutoScaledWidth.toHorizontalSizedBox,
-                      Text(
-                        'Cancel',
-                        style: theme.themeText.button?.copyWith(color: theme.colors.onError),
-                      ),
-                    ],
-                  ),
+              Expanded(
+                child: SquareButton(
+                  type: ButtonType.error,
+                  text: 'Cancel',
+                  onPressed: () => MyAppX.router.pop(false),
                 ),
+              ),
+              const Spacer(
+                flex: 1,
               ),
             ],
           )
