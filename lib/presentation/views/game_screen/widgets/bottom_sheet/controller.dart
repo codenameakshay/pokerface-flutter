@@ -22,12 +22,28 @@ final _vsProvider =
 });
 
 class _ViewState {
-  _ViewState();
+  _ViewState({
+    this.firstSelectedCard,
+    this.secondSelectedCard,
+  });
 
-  _ViewState.initial() : this();
+  final String? firstSelectedCard;
+  final String? secondSelectedCard;
 
-  _ViewState copyWith() {
-    return _ViewState();
+  _ViewState.initial()
+      : this(
+          firstSelectedCard: null,
+          secondSelectedCard: null,
+        );
+
+  _ViewState copyWith({
+    String? firstSelectedCard,
+    String? secondSelectedCard,
+  }) {
+    return _ViewState(
+      firstSelectedCard: firstSelectedCard ?? this.firstSelectedCard,
+      secondSelectedCard: secondSelectedCard ?? this.secondSelectedCard,
+    );
   }
 }
 
@@ -39,12 +55,41 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState() {}
 
-  void showCardsListBottomSheet(BuildContext context) {
-    showCupertinoModalBottomSheet(
+  Future<String?> showCardsListBottomSheet(BuildContext context) async {
+    return showCupertinoModalBottomSheet<String>(
       context: context,
       builder: (context) => const CardsListBottomSheet(),
-      barrierColor: Colors.black.withOpacity(0.5),
     );
+  }
+
+  void openFirstCardList(BuildContext context) async {
+    final card = await showCardsListBottomSheet(context);
+    if (card != null) {
+      setFirstCard(card);
+    }
+  }
+
+  void openSecondCardList(BuildContext context) async {
+    final card = await showCardsListBottomSheet(context);
+    if (card != null) {
+      setSecondCard(card);
+    }
+  }
+
+  void setFirstCard(String card) {
+    state = state.copyWith(
+      firstSelectedCard: card,
+    );
+  }
+
+  void setSecondCard(String card) {
+    state = state.copyWith(
+      secondSelectedCard: card,
+    );
+  }
+
+  void resetSelectedCards() {
+    state = _ViewState.initial();
   }
 
   // @override

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
+import 'package:pokerface/presentation/utils/cards/cards_png.dart';
 
 part 'controller.dart';
 
@@ -35,7 +36,9 @@ class _CardsListBottomSheetState extends ConsumerState<CardsListBottomSheet> {
               Positioned(
                 bottom: 400,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    MyAppX.router.pop(CardsPNG.fronts.clubs2);
+                  },
                   child: const Text('Show cards list here'),
                 ),
               ),

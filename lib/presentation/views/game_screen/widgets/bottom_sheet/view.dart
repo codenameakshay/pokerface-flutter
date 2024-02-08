@@ -43,14 +43,14 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
               spacing: 16.toAutoScaledWidth,
               children: [
                 DashedCardButton(
-                  onPressed: () => stateController.showCardsListBottomSheet(context),
+                  onPressed: () => stateController.openFirstCardList(context),
                   width: 120.toAutoScaledWidth,
-                  // card: CardsPNG.fronts.clubsKing,
+                  card: state.firstSelectedCard,
                 ),
                 DashedCardButton(
-                  onPressed: () => stateController.showCardsListBottomSheet(context),
+                  onPressed: () => stateController.openSecondCardList(context),
                   width: 120.toAutoScaledWidth,
-                  // card: CardsPNG.fronts.clubsKing,
+                  card: state.secondSelectedCard,
                 ),
               ],
             ),
