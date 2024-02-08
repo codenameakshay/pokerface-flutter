@@ -47,7 +47,6 @@ class ShakeDetectorWidgetState extends State<ShakeDetectorWidget> {
 
   void onShake() {
     // Implement your shake action here.
-    print('Device was shaken');
     widget.onShake();
   }
 

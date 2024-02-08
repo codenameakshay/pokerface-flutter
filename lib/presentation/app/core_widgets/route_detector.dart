@@ -26,27 +26,23 @@ class RouteDetectorWidgetState extends State<RouteDetectorWidget> with RouteAwar
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('didChangeDependencies');
     MyAppX.pageRouteObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
   }
 
   @override
   void didPushNext() {
-    print('didPushNext');
     // Called when a new route is pushed, and this route is no longer visible
     widget.onHidden();
   }
 
   @override
   void didPopNext() {
-    print('didPopNext');
     // Called when the top route is popped and this route is visible again
     widget.onShown();
   }
 
   @override
   void dispose() {
-    print('dispose');
     MyAppX.pageRouteObserver.unsubscribe(this);
     super.dispose();
   }
