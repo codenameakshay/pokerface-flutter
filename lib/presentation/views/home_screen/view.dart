@@ -11,7 +11,7 @@ import 'package:pokerface/presentation/app/core_widgets/shake_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
-import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/view.dart';
+import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 
 part 'controller.dart';
 part 'widgets/diagonal_moving_card.dart';
@@ -77,7 +77,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       const Spacer(),
                       SquareButton(
                         onPressed: () {
-                          stateController.showSelectCardsBottomSheet(context);
+                          stateController.showStartGameBottomSheet(context);
                         },
                         text: 'New Game',
                         type: ButtonType.primary,

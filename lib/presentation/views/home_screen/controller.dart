@@ -53,14 +53,14 @@ class _VSController extends StateNotifier<_ViewState> {
     );
   }
 
-  Future<void> showSelectCardsBottomSheet(BuildContext context) async {
+  Future<void> showStartGameBottomSheet(BuildContext context) async {
     // MyAppX.router.pushNativeRoute(
     //   MaterialWithModalsPageRoute(
     //     fullscreenDialog: true,
     //     builder: (BuildContext context) => BlankView(
     //       onInit: () => showCupertinoModalBottomSheet(
     //         context: context,
-    //         builder: (context) => const SelectCardsBottomSheet(),
+    //         builder: (context) => const StartGameBottomSheet(),
     //       ),
     //     ),
     //   ),
@@ -69,13 +69,13 @@ class _VSController extends StateNotifier<_ViewState> {
     //   BlankRoute(
     //     onInit: () => showCupertinoModalBottomSheet(
     //       context: context,
-    //       builder: (context) => const SelectCardsBottomSheet(),
+    //       builder: (context) => const StartGameBottomSheet(),
     //     ),
     //   ),
     // );
     final data = await showCupertinoModalBottomSheet(
       context: context,
-      builder: (context) => const SelectCardsBottomSheet(),
+      builder: (context) => const StartGameBottomSheet(),
     );
 
     if (data != null) {

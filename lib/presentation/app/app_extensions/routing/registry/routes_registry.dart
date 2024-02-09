@@ -17,8 +17,8 @@ class MyAppRoutesRegistry {
       page: GameRoute.page,
     ),
     // CustomRoute(
-    //   path: MyAppPathsRegistry.selectCardsBottomSheet,
-    //   page: SelectCardsBottomSheetRoute.page,
+    //   path: MyAppPathsRegistry.startGameBottomSheet,
+    //   page: StartGameBottomSheetRoute.page,
     //   transitionsBuilder: MyAppTransitionBuilders.iOSDialog,
     // ),
     CustomRoute(

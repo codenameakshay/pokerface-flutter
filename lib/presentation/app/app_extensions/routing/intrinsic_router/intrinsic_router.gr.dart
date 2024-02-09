@@ -64,10 +64,10 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
         child: const HomeView(),
       );
     },
-    SelectCardsBottomSheetRoute.name: (routeData) {
+    StartGameBottomSheetRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SelectCardsBottomSheet(),
+        child: const StartGameBottomSheet(),
       );
     },
     SplashRoute.name: (routeData) {
@@ -257,15 +257,15 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SelectCardsBottomSheet]
-class SelectCardsBottomSheetRoute extends PageRouteInfo<void> {
-  const SelectCardsBottomSheetRoute({List<PageRouteInfo>? children})
+/// [StartGameBottomSheet]
+class StartGameBottomSheetRoute extends PageRouteInfo<void> {
+  const StartGameBottomSheetRoute({List<PageRouteInfo>? children})
       : super(
-          SelectCardsBottomSheetRoute.name,
+          StartGameBottomSheetRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SelectCardsBottomSheetRoute';
+  static const String name = 'StartGameBottomSheetRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

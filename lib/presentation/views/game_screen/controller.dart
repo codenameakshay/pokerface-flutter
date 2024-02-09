@@ -69,7 +69,7 @@ class _VSController extends StateNotifier<_ViewState> {
     );
   }
 
-  Future<void> showSelectCardSheet(BuildContext context, int index) async {
+  Future<void> showStartGameSheet(BuildContext context, int index) async {
     // if (state.houseCards.length > index) {
     // }
     // final card = await showCardsListBottomSheet(context, state.houseCards.elementAt(index));

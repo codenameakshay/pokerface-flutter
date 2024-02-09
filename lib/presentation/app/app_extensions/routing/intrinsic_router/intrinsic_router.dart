@@ -4,10 +4,10 @@ import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/views/blank_screen/view.dart';
 import 'package:pokerface/presentation/views/card_photo_screen/view.dart';
 import 'package:pokerface/presentation/views/game_screen/view.dart';
-import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/view.dart';
-import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/widgets/bottom_sheet/view.dart';
 import 'package:pokerface/presentation/views/home_screen/view.dart';
 import 'package:pokerface/presentation/views/splash_screen/view.dart';
+import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
+import 'package:pokerface/presentation/views/start_game_bottom_sheet/widgets/bottom_sheet/view.dart';
 
 part 'intrinsic_router.gr.dart';
 

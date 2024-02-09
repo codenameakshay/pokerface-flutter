@@ -8,20 +8,20 @@ import 'package:pokerface/presentation/app/core_widgets/dashed_rect_painter.dart
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
-import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/widgets/bottom_sheet/view.dart';
+import 'package:pokerface/presentation/views/start_game_bottom_sheet/widgets/bottom_sheet/view.dart';
 
 part 'controller.dart';
 part 'widgets/dashed_outline_button.dart';
 
-@RoutePage(name: 'SelectCardsBottomSheetRoute')
-class SelectCardsBottomSheet extends ConsumerStatefulWidget {
-  const SelectCardsBottomSheet({super.key});
+@RoutePage(name: 'StartGameBottomSheetRoute')
+class StartGameBottomSheet extends ConsumerStatefulWidget {
+  const StartGameBottomSheet({super.key});
 
   @override
-  ConsumerState<SelectCardsBottomSheet> createState() => _SelectCardsBottomSheetState();
+  ConsumerState<StartGameBottomSheet> createState() => _StartGameBottomSheetState();
 }
 
-class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet> {
+class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
   @override
   Widget build(BuildContext context) {
     const params = _VSControllerParams();

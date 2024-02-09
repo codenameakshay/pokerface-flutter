@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
-import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/view.dart';
-import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/widgets/bottom_sheet/view.dart';
+import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
+import 'package:pokerface/presentation/views/start_game_bottom_sheet/widgets/bottom_sheet/view.dart';
 
 part 'controller.dart';
 part 'widgets/card_preview.dart';
@@ -167,7 +167,7 @@ class _GameViewState extends ConsumerState<GameView> {
                       children: List.generate(
                         params.numberOfHouseCards.toInt(),
                         (index) => DashedCardButton(
-                          onPressed: () => stateController.showSelectCardSheet(context, index),
+                          onPressed: () => stateController.showStartGameSheet(context, index),
                           width: MediaQuery.of(context).size.width * 0.7 / params.numberOfHouseCards,
                           card: state.houseCards.length > index ? state.houseCards[index] : null,
                         ),
