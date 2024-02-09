@@ -8,6 +8,20 @@ class Cards {
   static const Diamonds diamonds = Diamonds();
   static const Hearts hearts = Hearts();
   static const Spades spades = Spades();
+
+  static final all = [
+    ...clubs.all,
+    ...diamonds.all,
+    ...hearts.all,
+    ...spades.all,
+  ];
+
+  static Card get any {
+    final allCards = all;
+
+    allCards.shuffle();
+    return allCards.first;
+  }
 }
 
 class Clubs {
