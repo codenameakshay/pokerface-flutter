@@ -3,7 +3,7 @@ part of '../view.dart';
 class DashedCardButton extends ConsumerWidget {
   final VoidCallback onPressed;
   final double width;
-  final String? card;
+  final Card? card;
 
   const DashedCardButton({
     super.key,
@@ -30,7 +30,7 @@ class DashedCardButton extends ConsumerWidget {
             borderRadius: 4,
           ),
           child: card != null
-              ? CardsPNG.drawCard(card!)
+              ? CardsPNG.drawCard(card!.image.png)
               : const Center(
                   child: Icon(Icons.add, size: 24), // "+" icon
                 ),

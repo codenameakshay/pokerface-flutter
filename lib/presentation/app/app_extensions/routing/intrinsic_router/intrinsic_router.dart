@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
+import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/views/blank_screen/view.dart';
 import 'package:pokerface/presentation/views/card_photo_screen/view.dart';

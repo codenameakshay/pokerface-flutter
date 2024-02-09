@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/core_widgets/clickable.dart';
 import 'package:pokerface/presentation/app/core_widgets/dashed_rect_painter.dart';

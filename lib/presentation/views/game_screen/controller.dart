@@ -9,7 +9,7 @@ class _VSControllerParams extends Equatable {
   });
 
   final BuildContext context;
-  final List<String> userSelectedCards;
+  final List<Card> userSelectedCards;
   final double numberOfPlayers;
   final double numberOfHouseCards;
 
@@ -36,7 +36,7 @@ class _ViewState {
     required this.houseCards,
   });
 
-  final List<String> houseCards;
+  final List<Card> houseCards;
 
   _ViewState.initial()
       : this(
@@ -44,7 +44,7 @@ class _ViewState {
         );
 
   _ViewState copyWith({
-    List<String>? houseCards,
+    List<Card>? houseCards,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
@@ -60,8 +60,8 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState(BuildContext context) {}
 
-  Future<String?> showSelectCardsBottomSheet(BuildContext context, String? selectedCard) async {
-    return showCupertinoModalBottomSheet<String>(
+  Future<Card?> showSelectCardsBottomSheet(BuildContext context, Card? selectedCard) async {
+    return showCupertinoModalBottomSheet<Card>(
       context: context,
       builder: (context) => SelectCardsBottomSheet(
         initialSelectedCard: selectedCard,
@@ -78,7 +78,7 @@ class _VSController extends StateNotifier<_ViewState> {
     // }
   }
 
-  void selectHouseCard(String card) {
+  void selectHouseCard(Card card) {
     if (state.houseCards.contains(card)) {
       return;
     }

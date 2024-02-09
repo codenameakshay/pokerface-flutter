@@ -10,7 +10,7 @@ class StackCards extends StatefulWidget {
 }
 
 class StackCardsState extends State<StackCards> with SingleTickerProviderStateMixin {
-  List<String> cards = [];
+  List<Card> cards = [];
   late List<GlobalKey<DiagonalMovingCardState>> cardKeys;
 
   @override
@@ -19,8 +19,7 @@ class StackCardsState extends State<StackCards> with SingleTickerProviderStateMi
     // pick random 25 from all without Face Cards from available front cards
     cards = List.generate(
       25,
-      (index) =>
-          CardsPNG.fronts.allWithoutFaceCardsPNG[Random().nextInt(CardsPNG.fronts.allWithoutFaceCardsPNG.length)],
+      (index) => Cards.any,
     );
     cardKeys =
         List<GlobalKey<DiagonalMovingCardState>>.generate(cards.length, (_) => GlobalKey<DiagonalMovingCardState>());

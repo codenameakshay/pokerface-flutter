@@ -29,8 +29,8 @@ class _ViewState {
     required this.openCards,
   });
 
-  final String? firstSelectedCard;
-  final String? secondSelectedCard;
+  final Card? firstSelectedCard;
+  final Card? secondSelectedCard;
   final double numberOfPlayers;
   final double openCards;
 
@@ -43,8 +43,8 @@ class _ViewState {
         );
 
   _ViewState copyWith({
-    String? firstSelectedCard,
-    String? secondSelectedCard,
+    Card? firstSelectedCard,
+    Card? secondSelectedCard,
     double? numberOfPlayers,
     double? openCards,
   }) {
@@ -65,8 +65,8 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState() {}
 
-  Future<String?> showSelectCardsBottomSheet(BuildContext context, String? selectedCard) async {
-    return showCupertinoModalBottomSheet<String>(
+  Future<Card?> showSelectCardsBottomSheet(BuildContext context, Card? selectedCard) async {
+    return showCupertinoModalBottomSheet<Card>(
       context: context,
       builder: (context) => SelectCardsBottomSheet(
         initialSelectedCard: selectedCard,
@@ -88,13 +88,13 @@ class _VSController extends StateNotifier<_ViewState> {
     }
   }
 
-  void setFirstCard(String card) {
+  void setFirstCard(Card card) {
     state = state.copyWith(
       firstSelectedCard: card,
     );
   }
 
-  void setSecondCard(String card) {
+  void setSecondCard(Card card) {
     state = state.copyWith(
       secondSelectedCard: card,
     );

@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
@@ -86,7 +87,7 @@ class GameView extends ConsumerStatefulWidget {
     required this.numberOfHouseCards,
   });
 
-  final List<String> userSelectedCards;
+  final List<Card> userSelectedCards;
   final double numberOfPlayers;
   final double numberOfHouseCards;
 

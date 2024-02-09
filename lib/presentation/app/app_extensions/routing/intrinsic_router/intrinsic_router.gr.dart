@@ -123,7 +123,7 @@ class CardPhotoRoute extends PageRouteInfo<CardPhotoRouteArgs> {
   CardPhotoRoute({
     Key? key,
     Future<dynamic> Function()? onInit,
-    required String card,
+    required Card card,
     List<PageRouteInfo>? children,
   }) : super(
           CardPhotoRoute.name,
@@ -151,7 +151,7 @@ class CardPhotoRouteArgs {
 
   final Future<dynamic> Function()? onInit;
 
-  final String card;
+  final Card card;
 
   @override
   String toString() {
@@ -164,7 +164,7 @@ class CardPhotoRouteArgs {
 class GameRoute extends PageRouteInfo<GameRouteArgs> {
   GameRoute({
     Key? key,
-    required List<String> userSelectedCards,
+    required List<Card> userSelectedCards,
     required double numberOfPlayers,
     required double numberOfHouseCards,
     List<PageRouteInfo>? children,
@@ -194,7 +194,7 @@ class GameRouteArgs {
 
   final Key? key;
 
-  final List<String> userSelectedCards;
+  final List<Card> userSelectedCards;
 
   final double numberOfPlayers;
 
@@ -225,7 +225,7 @@ class HomeRoute extends PageRouteInfo<void> {
 class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRouteArgs> {
   SelectCardsBottomSheetRoute({
     Key? key,
-    String? initialSelectedCard,
+    Card? initialSelectedCard,
     List<PageRouteInfo>? children,
   }) : super(
           SelectCardsBottomSheetRoute.name,
@@ -249,7 +249,7 @@ class SelectCardsBottomSheetRouteArgs {
 
   final Key? key;
 
-  final String? initialSelectedCard;
+  final Card? initialSelectedCard;
 
   @override
   String toString() {

@@ -40,7 +40,7 @@ class _VSController extends StateNotifier<_ViewState> {
   void initState() {}
 
   void navigateToNewGame({
-    required List<String> userSelectedCards,
+    required List<Card> userSelectedCards,
     required double numberOfPlayers,
     required double numberOfHouseCards,
   }) {
@@ -79,9 +79,8 @@ class _VSController extends StateNotifier<_ViewState> {
     );
 
     if (data != null) {
-      print(data);
       navigateToNewGame(
-        userSelectedCards: data['userSelectedCards'],
+        userSelectedCards: data['userSelectedCards'] as List<Card>,
         numberOfPlayers: data['numberOfPlayers'],
         numberOfHouseCards: data['numberOfHouseCards'],
       );

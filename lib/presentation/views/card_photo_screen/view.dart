@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 
@@ -14,7 +15,7 @@ class CardPhotoView extends ConsumerStatefulWidget {
   });
 
   final Future<dynamic> Function()? onInit;
-  final String card;
+  final Card card;
 
   @override
   ConsumerState<CardPhotoView> createState() => _CardPhotoViewState();
@@ -36,7 +37,6 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ref.watch(MyAppX.theme.current);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: SvgPicture.asset(
-                widget.card.replaceFirst('images', 'svgs').replaceFirst('png', 'svg'),
+                widget.card.image.svg,
                 fit: BoxFit.cover,
               ),
             ),

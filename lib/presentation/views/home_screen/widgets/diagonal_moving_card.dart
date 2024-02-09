@@ -13,7 +13,7 @@ class DiagonalMovingCard extends StatefulWidget {
     required this.cardKey,
   });
 
-  final String card;
+  final Card card;
   final double width;
   final double speed;
   final Offset initialDirection;
@@ -155,7 +155,7 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
           ),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: CardsPNG.drawCard(widget.card, width: widget.width),
+        child: CardsPNG.drawCard(widget.card.image.png, width: widget.width),
       ),
     );
   }

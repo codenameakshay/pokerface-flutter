@@ -1,26 +1,28 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
 import 'package:pokerface/presentation/app/core_widgets/clickable.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
-import 'package:pokerface/presentation/utils/cards/cards_png.dart';
+import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 
 part 'controller.dart';
+part 'widgets/card_fan.dart';
 
 final cardsMap = {
-  'Clubs': CardsPNG.fronts.allClubs,
-  'Diamonds': CardsPNG.fronts.allDiamonds,
-  'Hearts': CardsPNG.fronts.allHearts,
-  'Spades': CardsPNG.fronts.allSpades,
+  'Clubs': Cards.clubs.all,
+  'Diamonds': Cards.diamonds.all,
+  'Hearts': Cards.hearts.all,
+  'Spades': Cards.spades.all,
 };
 
 @RoutePage(name: 'SelectCardsBottomSheetRoute')
 class SelectCardsBottomSheet extends ConsumerStatefulWidget {
   const SelectCardsBottomSheet({super.key, this.initialSelectedCard});
-  final String? initialSelectedCard;
+  final Card? initialSelectedCard;
 
   @override
   ConsumerState<SelectCardsBottomSheet> createState() => _SelectCardsBottomSheetState();
@@ -88,76 +90,6 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class CardFan extends StatelessWidget {
-  final double width;
-  final double offsetStep;
-  final List<String> cards;
-  final Function(String) onPressed;
-  final String? selectedCard;
-
-  const CardFan({
-    super.key,
-    required this.width,
-    required this.offsetStep,
-    required this.cards,
-    required this.onPressed,
-    this.selectedCard,
-  });
-  @override
-  Widget build(BuildContext context) {
-    // Use Stack to overlay cards
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 16.toAutoScaledWidth,
-        right: 16.toAutoScaledWidth,
-        top: 16.toAutoScaledHeight,
-      ),
-      child: SizedBox(
-        width: // calculate total width based on number of cards
-            width + (cards.length - 1) * offsetStep,
-        height: width * (333 / 234), // Ensure this matches your card height
-        child: Stack(
-          children: List.generate(cards.length, (index) {
-            // Calculate the offset for each card based on its index
-            double offset = index * offsetStep;
-
-            return Positioned(
-              left: offset,
-              child: Transform.translate(
-                offset: selectedCard == cards[index] ? Offset(0, -16.toAutoScaledHeight) : const Offset(0, 0),
-                child: Material(
-                  color: Colors.transparent,
-                  child: Clickable(
-                    onPressed: () => onPressed(cards[index]),
-                    child: Hero(
-                      tag: cards[index],
-                      child: Container(
-                        width: width,
-                        height: width * (333 / 234),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Image.asset(
-                          cards[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }),
         ),
       ),
     );
