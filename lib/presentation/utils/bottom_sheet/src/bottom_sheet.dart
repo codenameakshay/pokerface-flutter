@@ -332,7 +332,7 @@ class ModalBottomSheetState extends State<ModalBottomSheet> with TickerProviderS
   @override
   void initState() {
     animationCurve = _defaultCurve;
-    _bounceDragController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _bounceDragController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
 
     // Todo: Check if we can remove scroll Controller
     super.initState();
@@ -402,8 +402,8 @@ class ModalBottomSheetState extends State<ModalBottomSheet> with TickerProviderS
     );
 
     return ScrollToTopStatusBarHandler(
-      child: child,
       scrollController: _scrollController,
+      child: child,
     );
   }
 }

@@ -11,8 +11,6 @@ import 'package:pokerface/presentation/app/core_widgets/shake_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
-import 'package:pokerface/presentation/views/blank_screen/view.dart';
-import 'package:pokerface/presentation/views/game_screen/view.dart';
 import 'package:pokerface/presentation/views/game_screen/widgets/bottom_sheet/view.dart';
 
 part 'controller.dart';

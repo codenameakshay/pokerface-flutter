@@ -57,7 +57,7 @@ class _CupertinoBottomSheetContainer extends StatelessWidget {
     final topPadding = _kPreviousPageVisibleOffset + topSafeAreaPadding;
 
     final shadow = this.shadow ?? _kDefaultBoxShadow;
-    BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5);
+    const BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5);
     final backgroundColor = this.backgroundColor ?? CupertinoTheme.of(context).scaffoldBackgroundColor;
     Widget bottomSheetContainer = Padding(
       padding: EdgeInsets.only(top: topPadding),
@@ -118,11 +118,11 @@ Future<T?> showCupertinoModalBottomSheet<T>({
     CupertinoModalBottomSheetRoute<T>(
         builder: builder,
         containerBuilder: (context, _, child) => _CupertinoBottomSheetContainer(
-              child: child,
               backgroundColor: backgroundColor,
               topRadius: topRadius,
               shadow: shadow,
               overlayStyle: overlayStyle,
+              child: child,
             ),
         secondAnimationController: secondAnimation,
         expanded: expand,
@@ -202,12 +202,12 @@ class CupertinoModalBottomSheetRoute<T> extends ModalSheetRoute<T> {
         offset: Offset(0, offsetY),
         child: Transform.scale(
           scale: scale,
-          child: child,
           alignment: Alignment.topCenter,
+          child: child,
         ),
       ),
-      child: child,
       animation: secondaryAnimation,
+      child: child,
     );
   }
 
@@ -366,11 +366,12 @@ class CupertinoScaffoldInheirted extends InheritedWidget {
   final Color transitionBackgroundColor;
 
   const CupertinoScaffoldInheirted({
+    super.key,
     this.animation,
     required super.child,
     this.topRadius,
     required this.transitionBackgroundColor,
-  }) : super();
+  });
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
@@ -435,11 +436,11 @@ class CupertinoScaffold extends StatefulWidget {
       builder: builder,
       secondAnimationController: CupertinoScaffold.of(context)!.animation,
       containerBuilder: (context, _, child) => _CupertinoBottomSheetContainer(
-        child: child,
         backgroundColor: backgroundColor,
         topRadius: topRadius ?? _kDefaultTopRadius,
         shadow: shadow,
         overlayStyle: overlayStyle,
+        child: child,
       ),
       expanded: expand,
       barrierLabel: barrierLabel,
@@ -462,7 +463,7 @@ class _CupertinoScaffoldState extends State<CupertinoScaffold> with TickerProvid
 
   @override
   void initState() {
-    animationController = AnimationController(duration: Duration(milliseconds: 350), vsync: this);
+    animationController = AnimationController(duration: const Duration(milliseconds: 350), vsync: this);
     super.initState();
   }
 

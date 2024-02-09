@@ -31,7 +31,7 @@ class BarBottomSheet extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlayStyle ?? SystemUiOverlayStyle.light,
       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         SafeArea(
           bottom: false,
           child: control ??
@@ -41,13 +41,13 @@ class BarBottomSheet extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
               ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Flexible(
           flex: 1,
           fit: FlexFit.loose,
           child: Material(
             shape: shape ??
-                RoundedRectangleBorder(
+                const RoundedRectangleBorder(
                   side: BorderSide(),
                   borderRadius: BorderRadius.only(topLeft: kDefaultBarTopRadius, topRight: kDefaultBarTopRadius),
                 ),
@@ -93,13 +93,13 @@ Future<T?> showBarModalBottomSheet<T>({
     bounce: bounce,
     closeProgressThreshold: closeProgressThreshold,
     containerBuilder: (_, __, child) => BarBottomSheet(
-      child: child,
       control: topControl,
       clipBehavior: clipBehavior,
       shape: shape,
       backgroundColor: backgroundColor,
       elevation: elevation,
       overlayStyle: overlayStyle,
+      child: child,
     ),
     secondAnimationController: secondAnimation,
     expanded: expand,
