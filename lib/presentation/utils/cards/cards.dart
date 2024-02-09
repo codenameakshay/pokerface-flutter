@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 
-class Cards {
-  Cards._();
+class CardsSVG {
+  CardsSVG._();
 
   static const CardsFronts fronts = CardsFronts();
   static const CardsDecks decks = CardsDecks();
