@@ -17,16 +17,16 @@ final cardsMap = {
   'Spades': CardsPNG.fronts.allSpades,
 };
 
-@RoutePage(name: 'CardsListBottomSheetRoute')
-class CardsListBottomSheet extends ConsumerStatefulWidget {
-  const CardsListBottomSheet({super.key, this.initialSelectedCard});
+@RoutePage(name: 'SelectCardsBottomSheetRoute')
+class SelectCardsBottomSheet extends ConsumerStatefulWidget {
+  const SelectCardsBottomSheet({super.key, this.initialSelectedCard});
   final String? initialSelectedCard;
 
   @override
-  ConsumerState<CardsListBottomSheet> createState() => _CardsListBottomSheetState();
+  ConsumerState<SelectCardsBottomSheet> createState() => _SelectCardsBottomSheetState();
 }
 
-class _CardsListBottomSheetState extends ConsumerState<CardsListBottomSheet> {
+class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet> {
   final offsetStep = 36.0;
   final width = 100.0;
 

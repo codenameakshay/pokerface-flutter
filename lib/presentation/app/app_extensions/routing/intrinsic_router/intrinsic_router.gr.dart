@@ -36,16 +36,6 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
         ),
       );
     },
-    CardsListBottomSheetRoute.name: (routeData) {
-      final args = routeData.argsAs<CardsListBottomSheetRouteArgs>(orElse: () => const CardsListBottomSheetRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: CardsListBottomSheet(
-          key: args.key,
-          initialSelectedCard: args.initialSelectedCard,
-        ),
-      );
-    },
     GameRoute.name: (routeData) {
       final args = routeData.argsAs<GameRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -64,16 +54,27 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
         child: const HomeView(),
       );
     },
-    StartGameBottomSheetRoute.name: (routeData) {
+    SelectCardsBottomSheetRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<SelectCardsBottomSheetRouteArgs>(orElse: () => const SelectCardsBottomSheetRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const StartGameBottomSheet(),
+        child: SelectCardsBottomSheet(
+          key: args.key,
+          initialSelectedCard: args.initialSelectedCard,
+        ),
       );
     },
     SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SplashView(),
+      );
+    },
+    StartGameBottomSheetRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const StartGameBottomSheet(),
       );
     },
   };
@@ -159,43 +160,6 @@ class CardPhotoRouteArgs {
 }
 
 /// generated route for
-/// [CardsListBottomSheet]
-class CardsListBottomSheetRoute extends PageRouteInfo<CardsListBottomSheetRouteArgs> {
-  CardsListBottomSheetRoute({
-    Key? key,
-    String? initialSelectedCard,
-    List<PageRouteInfo>? children,
-  }) : super(
-          CardsListBottomSheetRoute.name,
-          args: CardsListBottomSheetRouteArgs(
-            key: key,
-            initialSelectedCard: initialSelectedCard,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'CardsListBottomSheetRoute';
-
-  static const PageInfo<CardsListBottomSheetRouteArgs> page = PageInfo<CardsListBottomSheetRouteArgs>(name);
-}
-
-class CardsListBottomSheetRouteArgs {
-  const CardsListBottomSheetRouteArgs({
-    this.key,
-    this.initialSelectedCard,
-  });
-
-  final Key? key;
-
-  final String? initialSelectedCard;
-
-  @override
-  String toString() {
-    return 'CardsListBottomSheetRouteArgs{key: $key, initialSelectedCard: $initialSelectedCard}';
-  }
-}
-
-/// generated route for
 /// [GameView]
 class GameRoute extends PageRouteInfo<GameRouteArgs> {
   GameRoute({
@@ -257,17 +221,40 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [StartGameBottomSheet]
-class StartGameBottomSheetRoute extends PageRouteInfo<void> {
-  const StartGameBottomSheetRoute({List<PageRouteInfo>? children})
-      : super(
-          StartGameBottomSheetRoute.name,
+/// [SelectCardsBottomSheet]
+class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRouteArgs> {
+  SelectCardsBottomSheetRoute({
+    Key? key,
+    String? initialSelectedCard,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SelectCardsBottomSheetRoute.name,
+          args: SelectCardsBottomSheetRouteArgs(
+            key: key,
+            initialSelectedCard: initialSelectedCard,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'StartGameBottomSheetRoute';
+  static const String name = 'SelectCardsBottomSheetRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SelectCardsBottomSheetRouteArgs> page = PageInfo<SelectCardsBottomSheetRouteArgs>(name);
+}
+
+class SelectCardsBottomSheetRouteArgs {
+  const SelectCardsBottomSheetRouteArgs({
+    this.key,
+    this.initialSelectedCard,
+  });
+
+  final Key? key;
+
+  final String? initialSelectedCard;
+
+  @override
+  String toString() {
+    return 'SelectCardsBottomSheetRouteArgs{key: $key, initialSelectedCard: $initialSelectedCard}';
+  }
 }
 
 /// generated route for
@@ -280,6 +267,20 @@ class SplashRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SplashRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [StartGameBottomSheet]
+class StartGameBottomSheetRoute extends PageRouteInfo<void> {
+  const StartGameBottomSheetRoute({List<PageRouteInfo>? children})
+      : super(
+          StartGameBottomSheetRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'StartGameBottomSheetRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
+import 'package:pokerface/presentation/views/select_cards_bottom_sheet/view.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
-import 'package:pokerface/presentation/views/start_game_bottom_sheet/widgets/bottom_sheet/view.dart';
 
 part 'controller.dart';
 part 'widgets/card_preview.dart';

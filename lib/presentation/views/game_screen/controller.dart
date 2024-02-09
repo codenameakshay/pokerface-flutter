@@ -60,10 +60,10 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState(BuildContext context) {}
 
-  Future<String?> showCardsListBottomSheet(BuildContext context, String? selectedCard) async {
+  Future<String?> showSelectCardsBottomSheet(BuildContext context, String? selectedCard) async {
     return showCupertinoModalBottomSheet<String>(
       context: context,
-      builder: (context) => CardsListBottomSheet(
+      builder: (context) => SelectCardsBottomSheet(
         initialSelectedCard: selectedCard,
       ),
     );
@@ -72,7 +72,7 @@ class _VSController extends StateNotifier<_ViewState> {
   Future<void> showStartGameSheet(BuildContext context, int index) async {
     // if (state.houseCards.length > index) {
     // }
-    // final card = await showCardsListBottomSheet(context, state.houseCards.elementAt(index));
+    // final card = await showSelectCardsBottomSheet(context, state.houseCards.elementAt(index));
     // if (card != null) {
     //   setSecondCard(card);
     // }
