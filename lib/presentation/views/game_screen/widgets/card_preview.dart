@@ -2,7 +2,7 @@ part of '../view.dart';
 
 class CardPreview extends ConsumerWidget {
   final double width;
-  final String card;
+  final Card card;
 
   const CardPreview({
     super.key,
@@ -15,7 +15,7 @@ class CardPreview extends ConsumerWidget {
     return SizedBox(
       width: width,
       height: (333 / 234) * width,
-      child: CardsPNG.drawCard(card),
+      child: CardsPNG.drawCard(card.image.png),
     );
   }
 }

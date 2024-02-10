@@ -79,18 +79,25 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       const Spacer(),
                       SquareButton(
                         onPressed: () {
+                          stateController.navigateToNewGame(
+                            userSelectedCards: [
+                              Cards.clubs.ace,
+                              Cards.diamonds.king,
+                            ],
+                            numberOfPlayers: 4,
+                            numberOfHouseCards: 5,
+                          );
+                        },
+                        text: 'Quick Game',
+                        type: ButtonType.primary,
+                      ),
+                      SquareButton(
+                        onPressed: () {
                           stateController.showStartGameBottomSheet(context);
                         },
                         text: 'New Game',
-                        type: ButtonType.primary,
+                        type: ButtonType.secondary,
                       ),
-                      // SquareButton(
-                      //   onPressed: () {
-                      //     // context.router.push(const HomeRoute());
-                      //   },
-                      //   text: 'New Game',
-                      //   type: ButtonType.secondary,
-                      // ),
                       // SquareButton(
                       //   onPressed: () {
                       //     // context.router.push(const HomeRoute());
