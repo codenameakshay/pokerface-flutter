@@ -34,20 +34,25 @@ final _vsProvider =
 class _ViewState {
   _ViewState({
     required this.houseCards,
+    required this.generatedHands,
   });
 
   final List<Card> houseCards;
+  final List<PokerHand> generatedHands;
 
   _ViewState.initial()
       : this(
           houseCards: [],
+          generatedHands: [],
         );
 
   _ViewState copyWith({
     List<Card>? houseCards,
+    List<PokerHand>? generatedHands,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
+      generatedHands: generatedHands ?? this.generatedHands,
     );
   }
 }
@@ -58,7 +63,15 @@ class _VSController extends StateNotifier<_ViewState> {
   }) : super(_ViewState.initial());
   _VSControllerParams params;
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    final generatedHands = generateAndSortRandomHands();
+    state = state.copyWith(generatedHands: generatedHands);
+  }
+
+  void reGenHands() {
+    final generatedHands = generateAndSortRandomHands();
+    state = state.copyWith(generatedHands: generatedHands);
+  }
 
   Future<Card?> showSelectCardsBottomSheet(BuildContext context, Card? selectedCard) async {
     return showCupertinoModalBottomSheet<Card>(
