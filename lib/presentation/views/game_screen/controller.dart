@@ -64,12 +64,18 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSControllerParams params;
 
   void initState(BuildContext context) {
-    final generatedHands = generateAndSortRandomHands();
+    final generatedHands = findTop20Hands([
+      Cards.diamonds.ace,
+      Cards.diamonds.king,
+    ]);
     state = state.copyWith(generatedHands: generatedHands);
   }
 
   void reGenHands() {
-    final generatedHands = generateAndSortRandomHands();
+    final generatedHands = findTop20Hands([
+      Cards.diamonds.ace,
+      Cards.diamonds.king,
+    ]);
     state = state.copyWith(generatedHands: generatedHands);
   }
 

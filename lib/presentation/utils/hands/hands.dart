@@ -146,8 +146,8 @@ bool isWheel(List<Card> hand) {
 
 int compareStraight(PokerHand hand1, PokerHand hand2) {
   // Sort the cards in each hand by rank in descending order
-  List<Card> sortedHand1 = hand1.cards..sort((a, b) => b.rank.index.compareTo(a.rank.index));
-  List<Card> sortedHand2 = hand2.cards..sort((a, b) => b.rank.index.compareTo(a.rank.index));
+  List<Card> sortedHand1 = List.from(hand1.cards)..sort((a, b) => b.rank.index.compareTo(a.rank.index));
+  List<Card> sortedHand2 = List.from(hand2.cards)..sort((a, b) => b.rank.index.compareTo(a.rank.index));
 
   // Handle special case for Ace-to-Five straight (Wheel)
   bool isWheelHand1 = isWheel(sortedHand1);
