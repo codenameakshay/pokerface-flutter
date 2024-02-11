@@ -64,15 +64,22 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSControllerParams params;
 
   void initState(BuildContext context) {
-    final generatedHands = findTop20Hands([
+    findTop20Hands([
+      Cards.diamonds.three,
+      Cards.spades.five,
+      Cards.clubs.seven,
+      Cards.clubs.jack,
+      Cards.spades.jack,
       Cards.diamonds.ace,
-      Cards.diamonds.king,
-    ]);
-    state = state.copyWith(generatedHands: generatedHands);
+      Cards.diamonds.queen,
+    ]).then((value) {
+      final generatedHands = value;
+      state = state.copyWith(generatedHands: generatedHands);
+    });
   }
 
-  void reGenHands() {
-    final generatedHands = findTop20Hands([
+  Future<void> reGenHands() async {
+    final generatedHands = await findTop20Hands([
       Cards.diamonds.ace,
       Cards.diamonds.king,
     ]);

@@ -2,6 +2,7 @@ import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/hands/hands.dart';
+import 'package:pokerface/presentation/utils/hands/store.dart';
 
 List<Card> generateDeck() {
   return Cards.all;
@@ -41,10 +42,15 @@ List<PokerHand> generateAndSortRandomHands() {
   return sortedHands;
 }
 
-List<List<Card>> generateCommunityCardCombinations(List<Card> deck, int combinationSize) {
+Future<List<List<Card>>> generateCommunityCardCombinations(String key, List<Card> deck, int combinationSize) async {
   List<List<Card>> combinations = [];
+  final combinatio = await retrieveCombination(key);
+  if (combinatio.isNotEmpty) {
+    return combinatio;
+  }
   void generateCombinations(List<Card> list, int start, List<Card> current, int size) {
     if (current.length == size) {
+      // print('combination: ${current.map((e) => '${e.suit.name}.${e.rank.name}')}');
       combinations.add(List.from(current));
       return;
     }
@@ -56,24 +62,37 @@ List<List<Card>> generateCommunityCardCombinations(List<Card> deck, int combinat
   }
 
   generateCombinations(deck, 0, [], combinationSize);
+
+  await storeCombination(key, combinations);
   return combinations;
 }
 
-// List<PokerHand> findTop20Hands(Card holeCard1, Card holeCard2) {
-//   List<Card> deck = generateDeck()..removeWhere((card) => card == holeCard1 || card == holeCard2);
-//   List<List<Card>> communityCombinations = generateCommunityCardCombinations(deck, 3);
+Future<List<List<Card>>> generateCombinations(String key, List<Card> elements, int k) async {
+  List<List<Card>> combinations = [];
+  // final combinatio = await retrieveCombination(key);
+  // if (combinatio.isNotEmpty) {
+  //   return combinatio;
+  // }
+  void combine(int start, List<Card> currentCombination) {
+    // When the combination is of size k, add it to the result list
+    if (currentCombination.length == k) {
+      // print('combination: ${currentCombination.map((e) => '${e.suit.name}.${e.rank.name}')}');
+      combinations.add(List.from(currentCombination));
+      return;
+    }
+    for (int i = start; i < elements.length; i++) {
+      currentCombination.add(elements[i]);
+      combine(i + 1, currentCombination);
+      currentCombination.removeLast(); // Backtrack
+    }
+  }
 
-//   List<PokerHand> allHands =
-//       communityCombinations.map((combination) => PokerHand(cards: [holeCard1, holeCard2] + combination)).toList();
+  combine(0, []);
+  await storeCombination(key, combinations);
+  return combinations;
+}
 
-//   // Assume evaluateAndSortHands evaluates and then sorts the hands based on their strength
-//   allHands.sort((a, b) => compareHands(b, a));
-
-//   // Selecting the top 20 hands based on their strength
-//   return allHands.take(20).toList();
-// }
-
-List<PokerHand> findTop20Hands(List<Card> knownCards) {
+Future<List<PokerHand>> findTop20Hands(List<Card> knownCards) async {
   // Ensure knownCards contains 2 to 7 cards
   if (knownCards.length < 2 || knownCards.length > 7) {
     throw ArgumentError("The number of known cards must be between 2 and 7, inclusive.");
@@ -82,27 +101,56 @@ List<PokerHand> findTop20Hands(List<Card> knownCards) {
   // Generate the deck excluding known cards
   List<Card> deck = generateDeck()..removeWhere((card) => knownCards.contains(card));
 
-  // Determine the number of community cards to generate based on known cards
-  int numCommunityCardsToGenerate = 5 - (knownCards.length - 2); // Total 5 cards in a hand - known community cards
+  String key = knownCards.map((card) => '${card.suit.name}.${card.rank.name}').join(',');
 
-  List<PokerHand> allPossibleHands = [];
-
-  if (numCommunityCardsToGenerate <= 0) {
-    // If no more cards need to be generated, evaluate the hand directly
-    allPossibleHands.add(PokerHand(cards: knownCards));
-  } else {
+  if (knownCards.length >= 5) {
     // Generate combinations for the remaining community cards
-    List<List<Card>> communityCombinations = generateCommunityCardCombinations(deck, numCommunityCardsToGenerate);
+    List<List<Card>> communityCombinations = await generateCommunityCardCombinations(key, deck, 7 - knownCards.length);
+
+    List<List<Card>> allHandCards = [];
+
+    // Generate and evaluate all possible hands
+    for (var combination in communityCombinations) {
+      var handCards = List<Card>.from(knownCards)..addAll(combination);
+      allHandCards.add(handCards);
+    }
+
+    // We just need to figure out the best combination out of these cards to return
+    // List<List<Card>> cardCombinations = await generateCombinations(key, knownCards, 5);
+
+    List<PokerHand> allPossibleHands = [];
+
+    for (var handCard in allHandCards) {
+      // We just need to figure out the best combination out of these cards to return
+      List<List<Card>> cardCombinations = await generateCombinations(key, handCard, 5);
+      List<PokerHand> possibleHands = cardCombinations.map((combination) => PokerHand(cards: combination)).toList();
+      allPossibleHands.addAll(possibleHands);
+    }
+
+    // Evaluate and sort the hands by strength, then take the top 20
+    allPossibleHands.sort((a, b) => compareHands(b, a));
+
+    return allPossibleHands.take(20).toList();
+  } else {
+    // We need to generate remaining cards
+    // Determine the number of community cards to generate based on known cards
+    int numCommunityCardsToGenerate = 5 - knownCards.length; // Total 5 cards in a hand - known community cards
+
+    List<PokerHand> allPossibleHands = [];
+
+    // Generate combinations for the remaining community cards
+    List<List<Card>> communityCombinations =
+        await generateCommunityCardCombinations(key, deck, numCommunityCardsToGenerate);
 
     // Generate and evaluate all possible hands
     for (var combination in communityCombinations) {
       var handCards = List<Card>.from(knownCards)..addAll(combination);
       allPossibleHands.add(PokerHand(cards: handCards));
     }
+
+    // Evaluate and sort the hands by strength, then take the top 20
+    allPossibleHands.sort((a, b) => compareHands(b, a));
+
+    return allPossibleHands.take(20).toList();
   }
-
-  // Evaluate and sort the hands by strength, then take the top 20
-  allPossibleHands.sort((a, b) => compareHands(b, a));
-
-  return allPossibleHands.take(20).toList();
 }
