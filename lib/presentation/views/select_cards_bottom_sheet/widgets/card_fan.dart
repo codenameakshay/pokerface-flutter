@@ -5,7 +5,7 @@ class CardFan extends StatelessWidget {
   final double offsetStep;
   final List<Card> cards;
   final Function(Card) onPressed;
-  final Card? selectedCard;
+  final List<Card>? selectedCards;
 
   const CardFan({
     super.key,
@@ -13,7 +13,7 @@ class CardFan extends StatelessWidget {
     required this.offsetStep,
     required this.cards,
     required this.onPressed,
-    this.selectedCard,
+    this.selectedCards,
   });
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,9 @@ class CardFan extends StatelessWidget {
             return Positioned(
               left: offset,
               child: Transform.translate(
-                offset: selectedCard == cards[index] ? Offset(0, -16.toAutoScaledHeight) : const Offset(0, 0),
+                offset: selectedCards?.contains(cards[index]) == true
+                    ? Offset(0, -16.toAutoScaledHeight)
+                    : const Offset(0, 0),
                 child: Material(
                   color: Colors.transparent,
                   child: Clickable(

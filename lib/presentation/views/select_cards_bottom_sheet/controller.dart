@@ -1,9 +1,13 @@
 part of 'view.dart';
 
 class _VSControllerParams extends Equatable {
-  const _VSControllerParams({this.initialSelectedCard});
+  const _VSControllerParams({
+    this.initialSelectedCards,
+    required this.maxSelectedCards,
+  });
 
-  final Card? initialSelectedCard;
+  final List<Card>? initialSelectedCards;
+  final int maxSelectedCards;
 
   @override
   List<Object> get props => [];
@@ -24,15 +28,15 @@ final _vsProvider =
 });
 
 class _ViewState {
-  _ViewState({this.selectedCard});
+  _ViewState({required this.selectedCards});
 
-  final Card? selectedCard;
+  final List<Card> selectedCards;
 
-  _ViewState.initial() : this(selectedCard: null);
+  _ViewState.initial() : this(selectedCards: []);
 
-  _ViewState copyWith({Card? selectedCard}) {
+  _ViewState copyWith({List<Card>? selectedCards}) {
     return _ViewState(
-      selectedCard: selectedCard ?? this.selectedCard,
+      selectedCards: selectedCards ?? this.selectedCards,
     );
   }
 }
@@ -44,20 +48,35 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSControllerParams params;
 
   void initState() {
-    state = state.copyWith(selectedCard: params.initialSelectedCard);
+    state = state.copyWith(selectedCards: params.initialSelectedCards);
   }
 
   Future<void> showCardPreview(Card card) async {
     final data = await MyAppX.router.push(
       CardPhotoRoute(
         card: card,
+        isSelected: state.selectedCards.contains(card),
       ),
     ) as bool?;
 
     if (data == true) {
-      state = state.copyWith(selectedCard: card);
-      MyAppX.router.pop(card);
+      if (state.selectedCards.contains(card)) {
+      } else {
+        if (state.selectedCards.length >= params.maxSelectedCards) {
+          MyAppX.showToast(message: 'You can only select ${params.maxSelectedCards} cards', type: ToastType.failure);
+        } else {
+          state.selectedCards.add(card);
+          state = state.copyWith(selectedCards: state.selectedCards);
+        }
+      }
+    } else if (data == false) {
+      if (state.selectedCards.contains(card)) {
+        state.selectedCards.remove(card);
+        state = state.copyWith(selectedCards: state.selectedCards);
+      } else {}
     }
+
+    // MyAppX.router.pop(card);
   }
 
   // @override

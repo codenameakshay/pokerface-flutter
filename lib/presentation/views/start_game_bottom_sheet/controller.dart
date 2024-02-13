@@ -23,34 +23,29 @@ final _vsProvider =
 
 class _ViewState {
   _ViewState({
-    this.firstSelectedCard,
-    this.secondSelectedCard,
+    required this.selectedCards,
     required this.numberOfPlayers,
     required this.openCards,
   });
 
-  final Card? firstSelectedCard;
-  final Card? secondSelectedCard;
+  final List<Card> selectedCards;
   final double numberOfPlayers;
   final double openCards;
 
   _ViewState.initial()
       : this(
-          firstSelectedCard: null,
-          secondSelectedCard: null,
+          selectedCards: [],
           numberOfPlayers: 4,
           openCards: 5,
         );
 
   _ViewState copyWith({
-    Card? firstSelectedCard,
-    Card? secondSelectedCard,
+    List<Card>? selectedCards,
     double? numberOfPlayers,
     double? openCards,
   }) {
     return _ViewState(
-      firstSelectedCard: firstSelectedCard ?? this.firstSelectedCard,
-      secondSelectedCard: secondSelectedCard ?? this.secondSelectedCard,
+      selectedCards: selectedCards ?? this.selectedCards,
       numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
       openCards: openCards ?? this.openCards,
     );
@@ -65,38 +60,28 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState() {}
 
-  Future<Card?> showSelectCardsBottomSheet(BuildContext context, Card? selectedCard) async {
-    return showCupertinoModalBottomSheet<Card>(
+  Future<List<Card>?> showSelectCardsBottomSheet(BuildContext context, List<Card>? selectedCards) async {
+    return showCupertinoModalBottomSheet<List<Card>>(
       context: context,
+      isDismissible: false,
+      enableDrag: false,
       builder: (context) => SelectCardsBottomSheet(
-        initialSelectedCard: selectedCard,
+        initialSelectedCards: selectedCards,
+        maxCards: 2,
       ),
     );
   }
 
-  void openFirstCardList(BuildContext context) async {
-    final card = await showSelectCardsBottomSheet(context, state.firstSelectedCard);
-    if (card != null) {
-      setFirstCard(card);
+  void openCardsList(BuildContext context) async {
+    final cards = await showSelectCardsBottomSheet(context, state.selectedCards);
+    if (cards != null) {
+      setCards(cards);
     }
   }
 
-  void openSecondCardList(BuildContext context) async {
-    final card = await showSelectCardsBottomSheet(context, state.secondSelectedCard);
-    if (card != null) {
-      setSecondCard(card);
-    }
-  }
-
-  void setFirstCard(Card card) {
+  void setCards(List<Card> cards) {
     state = state.copyWith(
-      firstSelectedCard: card,
-    );
-  }
-
-  void setSecondCard(Card card) {
-    state = state.copyWith(
-      secondSelectedCard: card,
+      selectedCards: cards,
     );
   }
 

@@ -99,17 +99,7 @@ class _VSController extends StateNotifier<_ViewState> {
         ),
       ]),
     );
-    // evaluateTopNHands(
-    //         context,
-    //         [
-    //           Cards.diamonds.three,
-    //           Cards.spades.five,
-    //         ],
-    //         20)
-    //     .then((value) {
-    //   final generatedHands = value;
-    //   state = state.copyWith(generatedHands: generatedHands);
-    // });
+    reGenHands(context, params.userSelectedCards);
   }
 
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
@@ -130,34 +120,30 @@ class _VSController extends StateNotifier<_ViewState> {
     state = state.copyWith(generatedHands: newGeneratedHands);
   }
 
-  Future<Card?> showSelectCardsBottomSheet(BuildContext context, Card? selectedCard) async {
-    return showCupertinoModalBottomSheet<Card>(
+  Future<List<Card>?> showSelectCardsBottomSheet(BuildContext context, List<Card>? selectedCards) async {
+    return showCupertinoModalBottomSheet<List<Card>>(
       context: context,
+      isDismissible: false,
+      enableDrag: false,
       builder: (context) => SelectCardsBottomSheet(
-        initialSelectedCard: selectedCard,
+        initialSelectedCards: selectedCards,
+        maxCards: 5,
       ),
     );
   }
 
   Future<void> showStartGameSheet(BuildContext context, int index) async {
-    // if (state.houseCards.length > index) {
-    // }
-    // final card = await showSelectCardsBottomSheet(context, state.houseCards.elementAt(index));
-    // if (card != null) {
-    //   setSecondCard(card);
-    // }
+    final cards = await showSelectCardsBottomSheet(context, state.houseCards);
+    if (cards != null) {
+      // ignore: use_build_context_synchronously
+      selectHouseCards(context, cards);
+    }
   }
 
-  void selectHouseCard(Card card) {
-    if (state.houseCards.contains(card)) {
-      return;
-    }
-
-    if (state.houseCards.length == params.numberOfHouseCards.toInt()) {
-      return;
-    }
-
-    state = state.copyWith(houseCards: [...state.houseCards, card]);
+  void selectHouseCards(BuildContext context, List<Card> cards) {
+    state = state.copyWith(houseCards: cards);
+    final totalCards = params.userSelectedCards + cards;
+    reGenHands(context, totalCards);
   }
   // @override
   // void dispose() {

@@ -33,6 +33,7 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
           key: args.key,
           onInit: args.onInit,
           card: args.card,
+          isSelected: args.isSelected,
         ),
       );
     },
@@ -55,13 +56,13 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
       );
     },
     SelectCardsBottomSheetRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<SelectCardsBottomSheetRouteArgs>(orElse: () => const SelectCardsBottomSheetRouteArgs());
+      final args = routeData.argsAs<SelectCardsBottomSheetRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: SelectCardsBottomSheet(
           key: args.key,
-          initialSelectedCard: args.initialSelectedCard,
+          initialSelectedCards: args.initialSelectedCards,
+          maxCards: args.maxCards,
         ),
       );
     },
@@ -124,6 +125,7 @@ class CardPhotoRoute extends PageRouteInfo<CardPhotoRouteArgs> {
     Key? key,
     Future<dynamic> Function()? onInit,
     required Card card,
+    required bool isSelected,
     List<PageRouteInfo>? children,
   }) : super(
           CardPhotoRoute.name,
@@ -131,6 +133,7 @@ class CardPhotoRoute extends PageRouteInfo<CardPhotoRouteArgs> {
             key: key,
             onInit: onInit,
             card: card,
+            isSelected: isSelected,
           ),
           initialChildren: children,
         );
@@ -145,6 +148,7 @@ class CardPhotoRouteArgs {
     this.key,
     this.onInit,
     required this.card,
+    required this.isSelected,
   });
 
   final Key? key;
@@ -153,9 +157,11 @@ class CardPhotoRouteArgs {
 
   final Card card;
 
+  final bool isSelected;
+
   @override
   String toString() {
-    return 'CardPhotoRouteArgs{key: $key, onInit: $onInit, card: $card}';
+    return 'CardPhotoRouteArgs{key: $key, onInit: $onInit, card: $card, isSelected: $isSelected}';
   }
 }
 
@@ -225,13 +231,15 @@ class HomeRoute extends PageRouteInfo<void> {
 class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRouteArgs> {
   SelectCardsBottomSheetRoute({
     Key? key,
-    Card? initialSelectedCard,
+    List<Card>? initialSelectedCards,
+    required int maxCards,
     List<PageRouteInfo>? children,
   }) : super(
           SelectCardsBottomSheetRoute.name,
           args: SelectCardsBottomSheetRouteArgs(
             key: key,
-            initialSelectedCard: initialSelectedCard,
+            initialSelectedCards: initialSelectedCards,
+            maxCards: maxCards,
           ),
           initialChildren: children,
         );
@@ -244,16 +252,19 @@ class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRo
 class SelectCardsBottomSheetRouteArgs {
   const SelectCardsBottomSheetRouteArgs({
     this.key,
-    this.initialSelectedCard,
+    this.initialSelectedCards,
+    required this.maxCards,
   });
 
   final Key? key;
 
-  final Card? initialSelectedCard;
+  final List<Card>? initialSelectedCards;
+
+  final int maxCards;
 
   @override
   String toString() {
-    return 'SelectCardsBottomSheetRouteArgs{key: $key, initialSelectedCard: $initialSelectedCard}';
+    return 'SelectCardsBottomSheetRouteArgs{key: $key, initialSelectedCards: $initialSelectedCards, maxCards: $maxCards}';
   }
 }
 

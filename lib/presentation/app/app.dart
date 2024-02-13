@@ -33,9 +33,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     MyAppX.currentRef = ref;
   }
 
-  void _authListener(event) {
-    log('⚠️AuthState: $event');
-  }
+  // void _authListener(event) {
+  //   log('⚠️AuthState: $event');
+  // }
 
   @override
   void dispose() {

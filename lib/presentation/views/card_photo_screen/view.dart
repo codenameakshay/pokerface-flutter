@@ -12,10 +12,12 @@ class CardPhotoView extends ConsumerStatefulWidget {
     super.key,
     this.onInit,
     required this.card,
+    required this.isSelected,
   });
 
   final Future<dynamic> Function()? onInit;
   final Card card;
+  final bool isSelected;
 
   @override
   ConsumerState<CardPhotoView> createState() => _CardPhotoViewState();
@@ -69,17 +71,17 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
               ),
               Expanded(
                 child: SquareButton(
-                  type: ButtonType.primary,
-                  text: 'Select',
-                  onPressed: () => MyAppX.router.pop(true),
+                  type: widget.isSelected ? ButtonType.error : ButtonType.primary,
+                  text: widget.isSelected ? 'Deselect' : 'Select',
+                  onPressed: () => MyAppX.router.pop(!widget.isSelected),
                 ),
               ),
               8.toAutoScaledWidth.toHorizontalSizedBox,
               Expanded(
                 child: SquareButton(
-                  type: ButtonType.error,
-                  text: 'Cancel',
-                  onPressed: () => MyAppX.router.pop(false),
+                  type: widget.isSelected ? ButtonType.primary : ButtonType.error,
+                  text: widget.isSelected ? 'Cancel' : 'Cancel',
+                  onPressed: () => MyAppX.router.pop(),
                 ),
               ),
               const Spacer(

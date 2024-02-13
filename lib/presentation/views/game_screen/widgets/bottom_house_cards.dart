@@ -38,8 +38,8 @@ class _BottomHouseCards extends ConsumerWidget {
             children: List.generate(
               params.numberOfHouseCards.toInt(),
               (index) => DashedCardButton(
-                onPressed: () => stateController.reGenHands(context, params.userSelectedCards.sublist(0, index + 2)),
-                // onPressed: () => stateController.showStartGameSheet(context, index),
+                // onPressed: () => stateController.reGenHands(context, params.userSelectedCards.sublist(0, index + 2)),
+                onPressed: () => stateController.showStartGameSheet(context, index),
                 width: MediaQuery.of(context).size.width * 0.7 / params.numberOfHouseCards,
                 card: state.houseCards.length > index ? state.houseCards[index] : null,
               ),

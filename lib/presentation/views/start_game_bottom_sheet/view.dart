@@ -56,14 +56,14 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                   spacing: 16.toAutoScaledWidth,
                   children: [
                     DashedCardButton(
-                      onPressed: () => stateController.openFirstCardList(context),
+                      onPressed: () => stateController.openCardsList(context),
                       width: 120.toAutoScaledWidth,
-                      card: state.firstSelectedCard,
+                      card: state.selectedCards.isNotEmpty ? state.selectedCards.first : null,
                     ),
                     DashedCardButton(
-                      onPressed: () => stateController.openSecondCardList(context),
+                      onPressed: () => stateController.openCardsList(context),
                       width: 120.toAutoScaledWidth,
-                      card: state.secondSelectedCard,
+                      card: state.selectedCards.length > 1 ? state.selectedCards[1] : null,
                     ),
                   ],
                 ),
@@ -106,12 +106,12 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                   padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
                   child: SquareButton(
                     onPressed: () => MyAppX.router.pop({
-                      'userSelectedCards': [state.firstSelectedCard!, state.secondSelectedCard!],
+                      'userSelectedCards': state.selectedCards,
                       'numberOfPlayers': state.numberOfPlayers,
                       'numberOfHouseCards': state.openCards,
                     }),
                     text: 'Start game',
-                    enabled: state.firstSelectedCard != null && state.secondSelectedCard != null,
+                    enabled: state.selectedCards.length >= 2,
                   ),
                 ),
                 16.toAutoScaledHeight.toVerticalSizedBox,

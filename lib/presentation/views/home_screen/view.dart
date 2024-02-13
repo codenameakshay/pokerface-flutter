@@ -33,7 +33,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
   Widget build(BuildContext context) {
     const params = _VSControllerParams();
     final theme = ref.watch(MyAppX.theme.current);
-    final state = ref.watch(_vsProvider(params));
     final stateController = ref.watch(_vsProvider(params).notifier);
 
     return ProviderScope(
