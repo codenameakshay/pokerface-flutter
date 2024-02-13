@@ -28,6 +28,58 @@ enum HandRank {
   royalFlush,
 }
 
+extension HandRankExtension on HandRank {
+  String get emoji {
+    switch (this) {
+      case HandRank.highCard:
+        return '🃏';
+      case HandRank.onePair:
+        return '👫';
+      case HandRank.twoPairs:
+        return '👬';
+      case HandRank.threeOfAKind:
+        return '🧑‍🤝‍🧑';
+      case HandRank.straight:
+        return '📈';
+      case HandRank.flush:
+        return '🚽';
+      case HandRank.fullHouse:
+        return '🏠';
+      case HandRank.fourOfAKind:
+        return '🎲';
+      case HandRank.straightFlush:
+        return '📈🚽';
+      case HandRank.royalFlush:
+        return '👑📈🚽';
+    }
+  }
+
+  String get name {
+    switch (this) {
+      case HandRank.highCard:
+        return 'High Card';
+      case HandRank.onePair:
+        return 'One Pair';
+      case HandRank.twoPairs:
+        return 'Two Pairs';
+      case HandRank.threeOfAKind:
+        return 'Three of a Kind';
+      case HandRank.straight:
+        return 'Straight';
+      case HandRank.flush:
+        return 'Flush';
+      case HandRank.fullHouse:
+        return 'Full House';
+      case HandRank.fourOfAKind:
+        return 'Four of a Kind';
+      case HandRank.straightFlush:
+        return 'Straight Flush';
+      case HandRank.royalFlush:
+        return 'Royal Flush';
+    }
+  }
+}
+
 @freezed
 class PokerHand with _$PokerHand {
   factory PokerHand({
