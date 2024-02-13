@@ -58,67 +58,69 @@ class _GameViewState extends ConsumerState<GameView> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListTile(
-                        title: Text(
-                          state.generateTime?.elapsed.inMilliseconds == 0
-                              ? 'Generate Hands'
-                              : 'Generated in ${(state.generateTime?.elapsed.inMilliseconds ?? 0) / 1000} seconds',
-                          style: theme.themeText.headline6,
+              SizedBox.expand(
+                child: SafeArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ListTile(
+                          title: Text(
+                            state.generateTime?.elapsed.inMilliseconds == 0
+                                ? 'Generate Hands'
+                                : 'Generated in ${(state.generateTime?.elapsed.inMilliseconds ?? 0) / 1000} seconds',
+                            style: theme.themeText.headline6,
+                          ),
                         ),
-                      ),
-                      24.toAutoScaledHeight.toVerticalSizedBox,
-                      ExpansionPanelList(
-                        expansionCallback: (int index, bool isExpanded) {
-                          stateController.toggleExpand(index, isExpanded);
-                        },
-                        children: [
-                          for (final groupedHands in state.generatedHands) ...[
-                            ExpansionPanel(
-                              headerBuilder: (context, isExpanded) => ListTile(
-                                title: Text(
-                                  groupedHands.pokerHands[0].evaluateHand().name,
-                                  textAlign: TextAlign.center,
-                                  style: theme.themeText.headline6,
+                        24.toAutoScaledHeight.toVerticalSizedBox,
+                        ExpansionPanelList(
+                          expansionCallback: (int index, bool isExpanded) {
+                            stateController.toggleExpand(index, isExpanded);
+                          },
+                          children: [
+                            for (final groupedHands in state.generatedHands) ...[
+                              ExpansionPanel(
+                                headerBuilder: (context, isExpanded) => ListTile(
+                                  title: Text(
+                                    groupedHands.pokerHands[0].evaluateHand().name,
+                                    textAlign: TextAlign.center,
+                                    style: theme.themeText.headline6,
+                                  ),
+                                  trailing: Text(
+                                    (groupedHands.pokerHands[0].score).toString(),
+                                    textAlign: TextAlign.center,
+                                    style: theme.themeText.headline6,
+                                  ),
                                 ),
-                                trailing: Text(
-                                  (groupedHands.pokerHands[0].score).toString(),
-                                  textAlign: TextAlign.center,
-                                  style: theme.themeText.headline6,
-                                ),
-                              ),
-                              body: Column(
-                                children: [
-                                  for (final hand in groupedHands.pokerHands) ...[
-                                    24.toAutoScaledHeight.toVerticalSizedBox,
-                                    Wrap(
-                                      alignment: WrapAlignment.center,
-                                      crossAxisAlignment: WrapCrossAlignment.center,
-                                      runSpacing: 8.toAutoScaledWidth,
-                                      spacing: 8.toAutoScaledWidth,
-                                      children: List.generate(
-                                        hand.cards.length,
-                                        (index) => CardPreview(
-                                          width: MediaQuery.of(context).size.width * 0.8 / hand.cards.length,
-                                          card: hand.sortedCards[index],
+                                body: Column(
+                                  children: [
+                                    for (final hand in groupedHands.pokerHands) ...[
+                                      24.toAutoScaledHeight.toVerticalSizedBox,
+                                      Wrap(
+                                        alignment: WrapAlignment.center,
+                                        crossAxisAlignment: WrapCrossAlignment.center,
+                                        runSpacing: 8.toAutoScaledWidth,
+                                        spacing: 8.toAutoScaledWidth,
+                                        children: List.generate(
+                                          hand.cards.length,
+                                          (index) => CardPreview(
+                                            width: MediaQuery.of(context).size.width * 0.8 / hand.cards.length,
+                                            card: hand.sortedCards[index],
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                  ]
-                                ],
-                              ),
-                              canTapOnHeader: true,
-                              isExpanded: groupedHands.isExpaned,
-                            )
-                          ]
-                        ],
-                      ),
-                      256.toAutoScaledHeight.toVerticalSizedBox,
-                    ],
+                                      )
+                                    ]
+                                  ],
+                                ),
+                                canTapOnHeader: true,
+                                isExpanded: groupedHands.isExpaned,
+                              )
+                            ]
+                          ],
+                        ),
+                        256.toAutoScaledHeight.toVerticalSizedBox,
+                      ],
+                    ),
                   ),
                 ),
               ),
