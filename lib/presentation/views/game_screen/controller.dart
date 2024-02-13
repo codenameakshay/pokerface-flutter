@@ -35,24 +35,34 @@ class _ViewState {
   _ViewState({
     required this.houseCards,
     required this.generatedHands,
+    required this.fromFile,
+    required this.generateTime,
   });
 
   final List<Card> houseCards;
   final List<PokerHand> generatedHands;
+  final bool fromFile;
+  final Stopwatch? generateTime;
 
   _ViewState.initial()
       : this(
           houseCards: [],
           generatedHands: [],
+          fromFile: false,
+          generateTime: null,
         );
 
   _ViewState copyWith({
     List<Card>? houseCards,
     List<PokerHand>? generatedHands,
+    bool? fromFile,
+    Stopwatch? generateTime,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
       generatedHands: generatedHands ?? this.generatedHands,
+      fromFile: fromFile ?? this.fromFile,
+      generateTime: generateTime ?? this.generateTime,
     );
   }
 }
@@ -64,26 +74,36 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSControllerParams params;
 
   void initState(BuildContext context) {
-    findTop20Hands([
-      Cards.diamonds.three,
-      Cards.spades.five,
-      Cards.clubs.seven,
-      Cards.clubs.jack,
-      Cards.spades.jack,
-      Cards.diamonds.ace,
-      Cards.diamonds.queen,
-    ]).then((value) {
-      final generatedHands = value;
-      state = state.copyWith(generatedHands: generatedHands);
-    });
+    state = state.copyWith(
+      generateTime: Stopwatch(),
+    );
+    // evaluateTopNHands(
+    //         context,
+    //         [
+    //           Cards.diamonds.three,
+    //           Cards.spades.five,
+    //         ],
+    //         20)
+    //     .then((value) {
+    //   final generatedHands = value;
+    //   state = state.copyWith(generatedHands: generatedHands);
+    // });
   }
 
-  Future<void> reGenHands() async {
-    final generatedHands = await findTop20Hands([
-      Cards.diamonds.ace,
-      Cards.diamonds.king,
-    ]);
-    state = state.copyWith(generatedHands: generatedHands);
+  void changeFromFile(bool fromFile) {
+    state = state.copyWith(fromFile: fromFile);
+  }
+
+  Future<void> reGenHands(BuildContext context, List<Card> cards) async {
+    state = state.copyWith(generateTime: Stopwatch()..start());
+    if (state.fromFile) {
+      final generatedHands = await evaluateTopNHands(context, cards, 20);
+      state = state.copyWith(generatedHands: generatedHands);
+    } else {
+      final generatedHands = await findTop20Hands(cards);
+      state = state.copyWith(generatedHands: generatedHands);
+    }
+    state.generateTime?.stop();
   }
 
   Future<Card?> showSelectCardsBottomSheet(BuildContext context, Card? selectedCard) async {

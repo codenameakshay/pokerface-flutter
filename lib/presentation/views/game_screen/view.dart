@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' hide Card;
@@ -8,6 +10,7 @@ import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
+import 'package:pokerface/presentation/utils/combinations/combinations.dart';
 import 'package:pokerface/presentation/utils/hands/testing.dart';
 import 'package:pokerface/presentation/views/select_cards_bottom_sheet/view.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
@@ -60,6 +63,16 @@ class _GameViewState extends ConsumerState<GameView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      SwitchListTile(
+                        title: Text(
+                          state.generateTime?.elapsed.inMilliseconds == 0
+                              ? 'Generate Hands'
+                              : 'Generated in ${(state.generateTime?.elapsed.inMilliseconds ?? 0) / 1000} seconds',
+                          style: theme.themeText.headline6,
+                        ),
+                        value: state.fromFile,
+                        onChanged: stateController.changeFromFile,
+                      ),
                       for (final pnc in state.generatedHands) ...[
                         24.toAutoScaledHeight.toVerticalSizedBox,
                         Text(
@@ -115,7 +128,17 @@ class _GameViewState extends ConsumerState<GameView> {
                       children: List.generate(
                         params.numberOfHouseCards.toInt(),
                         (index) => DashedCardButton(
-                          onPressed: () => stateController.reGenHands(),
+                          onPressed: () => stateController.reGenHands(
+                              context,
+                              [
+                                Cards.clubs.eight,
+                                Cards.hearts.ace,
+                                Cards.spades.five,
+                                Cards.hearts.nine,
+                                Cards.diamonds.six,
+                                Cards.clubs.three,
+                                Cards.diamonds.two,
+                              ].sublist(0, index + 2)),
                           // onPressed: () => stateController.showStartGameSheet(context, index),
                           width: MediaQuery.of(context).size.width * 0.7 / params.numberOfHouseCards,
                           card: state.houseCards.length > index ? state.houseCards[index] : null,

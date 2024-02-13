@@ -44,10 +44,6 @@ List<PokerHand> generateAndSortRandomHands() {
 
 Future<List<List<Card>>> generateCommunityCardCombinations(String key, List<Card> deck, int combinationSize) async {
   List<List<Card>> combinations = [];
-  final combinatio = await retrieveCombination(key);
-  if (combinatio.isNotEmpty) {
-    return combinatio;
-  }
   void generateCombinations(List<Card> list, int start, List<Card> current, int size) {
     if (current.length == size) {
       // print('combination: ${current.map((e) => '${e.suit.name}.${e.rank.name}')}');
@@ -63,16 +59,11 @@ Future<List<List<Card>>> generateCommunityCardCombinations(String key, List<Card
 
   generateCombinations(deck, 0, [], combinationSize);
 
-  await storeCombination(key, combinations);
   return combinations;
 }
 
 Future<List<List<Card>>> generateCombinations(String key, List<Card> elements, int k) async {
   List<List<Card>> combinations = [];
-  // final combinatio = await retrieveCombination(key);
-  // if (combinatio.isNotEmpty) {
-  //   return combinatio;
-  // }
   void combine(int start, List<Card> currentCombination) {
     // When the combination is of size k, add it to the result list
     if (currentCombination.length == k) {
@@ -88,7 +79,6 @@ Future<List<List<Card>>> generateCombinations(String key, List<Card> elements, i
   }
 
   combine(0, []);
-  await storeCombination(key, combinations);
   return combinations;
 }
 
