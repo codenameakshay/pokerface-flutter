@@ -85,7 +85,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                               Cards.diamonds.king,
                             ],
                             numberOfPlayers: 4,
-                            numberOfHouseCards: 5,
+                            numberOfHouseCards: 6,
                           );
                         },
                         text: 'Quick Game',

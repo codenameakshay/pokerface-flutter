@@ -10,7 +10,6 @@ import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
-import 'package:pokerface/presentation/utils/combinations/combinations.dart';
 import 'package:pokerface/presentation/utils/hands/testing.dart';
 import 'package:pokerface/presentation/views/select_cards_bottom_sheet/view.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
@@ -63,15 +62,13 @@ class _GameViewState extends ConsumerState<GameView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SwitchListTile(
+                      ListTile(
                         title: Text(
                           state.generateTime?.elapsed.inMilliseconds == 0
                               ? 'Generate Hands'
                               : 'Generated in ${(state.generateTime?.elapsed.inMilliseconds ?? 0) / 1000} seconds',
                           style: theme.themeText.headline6,
                         ),
-                        value: state.fromFile,
-                        onChanged: stateController.changeFromFile,
                       ),
                       for (final pnc in state.generatedHands) ...[
                         24.toAutoScaledHeight.toVerticalSizedBox,

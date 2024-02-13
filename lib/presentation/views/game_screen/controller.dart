@@ -35,33 +35,28 @@ class _ViewState {
   _ViewState({
     required this.houseCards,
     required this.generatedHands,
-    required this.fromFile,
     required this.generateTime,
   });
 
   final List<Card> houseCards;
   final List<PokerHand> generatedHands;
-  final bool fromFile;
   final Stopwatch? generateTime;
 
   _ViewState.initial()
       : this(
           houseCards: [],
           generatedHands: [],
-          fromFile: false,
           generateTime: null,
         );
 
   _ViewState copyWith({
     List<Card>? houseCards,
     List<PokerHand>? generatedHands,
-    bool? fromFile,
     Stopwatch? generateTime,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
       generatedHands: generatedHands ?? this.generatedHands,
-      fromFile: fromFile ?? this.fromFile,
       generateTime: generateTime ?? this.generateTime,
     );
   }
@@ -90,19 +85,10 @@ class _VSController extends StateNotifier<_ViewState> {
     // });
   }
 
-  void changeFromFile(bool fromFile) {
-    state = state.copyWith(fromFile: fromFile);
-  }
-
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
     state = state.copyWith(generateTime: Stopwatch()..start());
-    if (state.fromFile) {
-      final generatedHands = await evaluateTopNHands(context, cards, 20);
-      state = state.copyWith(generatedHands: generatedHands);
-    } else {
-      final generatedHands = await findTop20Hands(cards);
-      state = state.copyWith(generatedHands: generatedHands);
-    }
+    final generatedHands = await findTopNHands(cards, 20);
+    state = state.copyWith(generatedHands: generatedHands);
     state.generateTime?.stop();
   }
 
