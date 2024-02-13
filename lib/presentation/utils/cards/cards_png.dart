@@ -8,10 +8,10 @@ class CardsPNG {
   static const CardsPNGDecks decks = CardsPNGDecks();
   static const CardsPNGOther other = CardsPNGOther();
 
-  static Widget drawCard(String card, {double? width, double? height}) {
+  static Widget drawCard(String card, {double? width, double? height, BoxFit fit = BoxFit.contain}) {
     return Image.asset(
       card,
-      fit: BoxFit.contain,
+      fit: fit,
       height: height,
       width: width,
     );
