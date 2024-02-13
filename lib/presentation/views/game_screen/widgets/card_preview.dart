@@ -4,6 +4,7 @@ class CardPreview extends ConsumerWidget {
   final double width;
   final Card card;
   final List<Card> userCards;
+  final List<Card> houseCards;
   final ThemeState theme;
 
   const CardPreview({
@@ -11,6 +12,7 @@ class CardPreview extends ConsumerWidget {
     required this.width,
     required this.card,
     required this.userCards,
+    required this.houseCards,
     required this.theme,
   });
 
@@ -27,7 +29,13 @@ class CardPreview extends ConsumerWidget {
                 width: 2,
                 strokeAlign: BorderSide.strokeAlignInside,
               )
-            : null,
+            : houseCards.contains(card)
+                ? Border.all(
+                    color: theme.colors.error,
+                    width: 2,
+                    strokeAlign: BorderSide.strokeAlignInside,
+                  )
+                : null,
       ),
       child: CardsPNG.drawCard(card.image.png, fit: BoxFit.cover),
     );

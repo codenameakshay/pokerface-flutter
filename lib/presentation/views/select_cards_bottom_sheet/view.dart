@@ -23,9 +23,15 @@ final cardsMap = {
 
 @RoutePage(name: 'SelectCardsBottomSheetRoute')
 class SelectCardsBottomSheet extends ConsumerStatefulWidget {
-  const SelectCardsBottomSheet({super.key, this.initialSelectedCards, required this.maxCards});
-  final List<Card>? initialSelectedCards;
+  const SelectCardsBottomSheet({
+    super.key,
+    this.initialSelectedCards = const [],
+    required this.maxCards,
+    this.disabledCards = const [],
+  });
+  final List<Card> initialSelectedCards;
   final int maxCards;
+  final List<Card> disabledCards;
 
   @override
   ConsumerState<SelectCardsBottomSheet> createState() => _SelectCardsBottomSheetState();
@@ -40,6 +46,7 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
     final params = _VSControllerParams(
       initialSelectedCards: widget.initialSelectedCards,
       maxSelectedCards: widget.maxCards,
+      disabledCards: widget.disabledCards,
     );
     final theme = ref.watch(MyAppX.theme.current);
     final state = ref.watch(_vsProvider(params));
@@ -97,6 +104,7 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
                             offsetStep: offsetStep,
                             cards: entry.value,
                             selectedCards: state.selectedCards,
+                            disabledCards: params.disabledCards,
                             onPressed: (card) {
                               stateController.showCardPreview(card);
                             },

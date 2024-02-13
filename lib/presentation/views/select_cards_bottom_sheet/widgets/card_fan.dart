@@ -6,6 +6,7 @@ class CardFan extends StatelessWidget {
   final List<Card> cards;
   final Function(Card) onPressed;
   final List<Card>? selectedCards;
+  final List<Card> disabledCards;
 
   const CardFan({
     super.key,
@@ -13,6 +14,7 @@ class CardFan extends StatelessWidget {
     required this.offsetStep,
     required this.cards,
     required this.onPressed,
+    required this.disabledCards,
     this.selectedCards,
   });
   @override
@@ -43,21 +45,28 @@ class CardFan extends StatelessWidget {
                   color: Colors.transparent,
                   child: Clickable(
                     onPressed: () => onPressed(cards[index]),
+                    enabled: disabledCards.contains(cards[index]) == false,
                     child: Hero(
                       tag: cards[index],
-                      child: Container(
-                        width: width,
-                        height: width * (333 / 234),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.black54,
+                          disabledCards.contains(cards[index]) ? BlendMode.darken : BlendMode.dst,
                         ),
-                        child: Image.asset(
-                          cards[index].image.png,
-                          fit: BoxFit.cover,
+                        child: Container(
+                          width: width,
+                          height: width * (333 / 234),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Image.asset(
+                            cards[index].image.png,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),

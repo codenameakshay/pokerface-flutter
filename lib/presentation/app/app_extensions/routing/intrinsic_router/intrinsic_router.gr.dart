@@ -63,6 +63,7 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
           key: args.key,
           initialSelectedCards: args.initialSelectedCards,
           maxCards: args.maxCards,
+          disabledCards: args.disabledCards,
         ),
       );
     },
@@ -231,8 +232,9 @@ class HomeRoute extends PageRouteInfo<void> {
 class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRouteArgs> {
   SelectCardsBottomSheetRoute({
     Key? key,
-    List<Card>? initialSelectedCards,
+    List<Card> initialSelectedCards = const [],
     required int maxCards,
+    List<Card> disabledCards = const [],
     List<PageRouteInfo>? children,
   }) : super(
           SelectCardsBottomSheetRoute.name,
@@ -240,6 +242,7 @@ class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRo
             key: key,
             initialSelectedCards: initialSelectedCards,
             maxCards: maxCards,
+            disabledCards: disabledCards,
           ),
           initialChildren: children,
         );
@@ -252,19 +255,22 @@ class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRo
 class SelectCardsBottomSheetRouteArgs {
   const SelectCardsBottomSheetRouteArgs({
     this.key,
-    this.initialSelectedCards,
+    this.initialSelectedCards = const [],
     required this.maxCards,
+    this.disabledCards = const [],
   });
 
   final Key? key;
 
-  final List<Card>? initialSelectedCards;
+  final List<Card> initialSelectedCards;
 
   final int maxCards;
 
+  final List<Card> disabledCards;
+
   @override
   String toString() {
-    return 'SelectCardsBottomSheetRouteArgs{key: $key, initialSelectedCards: $initialSelectedCards, maxCards: $maxCards}';
+    return 'SelectCardsBottomSheetRouteArgs{key: $key, initialSelectedCards: $initialSelectedCards, maxCards: $maxCards, disabledCards: $disabledCards}';
   }
 }
 

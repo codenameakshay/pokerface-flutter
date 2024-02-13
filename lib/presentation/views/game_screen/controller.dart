@@ -126,7 +126,8 @@ class _VSController extends StateNotifier<_ViewState> {
       isDismissible: false,
       enableDrag: false,
       builder: (context) => SelectCardsBottomSheet(
-        initialSelectedCards: selectedCards,
+        disabledCards: params.userSelectedCards,
+        initialSelectedCards: selectedCards ?? [],
         maxCards: 5,
       ),
     );

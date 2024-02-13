@@ -14,6 +14,7 @@ class _HandPreview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(MyAppX.theme.current);
+    final state = ref.watch(_vsProvider(params));
 
     return Wrap(
       alignment: WrapAlignment.center,
@@ -26,6 +27,7 @@ class _HandPreview extends ConsumerWidget {
           width: MediaQuery.of(context).size.width * widthMultiplier / hand.cards.length,
           card: hand.sortedCards[index],
           userCards: params.userSelectedCards,
+          houseCards: state.houseCards,
           theme: theme,
         ),
       ),

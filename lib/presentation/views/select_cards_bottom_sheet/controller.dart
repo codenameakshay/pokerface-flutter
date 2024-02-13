@@ -2,12 +2,14 @@ part of 'view.dart';
 
 class _VSControllerParams extends Equatable {
   const _VSControllerParams({
-    this.initialSelectedCards,
+    this.initialSelectedCards = const [],
     required this.maxSelectedCards,
+    this.disabledCards = const [],
   });
 
-  final List<Card>? initialSelectedCards;
+  final List<Card> initialSelectedCards;
   final int maxSelectedCards;
+  final List<Card> disabledCards;
 
   @override
   List<Object> get props => [];
