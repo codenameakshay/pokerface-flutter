@@ -11,5 +11,5 @@ _$PokerHandImpl _$$PokerHandImplFromJson(Map<String, dynamic> json) => _$PokerHa
     );
 
 Map<String, dynamic> _$$PokerHandImplToJson(_$PokerHandImpl instance) => <String, dynamic>{
-      'cards': instance.cards,
+      'cards': instance.cards.map((e) => e.toJson()).toList(),
     };

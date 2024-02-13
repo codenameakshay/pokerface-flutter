@@ -15,7 +15,7 @@ _$CardImpl _$$CardImplFromJson(Map<String, dynamic> json) => _$CardImpl(
 Map<String, dynamic> _$$CardImplToJson(_$CardImpl instance) => <String, dynamic>{
       'rank': _$RankEnumMap[instance.rank]!,
       'suit': _$SuitEnumMap[instance.suit]!,
-      'image': instance.image,
+      'image': instance.image.toJson(),
     };
 
 const _$RankEnumMap = {

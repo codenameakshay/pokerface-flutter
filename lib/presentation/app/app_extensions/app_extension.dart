@@ -1,21 +1,25 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/services.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:pokerface/data/models/card.dart';
+import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
 import 'package:pokerface/presentation/app/app_extensions/theme/policies/text_theme.dart';
 import 'package:pokerface/presentation/app/core_widgets/confetti/confetti.dart';
 import 'package:pokerface/presentation/app/core_widgets/in_app_notification/in_app_notification.dart';
+import 'package:pokerface/presentation/utils/hands/testing.dart';
 import 'package:pokerface/presentation/utils/string/string.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,6 +70,7 @@ part 'app_settings/settings_provider.dart';
 part 'url_launcher/url_launcher.dart';
 part 'uuid/uuid.dart';
 part 'json_local_file/json_local_file.dart';
+part 'isolate/isolate.dart';
 
 class MyAppX {
   MyAppX._();
@@ -181,4 +186,6 @@ class MyAppX {
   static RouteObserver<PageRoute> pageRouteObserver = pagerouteObserver;
 
   static JSONLocalFile jsonLocalFile = JSONLocalFile.instance;
+
+  static IsolateManager isolateManager = IsolateManager.instance;
 }

@@ -114,7 +114,7 @@ class _VSController extends StateNotifier<_ViewState> {
 
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
     state = state.copyWith(generateTime: Stopwatch()..start());
-    final generatedHands = await findTopNHands(cards, 20);
+    final generatedHands = await MyAppX.isolateManager.runFindTopNHands(cards, 20);
     final groupedHands = generatedHands.map((e) => GroupedHands(pokerHands: e, isExpaned: false)).toList();
     state = state.copyWith(generatedHands: groupedHands);
     state.generateTime?.stop();
