@@ -4,7 +4,10 @@ import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/hands/hands.dart';
 
 List<Card> generateDeck() {
-  return Cards.all;
+  final deck = Cards.all;
+  deck.shuffle();
+
+  return deck;
 }
 
 Future<List<List<Card>>> generateCommunityCardCombinations(String key, List<Card> deck, int combinationSize) async {

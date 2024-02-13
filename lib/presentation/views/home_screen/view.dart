@@ -13,6 +13,7 @@ import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
+import 'package:pokerface/presentation/utils/hands/testing.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 
 part 'controller.dart';
@@ -80,17 +81,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       SquareButton(
                         onPressed: () {
                           stateController.navigateToNewGame(
-                            userSelectedCards: [
-                              Cards.clubs.ace,
-                              Cards.diamonds.king,
-                              Cards.spades.nine,
-                              Cards.hearts.ten,
-                              Cards.clubs.three,
-                              Cards.diamonds.three,
-                              Cards.spades.five,
-                            ],
+                            userSelectedCards: generateDeck().take(2).toList(),
                             numberOfPlayers: 4,
-                            numberOfHouseCards: 6,
+                            numberOfHouseCards: 5,
                           );
                         },
                         text: 'Quick Game',
