@@ -9,6 +9,22 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsCombinationsGen {
+  const $AssetsCombinationsGen();
+
+  /// File path: assets/combinations/cards_1.json
+  String get cards1 => 'assets/combinations/cards_1.json';
+
+  /// File path: assets/combinations/cards_2.json
+  String get cards2 => 'assets/combinations/cards_2.json';
+
+  /// File path: assets/combinations/cards_3.json
+  String get cards3 => 'assets/combinations/cards_3.json';
+
+  /// List of all assets
+  List<String> get values => [cards1, cards2, cards3];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -697,6 +713,7 @@ class $AssetsSvgsOtherGen {
 class Assets {
   Assets._();
 
+  static const $AssetsCombinationsGen combinations = $AssetsCombinationsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottiesGen lotties = $AssetsLottiesGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();

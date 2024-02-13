@@ -65,6 +65,7 @@ part 'app_settings/settings.dart';
 part 'app_settings/settings_provider.dart';
 part 'url_launcher/url_launcher.dart';
 part 'uuid/uuid.dart';
+part 'json_local_file/json_local_file.dart';
 
 class MyAppX {
   MyAppX._();
@@ -178,4 +179,6 @@ class MyAppX {
   static MyAppRouterObserver routeObserver = MyAppRouterObserver();
 
   static RouteObserver<PageRoute> pageRouteObserver = pagerouteObserver;
+
+  static JSONLocalFile jsonLocalFile = JSONLocalFile.instance;
 }
