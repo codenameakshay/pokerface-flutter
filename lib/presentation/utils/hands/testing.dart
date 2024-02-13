@@ -47,7 +47,7 @@ Future<List<List<Card>>> generateCombinations(String key, List<Card> elements, i
   return combinations;
 }
 
-Future<List<PokerHand>> findTopNHands(List<Card> knownCards, int n) async {
+Future<List<List<PokerHand>>> findTopNHands(List<Card> knownCards, int n) async {
   // Ensure knownCards contains 2 to 7 cards
   if (knownCards.length < 2 || knownCards.length > 7) {
     throw ArgumentError("The number of known cards must be between 2 and 7, inclusive.");
@@ -82,7 +82,10 @@ Future<List<PokerHand>> findTopNHands(List<Card> knownCards, int n) async {
     // Evaluate and sort the hands by strength, then take the top 20
     allPossibleHands.sort((a, b) => compareHands(b, a));
 
-    return allPossibleHands.take(n).toList();
+    final nPossibleHands = allPossibleHands.take(n).toList();
+    final groupedHands = combineSameHands(nPossibleHands);
+
+    return groupedHands;
   } else {
     // We need to generate remaining cards
     // Determine the number of community cards to generate based on known cards
@@ -103,6 +106,9 @@ Future<List<PokerHand>> findTopNHands(List<Card> knownCards, int n) async {
     // Evaluate and sort the hands by strength, then take the top 20
     allPossibleHands.sort((a, b) => compareHands(b, a));
 
-    return allPossibleHands.take(n).toList();
+    final nPossibleHands = allPossibleHands.take(n).toList();
+    final groupedHands = combineSameHands(nPossibleHands);
+
+    return groupedHands;
   }
 }

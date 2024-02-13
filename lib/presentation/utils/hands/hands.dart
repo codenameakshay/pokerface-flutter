@@ -373,3 +373,26 @@ List<PokerHand> findAllHands(List<Card> sevenCards) {
 
   return allHands;
 }
+
+List<List<PokerHand>> combineSameHands(List<PokerHand> hands) {
+  // Use a LinkedHashMap to maintain the order of insertion if needed
+  var handGroups = <String, List<PokerHand>>{};
+
+  for (var hand in hands) {
+    // Assume `getRankKey` is a function that returns a unique string key for the rank
+    // This key could be based on the hand's rank, e.g., "Flush", "Three of a Kind", etc.
+    HandRank rank = hand.evaluateHand();
+    String rankKey = rank.name;
+
+    // If the key already exists in the map, append the hand to the existing list
+    if (handGroups.containsKey(rankKey)) {
+      handGroups[rankKey]?.add(hand);
+    } else {
+      // Otherwise, create a new list with the hand
+      handGroups[rankKey] = [hand];
+    }
+  }
+
+  // Convert the map values to a list of lists
+  return handGroups.values.toList();
+}

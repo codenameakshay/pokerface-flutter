@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/data/models/card.dart';
+import 'package:pokerface/data/models/grouped_hands.dart';
 import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
@@ -70,32 +71,52 @@ class _GameViewState extends ConsumerState<GameView> {
                           style: theme.themeText.headline6,
                         ),
                       ),
-                      for (final pnc in state.generatedHands) ...[
-                        24.toAutoScaledHeight.toVerticalSizedBox,
-                        Text(
-                          pnc.evaluateHand().name,
-                          textAlign: TextAlign.center,
-                          style: theme.themeText.headline6,
-                        ),
-                        Text(
-                          (pnc.score).toString(),
-                          textAlign: TextAlign.center,
-                          style: theme.themeText.headline6,
-                        ),
-                        Wrap(
-                          alignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          runSpacing: 8.toAutoScaledWidth,
-                          spacing: 8.toAutoScaledWidth,
-                          children: List.generate(
-                            pnc.cards.length,
-                            (index) => CardPreview(
-                              width: MediaQuery.of(context).size.width * 0.8 / pnc.cards.length,
-                              card: pnc.sortedCards[index],
-                            ),
-                          ),
-                        ),
-                      ],
+                      24.toAutoScaledHeight.toVerticalSizedBox,
+                      ExpansionPanelList(
+                        expansionCallback: (int index, bool isExpanded) {
+                          stateController.toggleExpand(index, isExpanded);
+                        },
+                        children: [
+                          for (final groupedHands in state.generatedHands) ...[
+                            ExpansionPanel(
+                              headerBuilder: (context, isExpanded) => ListTile(
+                                title: Text(
+                                  groupedHands.pokerHands[0].evaluateHand().name,
+                                  textAlign: TextAlign.center,
+                                  style: theme.themeText.headline6,
+                                ),
+                                trailing: Text(
+                                  (groupedHands.pokerHands[0].score).toString(),
+                                  textAlign: TextAlign.center,
+                                  style: theme.themeText.headline6,
+                                ),
+                              ),
+                              body: Column(
+                                children: [
+                                  for (final hand in groupedHands.pokerHands) ...[
+                                    24.toAutoScaledHeight.toVerticalSizedBox,
+                                    Wrap(
+                                      alignment: WrapAlignment.center,
+                                      crossAxisAlignment: WrapCrossAlignment.center,
+                                      runSpacing: 8.toAutoScaledWidth,
+                                      spacing: 8.toAutoScaledWidth,
+                                      children: List.generate(
+                                        hand.cards.length,
+                                        (index) => CardPreview(
+                                          width: MediaQuery.of(context).size.width * 0.8 / hand.cards.length,
+                                          card: hand.sortedCards[index],
+                                        ),
+                                      ),
+                                    )
+                                  ]
+                                ],
+                              ),
+                              canTapOnHeader: true,
+                              isExpanded: groupedHands.isExpaned,
+                            )
+                          ]
+                        ],
+                      ),
                       256.toAutoScaledHeight.toVerticalSizedBox,
                     ],
                   ),

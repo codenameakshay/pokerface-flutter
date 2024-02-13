@@ -39,7 +39,7 @@ class _ViewState {
   });
 
   final List<Card> houseCards;
-  final List<PokerHand> generatedHands;
+  final List<GroupedHands> generatedHands;
   final Stopwatch? generateTime;
 
   _ViewState.initial()
@@ -51,7 +51,7 @@ class _ViewState {
 
   _ViewState copyWith({
     List<Card>? houseCards,
-    List<PokerHand>? generatedHands,
+    List<GroupedHands>? generatedHands,
     Stopwatch? generateTime,
   }) {
     return _ViewState(
@@ -88,8 +88,19 @@ class _VSController extends StateNotifier<_ViewState> {
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
     state = state.copyWith(generateTime: Stopwatch()..start());
     final generatedHands = await findTopNHands(cards, 20);
-    state = state.copyWith(generatedHands: generatedHands);
+    final groupedHands = generatedHands.map((e) => GroupedHands(pokerHands: e, isExpaned: false)).toList();
+    state = state.copyWith(generatedHands: groupedHands);
     state.generateTime?.stop();
+  }
+
+  void toggleExpand(int index, bool isExpanded) {
+    final newGeneratedHands = state.generatedHands.map((e) {
+      if (state.generatedHands.indexOf(e) == index) {
+        return e.copyWith(isExpaned: isExpanded);
+      }
+      return e;
+    }).toList();
+    state = state.copyWith(generatedHands: newGeneratedHands);
   }
 
   Future<Card?> showSelectCardsBottomSheet(BuildContext context, Card? selectedCard) async {
