@@ -83,6 +83,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             userSelectedCards: [
                               Cards.clubs.ace,
                               Cards.diamonds.king,
+                              Cards.spades.nine,
+                              Cards.hearts.ten,
+                              Cards.clubs.three,
+                              Cards.diamonds.three,
+                              Cards.spades.five,
                             ],
                             numberOfPlayers: 4,
                             numberOfHouseCards: 6,

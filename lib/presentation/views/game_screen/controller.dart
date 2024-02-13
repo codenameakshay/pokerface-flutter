@@ -6,12 +6,14 @@ class _VSControllerParams extends Equatable {
     required this.userSelectedCards,
     required this.numberOfPlayers,
     required this.numberOfHouseCards,
+    required this.theme,
   });
 
   final BuildContext context;
   final List<Card> userSelectedCards;
   final double numberOfPlayers;
   final double numberOfHouseCards;
+  final ThemeState theme;
 
   @override
   List<Object> get props => [];
@@ -26,7 +28,7 @@ final _vsProvider =
     StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
   final stateController = _VSController(
     params: params,
-  )..initState(params.context);
+  )..initState(params.context, params.theme);
 
   return stateController;
 });
@@ -36,28 +38,33 @@ class _ViewState {
     required this.houseCards,
     required this.generatedHands,
     required this.generateTime,
+    required this.streetLight,
   });
 
   final List<Card> houseCards;
   final List<GroupedHands> generatedHands;
   final Stopwatch? generateTime;
+  final StreetLight streetLight;
 
   _ViewState.initial()
       : this(
           houseCards: [],
           generatedHands: [],
           generateTime: null,
+          streetLight: StreetLight(bulbs: []),
         );
 
   _ViewState copyWith({
     List<Card>? houseCards,
     List<GroupedHands>? generatedHands,
     Stopwatch? generateTime,
+    StreetLight? streetLight,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
       generatedHands: generatedHands ?? this.generatedHands,
       generateTime: generateTime ?? this.generateTime,
+      streetLight: streetLight ?? this.streetLight,
     );
   }
 }
@@ -68,9 +75,29 @@ class _VSController extends StateNotifier<_ViewState> {
   }) : super(_ViewState.initial());
   _VSControllerParams params;
 
-  void initState(BuildContext context) {
+  void initState(BuildContext context, ThemeState theme) {
     state = state.copyWith(
       generateTime: Stopwatch(),
+      streetLight: StreetLight(bulbs: [
+        Bulb(
+          isOn: false,
+          borderColor: theme.colors.onPrimary.withOpacity(0.1),
+          offColor: theme.colors.primary.withOpacity(0.2),
+          onColor: theme.colors.primary,
+        ),
+        Bulb(
+          isOn: false,
+          borderColor: theme.colors.onWarning.withOpacity(0.1),
+          offColor: theme.colors.warning.withOpacity(0.2),
+          onColor: theme.colors.warning,
+        ),
+        Bulb(
+          isOn: false,
+          borderColor: theme.colors.onError.withOpacity(0.1),
+          offColor: theme.colors.error.withOpacity(0.2),
+          onColor: theme.colors.error,
+        ),
+      ]),
     );
     // evaluateTopNHands(
     //         context,
