@@ -272,6 +272,34 @@ extension PokerHandExtension on PokerHand {
     }
   }
 
+  double get handRankStatus {
+    final handRank = evaluateHand();
+    switch (handRank) {
+      case HandRank.royalFlush:
+        return -1;
+      case HandRank.straightFlush:
+        return -1;
+      case HandRank.fourOfAKind:
+        return -1;
+      case HandRank.fullHouse:
+        return -1;
+      case HandRank.flush:
+        return -1;
+      case HandRank.straight:
+        return -1;
+      case HandRank.threeOfAKind:
+        return 0;
+      case HandRank.twoPairs:
+        return 1;
+      case HandRank.onePair:
+        return 1;
+      case HandRank.highCard:
+        return 1;
+      default:
+        return -1; // For unimplemented or unrecognized hand types
+    }
+  }
+
   Fraction get probabilityFraction => Fraction.fromDouble(probability);
 
   int get score {

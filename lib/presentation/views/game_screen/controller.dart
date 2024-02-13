@@ -106,7 +106,15 @@ class _VSController extends StateNotifier<_ViewState> {
     state = state.copyWith(generateTime: Stopwatch()..start());
     final generatedHands = await MyAppX.isolateManager.runFindTopNHands(cards, 20);
     final groupedHands = generatedHands.map((e) => GroupedHands(pokerHands: e, isExpaned: false)).toList();
-    state = state.copyWith(generatedHands: groupedHands);
+    state = state.copyWith(
+      generatedHands: groupedHands,
+      streetLight: state.streetLight.copyWith(
+        bulbs: state.streetLight.bulbs
+            .map((e) => e.copyWith(
+                isOn: groupedHands[0].pokerHands[0].handRankStatus + 1 == state.streetLight.bulbs.indexOf(e)))
+            .toList(),
+      ),
+    );
     state.generateTime?.stop();
   }
 
