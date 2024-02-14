@@ -25,7 +25,7 @@ class ThemeState {
 
   ThemeState.defaults()
       : this(
-          type: ThemeType.dark,
+          type: ThemeType.olive,
           margins: ThemeMargins(),
           paddings: ThemePaddings(),
           borders: ThemeBorders(),
@@ -98,7 +98,7 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
           key: themeTypeKey,
           decoder: (themeType) => themeType.toThemeType,
         ) ??
-        ThemeType.dark;
+        ThemeType.olive;
 
     switchTheme(themeType, showToast: false);
   }
@@ -140,28 +140,28 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
 
   ThemeColors getThemeColors(ThemeType themeType) {
     switch (themeType) {
-      case ThemeType.dark:
-        return ThemeColors.dark();
+      // case ThemeType.dark:
+      //   return ThemeColors.dark();
       case ThemeType.darkPurple:
         return ThemeColors.darkPurple();
-      case ThemeType.light:
-        return ThemeColors.light();
-      case ThemeType.lightYellow:
-        return ThemeColors.lightYellow();
-      case ThemeType.darkRed:
-        return ThemeColors.darkRed();
+      // case ThemeType.light:
+      //   return ThemeColors.light();
+      // case ThemeType.lightYellow:
+      //   return ThemeColors.lightYellow();
+      // case ThemeType.darkRed:
+      //   return ThemeColors.darkRed();
       case ThemeType.darkYellow:
         return ThemeColors.darkYellow();
       case ThemeType.darkGreen:
         return ThemeColors.darkGreen();
-      case ThemeType.darkBlue:
-        return ThemeColors.darkBlue();
-      case ThemeType.lightRed:
-        return ThemeColors.lightRed();
+      // case ThemeType.darkBlue:
+      //   return ThemeColors.darkBlue();
+      // case ThemeType.lightRed:
+      //   return ThemeColors.lightRed();
       case ThemeType.lightGreen:
         return ThemeColors.lightGreen();
-      case ThemeType.lightTeal:
-        return ThemeColors.lightTeal();
+      // case ThemeType.lightTeal:
+      //   return ThemeColors.lightTeal();
       case ThemeType.lightPurple:
         return ThemeColors.lightPurple();
       case ThemeType.olive:
@@ -170,14 +170,14 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
         return ThemeColors.darkMaterial();
       case ThemeType.darkAmoled:
         return ThemeColors.amoled();
-      case ThemeType.redTornado:
-        return ThemeColors.redTornado();
-      case ThemeType.lightMaterial:
-        return ThemeColors.lightMaterial();
+      // case ThemeType.redTornado:
+      //   return ThemeColors.redTornado();
+      // case ThemeType.lightMaterial:
+      //   return ThemeColors.lightMaterial();
       case ThemeType.systemTheme:
         return WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark
-            ? ThemeColors.dark()
-            : ThemeColors.light();
+            ? ThemeColors.olive()
+            : ThemeColors.lightGreen();
     }
   }
 }

@@ -25,36 +25,36 @@ extension StringExtension on String {
 
   ThemeType get toThemeType {
     switch (this) {
-      case 'dark':
-        return ThemeType.dark;
-      case 'darkRed':
-        return ThemeType.darkRed;
+      // case 'dark':
+      //   return ThemeType.dark;
+      // case 'darkRed':
+      //   return ThemeType.darkRed;
       case 'darkYellow':
         return ThemeType.darkYellow;
       case 'darkPurple':
         return ThemeType.darkPurple;
-      case 'darkBlue':
-        return ThemeType.darkBlue;
+      // case 'darkBlue':
+      //   return ThemeType.darkBlue;
       case 'darkAmoled':
         return ThemeType.darkAmoled;
       case 'darkMaterial':
         return ThemeType.darkMaterial;
-      case 'redTornado':
-        return ThemeType.redTornado;
+      // case 'redTornado':
+      //   return ThemeType.redTornado;
       case 'olive':
         return ThemeType.olive;
       case 'lightPurple':
         return ThemeType.lightPurple;
-      case 'lightTeal':
-        return ThemeType.lightTeal;
-      case 'lightRed':
-        return ThemeType.lightRed;
-      case 'lightYellow':
-        return ThemeType.lightYellow;
-      case 'lightMaterial':
-        return ThemeType.lightMaterial;
-      case 'light':
-        return ThemeType.light;
+      // case 'lightTeal':
+      //   return ThemeType.lightTeal;
+      // case 'lightRed':
+      //   return ThemeType.lightRed;
+      // case 'lightYellow':
+      //   return ThemeType.lightYellow;
+      // case 'lightMaterial':
+      //   return ThemeType.lightMaterial;
+      // case 'light':
+      //   return ThemeType.light;
       case 'darkGreen':
         return ThemeType.darkGreen;
       case 'lightGreen':
@@ -62,7 +62,7 @@ extension StringExtension on String {
       case 'systemTheme':
         return ThemeType.systemTheme;
       default:
-        return ThemeType.light;
+        return ThemeType.olive;
     }
   }
 }
