@@ -341,6 +341,9 @@ class $AssetsImagesFrontsGen {
 class $AssetsImagesOtherGen {
   const $AssetsImagesOtherGen();
 
+  /// File path: assets/images/other/black_deck.png
+  AssetGenImage get blackDeck => const AssetGenImage('assets/images/other/black_deck.png');
+
   /// File path: assets/images/other/blank_card.png
   AssetGenImage get blankCard => const AssetGenImage('assets/images/other/blank_card.png');
 
@@ -374,8 +377,15 @@ class $AssetsImagesOtherGen {
   /// File path: assets/images/other/spades_ace_simple.png
   AssetGenImage get spadesAceSimple => const AssetGenImage('assets/images/other/spades_ace_simple.png');
 
+  /// File path: assets/images/other/white_deck_1.png
+  AssetGenImage get whiteDeck1 => const AssetGenImage('assets/images/other/white_deck_1.png');
+
+  /// File path: assets/images/other/white_deck_2.png
+  AssetGenImage get whiteDeck2 => const AssetGenImage('assets/images/other/white_deck_2.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+        blackDeck,
         blankCard,
         clubs8Alt,
         clubsAceLargePip,
@@ -386,7 +396,9 @@ class $AssetsImagesOtherGen {
         spades8Alt,
         spadesAceLargePip,
         spadesAceNoPhrase,
-        spadesAceSimple
+        spadesAceSimple,
+        whiteDeck1,
+        whiteDeck2
       ];
 }
 

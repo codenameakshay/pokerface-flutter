@@ -87,6 +87,17 @@ class _VSController extends StateNotifier<_ViewState> {
     }
   }
 
+  Future<void> showChangeThemeBottomSheet(BuildContext context) async {
+    final data = await showCupertinoModalBottomSheet<ThemeType>(
+      context: context,
+      builder: (context) => const ChangeAppThemeSheet(),
+    );
+
+    if (data != null) {
+      MyAppX.theme.switchTo(data);
+    }
+  }
+
   // @override
   // void dispose() {
   //   super.dispose();

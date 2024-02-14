@@ -15,6 +15,7 @@ import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dar
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
 import 'package:pokerface/presentation/utils/hands/testing.dart';
+import 'package:pokerface/presentation/views/home_screen/widgets/change_app_theme_sheet.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 
 part 'controller.dart';
@@ -111,12 +112,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       //   type: ButtonType.warning,
                       // ),
                       SquareButton(
-                        onPressed: () {
-                          MyAppX.theme.nextTo();
-
-                          // context.router.push(const HomeRoute());
-                        },
-                        text: 'Next theme',
+                        onPressed: () => stateController.showChangeThemeBottomSheet(context),
+                        text: 'Change theme',
                         type: ButtonType.error,
                       ),
                       const Spacer(),
