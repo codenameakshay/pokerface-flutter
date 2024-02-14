@@ -11,6 +11,8 @@ class DiagonalMovingCard extends StatefulWidget {
     this.initialDirection = const Offset(1, 1),
     this.initialPosition = const Offset(0, 0),
     required this.cardKey,
+    this.index,
+    required this.theme,
   });
 
   final Card card;
@@ -18,6 +20,8 @@ class DiagonalMovingCard extends StatefulWidget {
   final double speed;
   final Offset initialDirection;
   final Offset initialPosition;
+  final int? index;
+  final ThemeState theme;
 
   @override
   DiagonalMovingCardState createState() => DiagonalMovingCardState();
@@ -56,8 +60,8 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
       duration: const Duration(milliseconds: 50),
     );
     _glowColorAnimation = ColorTween(
-      begin: Colors.black.withOpacity(0),
-      end: Colors.black,
+      begin: widget.theme.colors.onBackground.withOpacity(0),
+      end: widget.theme.colors.onBackground,
     ).animate(_glowController!)
       ..addListener(() {
         setState(() {});
@@ -147,15 +151,18 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
   Widget build(BuildContext context) {
     return Transform.translate(
       offset: position,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: _glowColorAnimation!.value ?? Colors.black.withOpacity(0),
-            width: 1,
+      child: Transform.scale(
+        scale: widget.index != null ? ((widget.index! + 1) / (Platform.isAndroid ? 10 : 25)) + 0.5 : 1,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: _glowColorAnimation!.value ?? widget.theme.colors.onBackground.withOpacity(0),
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(4),
           ),
-          borderRadius: BorderRadius.circular(4),
+          child: CardsPNG.drawCard(widget.card.image.png, width: widget.width),
         ),
-        child: CardsPNG.drawCard(widget.card.image.png, width: widget.width),
       ),
     );
   }

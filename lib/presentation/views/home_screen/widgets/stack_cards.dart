@@ -1,6 +1,6 @@
 part of '../view.dart';
 
-class StackCards extends StatefulWidget {
+class StackCards extends ConsumerStatefulWidget {
   const StackCards({super.key, this.width = 72});
 
   final double width;
@@ -9,7 +9,7 @@ class StackCards extends StatefulWidget {
   StackCardsState createState() => StackCardsState();
 }
 
-class StackCardsState extends State<StackCards> with SingleTickerProviderStateMixin {
+class StackCardsState extends ConsumerState<StackCards> with SingleTickerProviderStateMixin {
   List<Card> cards = [];
   late List<GlobalKey<DiagonalMovingCardState>> cardKeys;
 
@@ -18,7 +18,7 @@ class StackCardsState extends State<StackCards> with SingleTickerProviderStateMi
     super.initState();
     // pick random 25 from all without Face Cards from available front cards
     cards = List.generate(
-      25,
+      Platform.isAndroid ? 10 : 25,
       (index) => Cards.any,
     );
     cardKeys =
@@ -33,6 +33,8 @@ class StackCardsState extends State<StackCards> with SingleTickerProviderStateMi
 
   @override
   Widget build(BuildContext context) {
+    final theme = ref.watch(MyAppX.theme.current);
+
     return RouteDetectorWidget(
       onHidden: () {
         for (var key in cardKeys) {
@@ -59,6 +61,8 @@ class StackCardsState extends State<StackCards> with SingleTickerProviderStateMi
                 Random().nextDouble() * MediaQuery.of(context).size.height,
               ),
               cardKey: cardKeys[index],
+              index: index,
+              theme: theme,
             );
           }),
         ),
