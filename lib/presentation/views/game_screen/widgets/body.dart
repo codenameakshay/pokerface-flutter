@@ -16,7 +16,7 @@ class _Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               MediaQuery.of(context).padding.top.toVerticalSizedBox,
-              10.toAutoScaledHeight.toVerticalSizedBox,
+              36.toAutoScaledHeight.toVerticalSizedBox,
               _HandRanksList(params: params),
               256.toAutoScaledHeight.toVerticalSizedBox,
             ],

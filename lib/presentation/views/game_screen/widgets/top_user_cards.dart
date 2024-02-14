@@ -48,8 +48,8 @@ class _TopUserCards extends ConsumerWidget {
                               ),
                             ),
                             child: Text(
-                              '${e.suit.emoji}${e.rank.emoji}',
-                              style: theme.themeText.headline6,
+                              ' ${e.suit.emoji} ${e.rank.emoji} ',
+                              style: theme.themeText.headline6?.copyWith(fontSize: 16.toAutoScaledFont),
                             ),
                           ),
                           8.toAutoScaledWidth.toHorizontalSizedBox,

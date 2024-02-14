@@ -70,6 +70,7 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
                 flex: 1,
               ),
               Expanded(
+                flex: 2,
                 child: SquareButton(
                   type: widget.isSelected ? ButtonType.error : ButtonType.primary,
                   text: widget.isSelected ? 'Deselect' : 'Select',
@@ -78,6 +79,7 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
               ),
               8.toAutoScaledWidth.toHorizontalSizedBox,
               Expanded(
+                flex: 2,
                 child: SquareButton(
                   type: widget.isSelected ? ButtonType.primary : ButtonType.error,
                   text: widget.isSelected ? 'Cancel' : 'Cancel',

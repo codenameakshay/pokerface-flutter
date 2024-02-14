@@ -25,6 +25,7 @@ class _HandRanksList extends ConsumerWidget {
       children: [
         for (final groupedHands in state.generatedHands) ...[
           ExpansionPanel(
+            backgroundColor: theme.colors.background,
             headerBuilder: (context, isExpanded) => Column(
               children: [
                 _HandRankHeader(
