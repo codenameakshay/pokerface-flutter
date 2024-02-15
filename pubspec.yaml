@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.0.1+4
+version: 0.0.1+5
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -95,9 +95,9 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   color: "#030D18"
-  image: assets/images/app_icon_ios.png
+  image: assets/images/splash_icon.png
   color_dark: "#030D18"
-  image_dark: assets/images/app_icon_ios.png
+  image_dark: assets/images/splash_icon.png
 
   android_12:
     # The image parameter sets the splash screen icon image.  If this parameter is not specified,
@@ -107,10 +107,10 @@ flutter_native_splash:
     # 640 pixels in diameter.
     # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
     # 768 pixels in diameter.
-    image: assets/images/app_icon.png
-    color: "#FDFEF5"
-    image_dark: assets/images/app_icon.png
-    color_dark: "#1C1923"
+    image: assets/images/splash_icon.png
+    color: "#030D18"
+    image_dark: assets/images/splash_icon.png
+    color_dark: "#030D18"
   android: true
   ios: true
   web: false
@@ -128,6 +128,7 @@ flutter:
     - assets/images/backs/
     - assets/images/fronts/
     - assets/images/other/
+    - assets/images/stickers/
     - assets/combinations/
     # - assets/images/app_icons/
     # - assets/images/onboarding/
