@@ -40,6 +40,7 @@ class $AssetsImagesGen {
   $AssetsImagesBacksGen get backs => const $AssetsImagesBacksGen();
   $AssetsImagesFrontsGen get fronts => const $AssetsImagesFrontsGen();
   $AssetsImagesOtherGen get other => const $AssetsImagesOtherGen();
+  $AssetsImagesStickersGen get stickers => const $AssetsImagesStickersGen();
 
   /// List of all assets
   List<AssetGenImage> get values => [appIconPng, appIconWebp, appIconIos];
@@ -405,6 +406,94 @@ class $AssetsImagesOtherGen {
         spadesAceSimple,
         whiteDeck1,
         whiteDeck2
+      ];
+}
+
+class $AssetsImagesStickersGen {
+  const $AssetsImagesStickersGen();
+
+  /// File path: assets/images/stickers/mascot.png
+  AssetGenImage get mascot => const AssetGenImage('assets/images/stickers/mascot.png');
+
+  /// File path: assets/images/stickers/mute.png
+  AssetGenImage get mute => const AssetGenImage('assets/images/stickers/mute.png');
+
+  /// File path: assets/images/stickers/sticker1.png
+  AssetGenImage get sticker1 => const AssetGenImage('assets/images/stickers/sticker1.png');
+
+  /// File path: assets/images/stickers/sticker10.png
+  AssetGenImage get sticker10 => const AssetGenImage('assets/images/stickers/sticker10.png');
+
+  /// File path: assets/images/stickers/sticker11.png
+  AssetGenImage get sticker11 => const AssetGenImage('assets/images/stickers/sticker11.png');
+
+  /// File path: assets/images/stickers/sticker12.png
+  AssetGenImage get sticker12 => const AssetGenImage('assets/images/stickers/sticker12.png');
+
+  /// File path: assets/images/stickers/sticker13.png
+  AssetGenImage get sticker13 => const AssetGenImage('assets/images/stickers/sticker13.png');
+
+  /// File path: assets/images/stickers/sticker14.png
+  AssetGenImage get sticker14 => const AssetGenImage('assets/images/stickers/sticker14.png');
+
+  /// File path: assets/images/stickers/sticker15.png
+  AssetGenImage get sticker15 => const AssetGenImage('assets/images/stickers/sticker15.png');
+
+  /// File path: assets/images/stickers/sticker16.png
+  AssetGenImage get sticker16 => const AssetGenImage('assets/images/stickers/sticker16.png');
+
+  /// File path: assets/images/stickers/sticker17.png
+  AssetGenImage get sticker17 => const AssetGenImage('assets/images/stickers/sticker17.png');
+
+  /// File path: assets/images/stickers/sticker2.png
+  AssetGenImage get sticker2 => const AssetGenImage('assets/images/stickers/sticker2.png');
+
+  /// File path: assets/images/stickers/sticker3.png
+  AssetGenImage get sticker3 => const AssetGenImage('assets/images/stickers/sticker3.png');
+
+  /// File path: assets/images/stickers/sticker4.png
+  AssetGenImage get sticker4 => const AssetGenImage('assets/images/stickers/sticker4.png');
+
+  /// File path: assets/images/stickers/sticker5.png
+  AssetGenImage get sticker5 => const AssetGenImage('assets/images/stickers/sticker5.png');
+
+  /// File path: assets/images/stickers/sticker6.png
+  AssetGenImage get sticker6 => const AssetGenImage('assets/images/stickers/sticker6.png');
+
+  /// File path: assets/images/stickers/sticker7.png
+  AssetGenImage get sticker7 => const AssetGenImage('assets/images/stickers/sticker7.png');
+
+  /// File path: assets/images/stickers/sticker8.png
+  AssetGenImage get sticker8 => const AssetGenImage('assets/images/stickers/sticker8.png');
+
+  /// File path: assets/images/stickers/sticker9.png
+  AssetGenImage get sticker9 => const AssetGenImage('assets/images/stickers/sticker9.png');
+
+  /// File path: assets/images/stickers/unmute.png
+  AssetGenImage get unmute => const AssetGenImage('assets/images/stickers/unmute.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        mascot,
+        mute,
+        sticker1,
+        sticker10,
+        sticker11,
+        sticker12,
+        sticker13,
+        sticker14,
+        sticker15,
+        sticker16,
+        sticker17,
+        sticker2,
+        sticker3,
+        sticker4,
+        sticker5,
+        sticker6,
+        sticker7,
+        sticker8,
+        sticker9,
+        unmute
       ];
 }
 
