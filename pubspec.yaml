@@ -89,15 +89,15 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path_android: assets/images/app_icon.png
+  image_path_android: assets/images/app_icon.webp
   image_path_ios: assets/images/app_icon_ios.png
   remove_alpha_ios: true
 
 flutter_native_splash:
-  color: "#FDFDF5"
-  image: assets/images/splash_icon.png
-  color_dark: "#1C1923"
-  image_dark: assets/images/splash_icon.png
+  color: "#030D18"
+  image: assets/images/app_icon_ios.png
+  color_dark: "#030D18"
+  image_dark: assets/images/app_icon_ios.png
 
   android_12:
     # The image parameter sets the splash screen icon image.  If this parameter is not specified,
