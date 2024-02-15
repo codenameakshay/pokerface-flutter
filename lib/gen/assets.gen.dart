@@ -376,6 +376,9 @@ class $AssetsImagesOtherGen {
   /// File path: assets/images/other/hearts_ace_large_pip.png
   AssetGenImage get heartsAceLargePip => const AssetGenImage('assets/images/other/hearts_ace_large_pip.png');
 
+  /// File path: assets/images/other/mute.png
+  AssetGenImage get mute => const AssetGenImage('assets/images/other/mute.png');
+
   /// File path: assets/images/other/spades_8_alt.png
   AssetGenImage get spades8Alt => const AssetGenImage('assets/images/other/spades_8_alt.png');
 
@@ -387,6 +390,9 @@ class $AssetsImagesOtherGen {
 
   /// File path: assets/images/other/spades_ace_simple.png
   AssetGenImage get spadesAceSimple => const AssetGenImage('assets/images/other/spades_ace_simple.png');
+
+  /// File path: assets/images/other/unmute.png
+  AssetGenImage get unmute => const AssetGenImage('assets/images/other/unmute.png');
 
   /// File path: assets/images/other/white_deck_1.png
   AssetGenImage get whiteDeck1 => const AssetGenImage('assets/images/other/white_deck_1.png');
@@ -404,10 +410,12 @@ class $AssetsImagesOtherGen {
         diamondsAceLargePip,
         hearts8Alt,
         heartsAceLargePip,
+        mute,
         spades8Alt,
         spadesAceLargePip,
         spadesAceNoPhrase,
         spadesAceSimple,
+        unmute,
         whiteDeck1,
         whiteDeck2
       ];
@@ -418,9 +426,6 @@ class $AssetsImagesStickersGen {
 
   /// File path: assets/images/stickers/mascot.png
   AssetGenImage get mascot => const AssetGenImage('assets/images/stickers/mascot.png');
-
-  /// File path: assets/images/stickers/mute.png
-  AssetGenImage get mute => const AssetGenImage('assets/images/stickers/mute.png');
 
   /// File path: assets/images/stickers/sticker1.png
   AssetGenImage get sticker1 => const AssetGenImage('assets/images/stickers/sticker1.png');
@@ -473,13 +478,9 @@ class $AssetsImagesStickersGen {
   /// File path: assets/images/stickers/sticker9.png
   AssetGenImage get sticker9 => const AssetGenImage('assets/images/stickers/sticker9.png');
 
-  /// File path: assets/images/stickers/unmute.png
-  AssetGenImage get unmute => const AssetGenImage('assets/images/stickers/unmute.png');
-
   /// List of all assets
   List<AssetGenImage> get values => [
         mascot,
-        mute,
         sticker1,
         sticker10,
         sticker11,
@@ -496,8 +497,7 @@ class $AssetsImagesStickersGen {
         sticker6,
         sticker7,
         sticker8,
-        sticker9,
-        unmute
+        sticker9
       ];
 }
 
