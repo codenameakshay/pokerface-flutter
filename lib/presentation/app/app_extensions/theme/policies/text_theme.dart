@@ -37,91 +37,91 @@ abstract class ThemeText {
 
 class _ThemeTextImpl implements ThemeText {
   @override
-  TextStyle? get headline1 => GoogleFonts.epilogue(
+  TextStyle? get headline1 => GoogleFonts.bigShouldersDisplay(
         fontSize: 96,
         fontWeight: FontWeight.w300,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get headline2 => GoogleFonts.epilogue(
+  TextStyle? get headline2 => GoogleFonts.bigShouldersDisplay(
         fontSize: 60,
         fontWeight: FontWeight.w300,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get headline3 => GoogleFonts.epilogue(
+  TextStyle? get headline3 => GoogleFonts.bigShouldersDisplay(
         fontSize: 48,
         fontWeight: FontWeight.w400,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get headline4 => GoogleFonts.epilogue(
+  TextStyle? get headline4 => GoogleFonts.bigShouldersDisplay(
         fontSize: 34,
         fontWeight: FontWeight.w500,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get headline5 => GoogleFonts.epilogue(
+  TextStyle? get headline5 => GoogleFonts.bigShouldersDisplay(
         fontSize: 24,
         fontWeight: FontWeight.w400,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get headline6 => GoogleFonts.epilogue(
+  TextStyle? get headline6 => GoogleFonts.bigShouldersDisplay(
         fontSize: 20,
         fontWeight: FontWeight.w500,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get subtitle1 => GoogleFonts.epilogue(
+  TextStyle? get subtitle1 => GoogleFonts.bigShouldersDisplay(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get subtitle2 => GoogleFonts.epilogue(
+  TextStyle? get subtitle2 => GoogleFonts.bigShouldersDisplay(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get bodyText1 => GoogleFonts.epilogue(
+  TextStyle? get bodyText1 => GoogleFonts.bigShouldersDisplay(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get bodyText2 => GoogleFonts.epilogue(
+  TextStyle? get bodyText2 => GoogleFonts.bigShouldersDisplay(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get button => GoogleFonts.epilogue(
+  TextStyle? get button => GoogleFonts.bigShouldersDisplay(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get caption => GoogleFonts.epilogue(
+  TextStyle? get caption => GoogleFonts.bigShouldersDisplay(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         letterSpacing: -0.4,
       );
 
   @override
-  TextStyle? get overline => GoogleFonts.epilogue(
+  TextStyle? get overline => GoogleFonts.bigShouldersDisplay(
         fontSize: 10,
         fontWeight: FontWeight.w400,
         letterSpacing: -0.4,

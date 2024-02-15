@@ -40,10 +40,14 @@ class $AssetsImagesGen {
   $AssetsImagesBacksGen get backs => const $AssetsImagesBacksGen();
   $AssetsImagesFrontsGen get fronts => const $AssetsImagesFrontsGen();
   $AssetsImagesOtherGen get other => const $AssetsImagesOtherGen();
+
+  /// File path: assets/images/splash_icon.png
+  AssetGenImage get splashIcon => const AssetGenImage('assets/images/splash_icon.png');
+
   $AssetsImagesStickersGen get stickers => const $AssetsImagesStickersGen();
 
   /// List of all assets
-  List<AssetGenImage> get values => [appIconPng, appIconWebp, appIconIos];
+  List<AssetGenImage> get values => [appIconPng, appIconWebp, appIconIos, splashIcon];
 }
 
 class $AssetsLottiesGen {

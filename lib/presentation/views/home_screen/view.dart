@@ -5,7 +5,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pokerface/data/models/card.dart';
+import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
 import 'package:pokerface/presentation/app/core_widgets/route_detector.dart';
@@ -49,7 +51,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
             children: [
               const StackCards(),
               SizedBox.expand(
-                child: Container(color: theme.colors.background.withOpacity(0.5)),
+                child: Container(
+                  color: theme.type.isDark ? const Color(0xFF020513).withOpacity(0.9) : Colors.white.withOpacity(0.9),
+                ),
               ),
               Center(
                 child: Padding(
@@ -59,24 +63,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Spacer(),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Text(
-                            'Pokerface',
-                            style: theme.themeText.headline2?.copyWith(
-                              fontSize: (theme.themeText.headline2?.fontSize ?? 10) * 1.02,
-                              fontWeight: FontWeight.bold,
-                              color: theme.colors.background,
-                            ),
-                          ),
-                          Text(
-                            'Pokerface',
-                            style: theme.themeText.headline2?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      Image.asset(Assets.images.stickers.mascot.path, width: 200, height: 200),
+                      Text(
+                        'POKERFACE',
+                        style: theme.themeText.headline1?.copyWith(
+                          fontFamily: GoogleFonts.bigShouldersDisplay().fontFamily,
+                          fontWeight: FontWeight.w900,
+                          color: theme.type.isDark
+                              ? Colors.white.withOpacity(0.9)
+                              : const Color(0xFF020513).withOpacity(0.9),
+                        ),
                       ),
                       const Spacer(),
                       SquareButton(
