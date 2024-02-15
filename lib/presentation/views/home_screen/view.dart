@@ -4,12 +4,14 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' hide Card;
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
+import 'package:pokerface/presentation/app/core_widgets/default_draggable.dart';
 import 'package:pokerface/presentation/app/core_widgets/route_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/shake_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
@@ -63,17 +65,36 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Spacer(),
-                      Image.asset(Assets.images.stickers.mascot.path, width: 200, height: 200),
+                      DefaultDraggable(
+                        childWhenDragging: 200.toAutoScaledWidth.toVerticalSizedBox,
+                        child: Image.asset(
+                          Assets.images.stickers.values[Random().nextInt(Assets.images.stickers.values.length)].path,
+                          height: 200.toAutoScaledWidth,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       Text(
                         'POKERFACE',
                         style: theme.themeText.headline1?.copyWith(
                           fontFamily: GoogleFonts.bigShouldersDisplay().fontFamily,
                           fontWeight: FontWeight.w900,
-                          color: theme.type.isDark
-                              ? Colors.white.withOpacity(0.9)
-                              : const Color(0xFF020513).withOpacity(0.9),
+                          color: theme.type.isDark ? Colors.white : const Color(0xFF020513),
                         ),
-                      ),
+                      )
+                          .animate()
+                          .animate(
+                            onPlay: (controller) => controller.repeat(),
+                          )
+                          .then(
+                            delay: const Duration(
+                              seconds: 2,
+                            ),
+                          )
+                          .shimmer(
+                              duration: const Duration(seconds: 2),
+                              color: theme.type.isDark
+                                  ? const Color(0xFF020513).withOpacity(0.3)
+                                  : Colors.white.withOpacity(0.3)),
                       const Spacer(),
                       SquareButton(
                         onPressed: () {
