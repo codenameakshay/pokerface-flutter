@@ -11,7 +11,7 @@ import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
-import 'package:pokerface/presentation/app/core_widgets/default_draggable.dart';
+import 'package:pokerface/presentation/app/core_widgets/default_sticker.dart';
 import 'package:pokerface/presentation/app/core_widgets/route_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/shake_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
@@ -64,15 +64,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Spacer(),
-                      DefaultDraggable(
-                        childWhenDragging: 200.toAutoScaledWidth.toVerticalSizedBox,
-                        child: Image.asset(
-                          Assets.images.stickers.values[Random().nextInt(Assets.images.stickers.values.length)].path,
-                          height: 200.toAutoScaledWidth,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      300.toAutoScaledWidth.toVerticalSizedBox,
                       Text(
                         'POKERFACE',
                         style: theme.themeText.headline1?.copyWith(
@@ -135,6 +127,25 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       ),
                       const Spacer(),
                     ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 100.toAutoScaledWidth,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        DraggableSticker(
+                          child: Image.asset(
+                            Assets.images.stickers.values[Random().nextInt(Assets.images.stickers.values.length)].path,
+                            height: 200.toAutoScaledWidth,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
