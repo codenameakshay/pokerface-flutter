@@ -27,8 +27,8 @@ class SplashView extends ConsumerWidget {
       color: theme.colors.background,
       child: Center(
         child: Image.asset(
-          Assets.images.appIcon.path,
-          width: 100,
+          Assets.images.appIconIos.path,
+          width: 255,
           fit: BoxFit.cover,
         )
             .animate()

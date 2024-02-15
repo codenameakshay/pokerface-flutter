@@ -29,14 +29,20 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/app_icon.png
-  AssetGenImage get appIcon => const AssetGenImage('assets/images/app_icon.png');
+  AssetGenImage get appIconPng => const AssetGenImage('assets/images/app_icon.png');
+
+  /// File path: assets/images/app_icon.webp
+  AssetGenImage get appIconWebp => const AssetGenImage('assets/images/app_icon.webp');
+
+  /// File path: assets/images/app_icon_ios.png
+  AssetGenImage get appIconIos => const AssetGenImage('assets/images/app_icon_ios.png');
 
   $AssetsImagesBacksGen get backs => const $AssetsImagesBacksGen();
   $AssetsImagesFrontsGen get fronts => const $AssetsImagesFrontsGen();
   $AssetsImagesOtherGen get other => const $AssetsImagesOtherGen();
 
   /// List of all assets
-  List<AssetGenImage> get values => [appIcon];
+  List<AssetGenImage> get values => [appIconPng, appIconWebp, appIconIos];
 }
 
 class $AssetsLottiesGen {

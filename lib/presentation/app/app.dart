@@ -128,7 +128,7 @@ class CustomError extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.images.appIcon.image(
+            Assets.images.appIconIos.image(
               width: 100,
               height: 100,
             ),
