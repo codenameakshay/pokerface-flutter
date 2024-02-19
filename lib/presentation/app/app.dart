@@ -13,6 +13,7 @@ import 'package:pokerface/presentation/app/booters/theme/theme_booter.dart';
 import 'package:pokerface/presentation/app/core_widgets/confetti/confetti.dart';
 import 'package:pokerface/presentation/app/core_widgets/in_app_notification/in_app_notification.dart';
 import 'package:pokerface/presentation/app/core_widgets/url_builder.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'booters/app/app_booters.dart';
 

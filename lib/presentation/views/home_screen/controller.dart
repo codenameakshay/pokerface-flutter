@@ -53,6 +53,17 @@ class _VSController extends StateNotifier<_ViewState> {
     );
   }
 
+  void navigateToAIScreen() {
+    MyAppX.router.pushNativeRoute(
+      MaterialWithModalsPageRoute(
+        fullscreenDialog: true,
+        builder: (BuildContext context) => const ChatScreen(
+          title: 'Pokerface',
+        ),
+      ),
+    );
+  }
+
   Future<void> showStartGameBottomSheet(BuildContext context) async {
     // MyAppX.router.pushNativeRoute(
     //   MaterialWithModalsPageRoute(

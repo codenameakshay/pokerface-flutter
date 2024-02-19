@@ -64,6 +64,9 @@ dependencies:
   freezed_annotation: ^2.4.1
   tuple: ^2.0.2
   fraction: ^5.0.2
+  google_generative_ai: ^0.2.0
+  flutter_dotenv: ^5.1.0
+  flutter_markdown: ^0.6.19
 
 dev_dependencies:
   flutter_test:
@@ -124,6 +127,7 @@ flutter:
   uses-material-design: true
   # generate: true
   assets:
+    - .env
     - assets/images/
     - assets/images/backs/
     - assets/images/fronts/

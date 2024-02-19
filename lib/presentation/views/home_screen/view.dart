@@ -19,6 +19,7 @@ import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dar
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
 import 'package:pokerface/presentation/utils/hands/testing.dart';
+import 'package:pokerface/presentation/views/ai_chat_screen/view.dart';
 import 'package:pokerface/presentation/views/home_screen/widgets/change_app_theme_sheet.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 
@@ -106,13 +107,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         text: 'New Game',
                         type: ButtonType.secondary,
                       ),
-                      // SquareButton(
-                      //   onPressed: () {
-                      //     // context.router.push(const HomeRoute());
-                      //   },
-                      //   text: 'New Game',
-                      //   type: ButtonType.tertiary,
-                      // ),
+                      SquareButton(
+                        onPressed: () {
+                          stateController.navigateToAIScreen();
+                        },
+                        text: 'Chat with AI',
+                        type: ButtonType.tertiary,
+                      ),
                       // SquareButton(
                       //   onPressed: () {
                       //     // context.router.push(const HomeRoute());
