@@ -42,6 +42,13 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 - Flutter: Make sure you have Flutter installed on your machine. To install Flutter, follow the instructions on the [Flutter official website](https://flutter.dev/docs/get-started/install).
+- Gemini API: The app uses the Gemini API to use Gemini Pro model inside the app. You will need to create an account on the [Gemini website](https://aistudio.google.com/app/apikey) and generate an API key to use the app.
+
+Paste the API key in the `.env` file in the root of the project.
+
+```.env
+GOOGLE_GENERATIVE_AI_KEY=YOUR_API_KEY
+```
 
 ### Installation
 
