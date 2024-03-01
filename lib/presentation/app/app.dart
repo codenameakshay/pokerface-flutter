@@ -100,10 +100,15 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
           return CustomError(errorDetails: errorDetails);
         };
-        return ConfettiProvider(
-          // adding toast provider here, so that it is visible on the top
-          child: ToastProvider(
-            child: child ?? Container(),
+        return GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: ConfettiProvider(
+            // adding toast provider here, so that it is visible on the top
+            child: ToastProvider(
+              child: child ?? Container(),
+            ),
           ),
         );
       },
