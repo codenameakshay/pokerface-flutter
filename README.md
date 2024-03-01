@@ -11,7 +11,9 @@
 
 </div>
 
-<div align="center"><img alt='Pokerface UI Mockup' src='assets/images/stickers/mascot.png' height=100/></div>
+<div align="center"><img alt='Pokerface UI Mockup' src='assets/images/stickers/sticker4.png' height=200/></div>
+
+https://github.com/codenameakshay/pokerface-flutter/assets/60510869/463a0294-07e7-41be-8249-526ad4245b91
 
 ## Table of Contents
 
@@ -22,6 +24,7 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Contributing](#contributing)
+- [Roadmap](#roadmap)
 - [License](#license)
 - [Contact](#contact)
 - [Contributors](#contributors)
@@ -79,6 +82,12 @@ GOOGLE_GENERATIVE_AI_KEY=YOUR_API_KEY
 ## Features
 
 - Hand Calculator: Calculate the best cards with your current hand in real-time.
+- AI Assitance: Get suggestions on the best move to make, based on your current hand and the house cards.
+- Odds Calculator: Calculate the odds of winning with your current hand and the house cards.
+- Strategy Tips: Get tips and tricks to improve your game, tailored to your playing style.
+- Themes: Choose from a range of themes to customize the app to your liking.
+
+It also features a lot of easter eggs and cool animations to make the app more fun and engaging.
 
 ## Usage
 
@@ -93,6 +102,21 @@ Contributions are what make the open-source community such an amazing place to l
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+## Roadmap
+- [ ] Game timer (to time games)
+- [ ] Currently you have to new game for each round, show option to restart when all house cards are selected
+- [ ] Save game history
+- [ ] Background music + SFX
+- [ ] Volume control and settings
+- [ ] Badges
+- [ ] Achievements
+- [ ] Dynamic app icons
+- [ ] Calculate score for each game
+- [ ] Store win/loss of each game
+- [ ] Integrate AI into more features
+- [ ] Premium subscription
+- [ ] Onboarding
 
 ## License
 
