@@ -60,6 +60,13 @@ class _VSController extends StateNotifier<_ViewState> {
         builder: (BuildContext context) => ChatScreen(
           title: 'Pokerface',
           onClose: MyAppX.router.pop,
+          initialHistory: [],
+          inputPrompt:
+              """You are a Texas Hold'em Poker expert. You will be given a query by the user, and your task is to resolve it in the best possible way. The current hand of the user is 2H and AD. Currently open house cards are 4S, 5H and 9C.
+
+-------------------
+
+""",
         ),
       ),
     );

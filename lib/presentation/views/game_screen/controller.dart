@@ -41,6 +41,7 @@ class _ViewState {
     required this.streetLight,
     required this.loadingState,
     required this.showAIChat,
+    required this.aiChatHistory,
   });
 
   final List<Card> houseCards;
@@ -49,6 +50,7 @@ class _ViewState {
   final StreetLight streetLight;
   final LoadingState loadingState;
   final bool showAIChat;
+  final List<Content> aiChatHistory;
 
   _ViewState.initial()
       : this(
@@ -58,6 +60,7 @@ class _ViewState {
           streetLight: StreetLight(bulbs: []),
           loadingState: LoadingState.init,
           showAIChat: false,
+          aiChatHistory: [],
         );
 
   _ViewState copyWith({
@@ -67,6 +70,7 @@ class _ViewState {
     StreetLight? streetLight,
     LoadingState? loadingState,
     bool? showAIChat,
+    List<Content>? aiChatHistory,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
@@ -75,6 +79,7 @@ class _ViewState {
       streetLight: streetLight ?? this.streetLight,
       loadingState: loadingState ?? this.loadingState,
       showAIChat: showAIChat ?? this.showAIChat,
+      aiChatHistory: aiChatHistory ?? this.aiChatHistory,
     );
   }
 }
@@ -146,6 +151,10 @@ class _VSController extends StateNotifier<_ViewState> {
     state = state.copyWith(showAIChat: !state.showAIChat);
   }
 
+  void updateAIChatHistory(List<Content> newHistory) {
+    state = state.copyWith(aiChatHistory: newHistory);
+  }
+
   Future<List<Card>?> showSelectCardsBottomSheet(BuildContext context, List<Card>? selectedCards) async {
     return showCupertinoModalBottomSheet<List<Card>>(
       context: context,
@@ -172,8 +181,11 @@ class _VSController extends StateNotifier<_ViewState> {
     final totalCards = params.userSelectedCards + cards;
     reGenHands(context, totalCards);
   }
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+
+  String get inputPrompt =>
+      """You are a Texas Hold'em Poker expert. You will be given a query by the user, and your task is to resolve it in the best possible way. The current hand of the user is ${params.userSelectedCards.map((e) => '${e.rank.name} of ${e.suit.name}').join(", ")}.${state.houseCards.isNotEmpty ? ' Currently open house cards are ${state.houseCards.map((e) => '${e.rank.name} of ${e.suit.name},').join(", ")}.' : ''}
+
+-------------------
+
+""";
 }

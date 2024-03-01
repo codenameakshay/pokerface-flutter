@@ -1,122 +1,114 @@
+import 'dart:async';
+
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
+import 'package:pokerface/presentation/utils/state/state.dart';
 
-class ChatScreen extends ConsumerStatefulWidget {
-  const ChatScreen({super.key, required this.title, required this.onClose});
+part 'controller.dart';
+
+class ChatScreen extends ConsumerWidget {
+  const ChatScreen({
+    super.key,
+    required this.title,
+    required this.onClose,
+    required this.initialHistory,
+    required this.inputPrompt,
+  });
 
   final String title;
-  final VoidCallback onClose;
+  final Function(List<Content> history) onClose;
+  final List<Content> initialHistory;
+  final String inputPrompt;
 
   @override
-  ConsumerState<ChatScreen> createState() => _ChatScreenState();
-}
-
-class _ChatScreenState extends ConsumerState<ChatScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(MyAppX.theme.current);
-    return Container(
-      color: theme.colors.secondary,
-      child: Column(
-        children: [
-          Container(
-            color: theme.colors.secondaryContainer,
-            padding: EdgeInsets.symmetric(vertical: 8.toAutoScaledWidth),
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
-                  child: Text(
-                    'Pokerface AI',
-                    style: GoogleFonts.epilogue().copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: theme.colors.onSecondaryContainer,
+    final params = _VSControllerParams(
+      title: title,
+      onClose: onClose,
+      initialHistory: initialHistory,
+      inputPrompt: inputPrompt,
+    );
+
+    final state = ref.watch(_vsProvider(params));
+
+    return ProviderScope(
+      overrides: [
+        _paramsProvider.overrideWithValue(params),
+      ],
+      child: Container(
+        color: theme.colors.secondary,
+        child: Column(
+          children: [
+            Container(
+              color: theme.colors.secondaryContainer,
+              padding: EdgeInsets.symmetric(vertical: 8.toAutoScaledWidth),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
+                    child: Text(
+                      params.title,
+                      style: GoogleFonts.epilogue().copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: theme.colors.onSecondaryContainer,
+                      ),
                     ),
                   ),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: widget.onClose,
-                  icon: const Icon(Icons.close),
-                  color: theme.colors.onSecondaryContainer,
-                ),
-              ],
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () => params.onClose(state.history),
+                    icon: const Icon(Icons.close),
+                    color: theme.colors.onSecondaryContainer,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Expanded(
-            child: ChatWidget(),
-          ),
-        ],
+            const Expanded(
+              child: ChatWidget(),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class ChatWidget extends StatefulWidget {
+class ChatWidget extends ConsumerWidget {
   const ChatWidget({super.key});
 
   @override
-  State<ChatWidget> createState() => _ChatWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final params = ref.watch(_paramsProvider);
+    final state = ref.watch(_vsProvider(params));
+    final stateController = ref.watch(_vsProvider(params).notifier);
 
-class _ChatWidgetState extends State<ChatWidget> {
-  late final GenerativeModel _model;
-  late final ChatSession _chat;
-  final ScrollController _scrollController = ScrollController();
-  final TextEditingController _textController = TextEditingController();
-  final FocusNode _textFieldFocus = FocusNode();
-  bool _loading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _model = GenerativeModel(
-      model: 'gemini-pro',
-      apiKey: MyAppX.environment.googleGenerativeAIKey,
-    );
-    _chat = _model.startChat();
-  }
-
-  void _hideKeyboard() {
-    _textFieldFocus.unfocus();
-  }
-
-  void _scrollDown() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(
-          milliseconds: 750,
-        ),
-        curve: Curves.easeOutCirc,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     var textFieldDecoration = InputDecoration(
       contentPadding: const EdgeInsets.all(15),
-      hintText: 'Enter a prompt...',
+      hintStyle: GoogleFonts.inter().copyWith(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+      ),
+      hintText: 'Enter your doubt...',
       border: OutlineInputBorder(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(14),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.toAutoScaledWidth),
         ),
         borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.secondaryContainer,
         ),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(14),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.toAutoScaledWidth),
         ),
         borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.secondaryContainer,
         ),
       ),
     );
@@ -130,18 +122,18 @@ class _ChatWidgetState extends State<ChatWidget> {
           Expanded(
             child: MyAppX.environment.googleGenerativeAIKey.isNotEmpty
                 ? GestureDetector(
-                    onTap: _hideKeyboard,
+                    onTap: stateController.hideKeyboard,
                     child: ListView.builder(
-                      controller: _scrollController,
+                      controller: stateController.scrollController,
                       itemBuilder: (context, idx) {
-                        var content = _chat.history.toList()[idx];
+                        var content = state.history[idx];
                         var text = content.parts.whereType<TextPart>().map<String>((e) => e.text).join('');
                         return MessageWidget(
                           text: text,
                           isFromUser: content.role == 'user',
                         );
                       },
-                      itemCount: _chat.history.length,
+                      itemCount: state.history.length,
                     ),
                   )
                 : ListView(
@@ -160,90 +152,39 @@ class _ChatWidgetState extends State<ChatWidget> {
                 Expanded(
                   child: TextField(
                     autofocus: true,
-                    focusNode: _textFieldFocus,
+                    focusNode: stateController.textFieldFocus,
                     decoration: textFieldDecoration,
-                    controller: _textController,
+                    controller: stateController.textController,
+                    style: GoogleFonts.inter().copyWith(
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                    ),
                     onSubmitted: (String value) {
-                      _sendChatMessage(value);
+                      stateController.sendChatMessage(value, context);
                     },
                   ),
                 ),
                 const SizedBox.square(
                   dimension: 15,
                 ),
-                if (!_loading)
+                if (state.loading != LoadingState.loading)
                   IconButton(
                     onPressed: () async {
-                      _sendChatMessage(_textController.text);
+                      stateController.sendChatMessage(stateController.textController.text, context);
                     },
                     icon: Icon(
                       Icons.send,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
                     ),
                   )
                 else
-                  const CircularProgressIndicator(),
+                  CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                  ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Future<void> _sendChatMessage(String message) async {
-    setState(() {
-      _loading = true;
-    });
-
-    try {
-      var response = await _chat.sendMessage(
-        Content.text(message),
-      );
-      var text = response.text;
-
-      if (text == null) {
-        _showError('No response from API.');
-        return;
-      } else {
-        setState(() {
-          _loading = false;
-          _scrollDown();
-        });
-      }
-    } catch (e) {
-      _showError(e.toString());
-      setState(() {
-        _loading = false;
-      });
-    } finally {
-      _textController.clear();
-      setState(() {
-        _loading = false;
-      });
-      _textFieldFocus.requestFocus();
-    }
-  }
-
-  void _showError(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Something went wrong'),
-          content: SingleChildScrollView(
-            child: SelectableText(message),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            )
-          ],
-        );
-      },
     );
   }
 }
@@ -267,14 +208,23 @@ class MessageWidget extends StatelessWidget {
           child: Container(
             constraints: const BoxConstraints(maxWidth: 600),
             decoration: BoxDecoration(
-              color: isFromUser
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Theme.of(context).colorScheme.surfaceVariant,
-              borderRadius: BorderRadius.circular(18),
+              color:
+                  isFromUser ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.tertiaryContainer,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8.toAutoScaledWidth),
+                topRight: Radius.circular(8.toAutoScaledWidth),
+                bottomLeft: isFromUser ? Radius.circular(8.toAutoScaledWidth) : const Radius.circular(0),
+                bottomRight: isFromUser ? const Radius.circular(0) : Radius.circular(8.toAutoScaledWidth),
+              ),
+              border: Border.all(
+                color: isFromUser
+                    ? Theme.of(context).colorScheme.tertiaryContainer
+                    : Theme.of(context).colorScheme.tertiary,
+              ),
             ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: 20,
+            padding: EdgeInsets.symmetric(
+              vertical: 8.toAutoScaledWidth,
+              horizontal: 16.toAutoScaledWidth,
             ),
             margin: const EdgeInsets.only(bottom: 8),
             child: MarkdownBody(
@@ -282,7 +232,10 @@ class MessageWidget extends StatelessWidget {
               data: text,
               styleSheet: MarkdownStyleSheet(
                 p: TextStyle(
-                  fontFamily: GoogleFonts.sourceCodePro().fontFamily,
+                  fontFamily: GoogleFonts.inter().fontFamily,
+                  color: isFromUser
+                      ? Theme.of(context).colorScheme.onTertiary
+                      : Theme.of(context).colorScheme.onTertiaryContainer,
                 ),
               ),
             ),

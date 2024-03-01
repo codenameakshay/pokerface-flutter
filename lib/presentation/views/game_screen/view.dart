@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:pokerface/data/models/bulb.dart';
 import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/data/models/grouped_hands.dart';

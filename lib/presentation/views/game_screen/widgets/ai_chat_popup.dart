@@ -29,12 +29,17 @@ class _AIChatPopup extends ConsumerWidget {
           borderRadius: BorderRadius.circular(16.toAutoScaledWidth),
           child: state.showAIChat
               ? ChatScreen(
-                  title: 'Gemini',
-                  onClose: stateController.toggleAIChat,
+                  title: 'Pokerface AI',
+                  onClose: (history) {
+                    stateController.toggleAIChat();
+                    stateController.updateAIChatHistory(history);
+                  },
+                  initialHistory: state.aiChatHistory,
+                  inputPrompt: stateController.inputPrompt,
                 )
               : DummyChatScreen(
-                  title: 'Gemini',
-                  onClose: stateController.toggleAIChat,
+                  title: 'Pokerface AI',
+                  onClose: () => stateController.toggleAIChat(),
                 ),
         ),
       ),
