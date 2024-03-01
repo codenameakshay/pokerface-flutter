@@ -1,29 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.title});
+class ChatScreen extends ConsumerStatefulWidget {
+  const ChatScreen({super.key, required this.title, required this.onClose});
 
   final String title;
+  final VoidCallback onClose;
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  ConsumerState<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends ConsumerState<ChatScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: GoogleFonts.sourceCodePro(),
-        ),
+    final theme = ref.watch(MyAppX.theme.current);
+    return Container(
+      color: theme.colors.secondary,
+      child: Column(
+        children: [
+          Container(
+            color: theme.colors.secondaryContainer,
+            padding: EdgeInsets.symmetric(vertical: 8.toAutoScaledWidth),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
+                  child: Text(
+                    'Pokerface AI',
+                    style: GoogleFonts.epilogue().copyWith(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: theme.colors.onSecondaryContainer,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: widget.onClose,
+                  icon: const Icon(Icons.close),
+                  color: theme.colors.onSecondaryContainer,
+                ),
+              ],
+            ),
+          ),
+          const Expanded(
+            child: ChatWidget(),
+          ),
+        ],
       ),
-      body: const ChatWidget(),
     );
   }
 }

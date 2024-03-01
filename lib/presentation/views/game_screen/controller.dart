@@ -39,12 +39,16 @@ class _ViewState {
     required this.generatedHands,
     required this.generateTime,
     required this.streetLight,
+    required this.loadingState,
+    required this.showAIChat,
   });
 
   final List<Card> houseCards;
   final List<GroupedHands> generatedHands;
   final Stopwatch? generateTime;
   final StreetLight streetLight;
+  final LoadingState loadingState;
+  final bool showAIChat;
 
   _ViewState.initial()
       : this(
@@ -52,6 +56,8 @@ class _ViewState {
           generatedHands: [],
           generateTime: null,
           streetLight: StreetLight(bulbs: []),
+          loadingState: LoadingState.init,
+          showAIChat: false,
         );
 
   _ViewState copyWith({
@@ -59,12 +65,16 @@ class _ViewState {
     List<GroupedHands>? generatedHands,
     Stopwatch? generateTime,
     StreetLight? streetLight,
+    LoadingState? loadingState,
+    bool? showAIChat,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
       generatedHands: generatedHands ?? this.generatedHands,
       generateTime: generateTime ?? this.generateTime,
       streetLight: streetLight ?? this.streetLight,
+      loadingState: loadingState ?? this.loadingState,
+      showAIChat: showAIChat ?? this.showAIChat,
     );
   }
 }
@@ -78,32 +88,35 @@ class _VSController extends StateNotifier<_ViewState> {
   void initState(BuildContext context, ThemeState theme) {
     state = state.copyWith(
       generateTime: Stopwatch(),
-      streetLight: StreetLight(bulbs: [
-        Bulb(
-          isOn: false,
-          borderColor: theme.colors.onPrimary.withOpacity(0.1),
-          offColor: theme.colors.primary.withOpacity(0.2),
-          onColor: theme.colors.primary,
-        ),
-        Bulb(
-          isOn: false,
-          borderColor: theme.colors.onWarning.withOpacity(0.1),
-          offColor: theme.colors.warning.withOpacity(0.2),
-          onColor: theme.colors.warning,
-        ),
-        Bulb(
-          isOn: false,
-          borderColor: theme.colors.onError.withOpacity(0.1),
-          offColor: theme.colors.error.withOpacity(0.2),
-          onColor: theme.colors.error,
-        ),
-      ]),
+      streetLight: StreetLight(
+        bulbs: [
+          Bulb(
+            isOn: false,
+            borderColor: theme.colors.onPrimary.withOpacity(0.1),
+            offColor: theme.colors.primary.withOpacity(0.2),
+            onColor: theme.colors.primary,
+          ),
+          Bulb(
+            isOn: false,
+            borderColor: theme.colors.onWarning.withOpacity(0.1),
+            offColor: theme.colors.warning.withOpacity(0.2),
+            onColor: theme.colors.warning,
+          ),
+          Bulb(
+            isOn: false,
+            borderColor: theme.colors.onError.withOpacity(0.1),
+            offColor: theme.colors.error.withOpacity(0.2),
+            onColor: theme.colors.error,
+          ),
+        ],
+      ),
+      loadingState: LoadingState.init,
     );
     reGenHands(context, params.userSelectedCards);
   }
 
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
-    state = state.copyWith(generateTime: Stopwatch()..start());
+    state = state.copyWith(generateTime: Stopwatch()..start(), loadingState: LoadingState.loading);
     final generatedHands = await MyAppX.isolateManager.runFindTopNHands(cards, 20);
     final groupedHands = generatedHands.map((e) => GroupedHands(pokerHands: e, isExpaned: false)).toList();
     state = state.copyWith(
@@ -116,6 +129,7 @@ class _VSController extends StateNotifier<_ViewState> {
       ),
     );
     state.generateTime?.stop();
+    state = state.copyWith(loadingState: LoadingState.success);
   }
 
   void toggleExpand(int index, bool isExpanded) {
@@ -126,6 +140,10 @@ class _VSController extends StateNotifier<_ViewState> {
       return e;
     }).toList();
     state = state.copyWith(generatedHands: newGeneratedHands);
+  }
+
+  void toggleAIChat() {
+    state = state.copyWith(showAIChat: !state.showAIChat);
   }
 
   Future<List<Card>?> showSelectCardsBottomSheet(BuildContext context, List<Card>? selectedCards) async {

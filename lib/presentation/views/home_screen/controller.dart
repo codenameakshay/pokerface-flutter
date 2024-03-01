@@ -57,8 +57,9 @@ class _VSController extends StateNotifier<_ViewState> {
     MyAppX.router.pushNativeRoute(
       MaterialWithModalsPageRoute(
         fullscreenDialog: true,
-        builder: (BuildContext context) => const ChatScreen(
+        builder: (BuildContext context) => ChatScreen(
           title: 'Pokerface',
+          onClose: MyAppX.router.pop,
         ),
       ),
     );
