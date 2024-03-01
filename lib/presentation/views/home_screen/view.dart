@@ -89,31 +89,31 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                   ? const Color(0xFF020513).withOpacity(0.3)
                                   : Colors.white.withOpacity(0.3)),
                       const Spacer(),
-                      SquareButton(
-                        onPressed: () {
-                          stateController.navigateToNewGame(
-                            userSelectedCards: generateDeck().take(2).toList(),
-                            numberOfPlayers: 4,
-                            numberOfHouseCards: 5,
-                          );
-                        },
-                        text: 'Quick Game',
-                        type: ButtonType.primary,
-                      ),
+                      // SquareButton(
+                      //   onPressed: () {
+                      //     stateController.navigateToNewGame(
+                      //       userSelectedCards: generateDeck().take(2).toList(),
+                      //       numberOfPlayers: 4,
+                      //       numberOfHouseCards: 5,
+                      //     );
+                      //   },
+                      //   text: 'Quick Game',
+                      //   type: ButtonType.primary,
+                      // ),
                       SquareButton(
                         onPressed: () {
                           stateController.showStartGameBottomSheet(context);
                         },
                         text: 'New Game',
-                        type: ButtonType.secondary,
+                        type: ButtonType.primary,
                       ),
-                      SquareButton(
-                        onPressed: () {
-                          stateController.navigateToAIScreen();
-                        },
-                        text: 'Chat with AI',
-                        type: ButtonType.tertiary,
-                      ),
+                      // SquareButton(
+                      //   onPressed: () {
+                      //     stateController.navigateToAIScreen();
+                      //   },
+                      //   text: 'Chat with AI',
+                      //   type: ButtonType.tertiary,
+                      // ),
                       // SquareButton(
                       //   onPressed: () {
                       //     // context.router.push(const HomeRoute());

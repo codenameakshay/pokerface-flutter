@@ -88,8 +88,7 @@ class _VSController extends StateNotifier<_ViewState> {
   void initState() {
     final model = GenerativeModel(
       model: 'gemini-pro',
-      // apiKey: MyAppX.environment.googleGenerativeAIKey,
-      apiKey: "AIzaSyASEfQyORNkLD3PZqvWLyaWhVs05Ov4wGs",
+      apiKey: MyAppX.environment.googleGenerativeAIKey,
     );
     final chat = model.startChat();
     state = state.copyWith(
