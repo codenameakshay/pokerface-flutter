@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/core_widgets/clickable.dart';
@@ -63,27 +62,25 @@ class ChangeAppThemeSheet extends ConsumerWidget {
   }
 
   Widget _buildThemes(ThemeState theme, BuildContext context, ThemeType currentSelectedTheme) {
-    return Expanded(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 234 / 333,
-          crossAxisSpacing: 24.toAutoScaledWidth,
-          mainAxisSpacing: 24.toAutoScaledHeight,
-        ),
-        controller: ModalScrollController.of(context),
-        shrinkWrap: true,
-        padding: EdgeInsets.only(bottom: 64.toAutoScaledHeight),
-        itemBuilder: (context, index) {
-          return Clickable(
-            onPressed: () async {
-              await MyAppX.router.pop(themes[index]['type']);
-            },
-            child: _buildIcon(theme, index, currentSelectedTheme),
-          );
-        },
-        itemCount: themes.length,
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 234 / 333,
+        crossAxisSpacing: 24.toAutoScaledWidth,
+        mainAxisSpacing: 24.toAutoScaledHeight,
       ),
+      controller: ModalScrollController.of(context),
+      shrinkWrap: true,
+      padding: EdgeInsets.only(bottom: 64.toAutoScaledHeight),
+      itemBuilder: (context, index) {
+        return Clickable(
+          onPressed: () async {
+            await MyAppX.router.pop(themes[index]['type']);
+          },
+          child: _buildIcon(theme, index, currentSelectedTheme),
+        );
+      },
+      itemCount: themes.length,
     );
   }
 

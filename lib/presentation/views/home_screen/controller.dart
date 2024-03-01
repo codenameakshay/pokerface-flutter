@@ -117,6 +117,13 @@ class _VSController extends StateNotifier<_ViewState> {
     }
   }
 
+  void showAboutSheet(BuildContext context) {
+    showCupertinoModalBottomSheet<ThemeType>(
+      context: context,
+      builder: (context) => const AboutSheet(),
+    );
+  }
+
   // @override
   // void dispose() {
   //   super.dispose();

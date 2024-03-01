@@ -38,7 +38,15 @@ class $AssetsImagesGen {
   AssetGenImage get appIconIos => const AssetGenImage('assets/images/app_icon_ios.png');
 
   $AssetsImagesBacksGen get backs => const $AssetsImagesBacksGen();
+
+  /// File path: assets/images/codenameakshay.jpeg
+  AssetGenImage get codenameakshay => const AssetGenImage('assets/images/codenameakshay.jpeg');
+
   $AssetsImagesFrontsGen get fronts => const $AssetsImagesFrontsGen();
+
+  /// File path: assets/images/hash_studios.png
+  AssetGenImage get hashStudios => const AssetGenImage('assets/images/hash_studios.png');
+
   $AssetsImagesOtherGen get other => const $AssetsImagesOtherGen();
 
   /// File path: assets/images/splash_icon.png
@@ -47,7 +55,7 @@ class $AssetsImagesGen {
   $AssetsImagesStickersGen get stickers => const $AssetsImagesStickersGen();
 
   /// List of all assets
-  List<AssetGenImage> get values => [appIconPng, appIconWebp, appIconIos, splashIcon];
+  List<AssetGenImage> get values => [appIconPng, appIconWebp, appIconIos, codenameakshay, hashStudios, splashIcon];
 }
 
 class $AssetsLottiesGen {

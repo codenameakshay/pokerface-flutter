@@ -18,8 +18,8 @@ import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
-import 'package:pokerface/presentation/utils/hands/testing.dart';
 import 'package:pokerface/presentation/views/ai_chat_screen/view.dart';
+import 'package:pokerface/presentation/views/home_screen/widgets/about_sheet.dart';
 import 'package:pokerface/presentation/views/home_screen/widgets/change_app_theme_sheet.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 
@@ -125,6 +125,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         onPressed: () => stateController.showChangeThemeBottomSheet(context),
                         text: 'Change theme',
                         type: ButtonType.error,
+                      ),
+                      SquareButton(
+                        onPressed: () => stateController.showAboutSheet(context),
+                        text: 'About',
+                        type: ButtonType.warning,
                       ),
                       const Spacer(),
                     ],
