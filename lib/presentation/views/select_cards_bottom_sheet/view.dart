@@ -15,10 +15,10 @@ part 'controller.dart';
 part 'widgets/card_fan.dart';
 
 final cardsMap = {
+  'Spades': Cards.spades.all,
   'Clubs': Cards.clubs.all,
   'Diamonds': Cards.diamonds.all,
   'Hearts': Cards.hearts.all,
-  'Spades': Cards.spades.all,
 };
 
 @RoutePage(name: 'SelectCardsBottomSheetRoute')
@@ -39,7 +39,7 @@ class SelectCardsBottomSheet extends ConsumerStatefulWidget {
 
 class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet> {
   final offsetStep = 36.0;
-  final width = 100.0;
+  final width = 72.0;
 
   @override
   Widget build(BuildContext context) {
