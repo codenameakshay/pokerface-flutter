@@ -13,46 +13,48 @@ class _HandRanksList extends ConsumerWidget {
     final state = ref.watch(_vsProvider(params));
     final stateController = ref.watch(_vsProvider(params).notifier);
 
-    return ExpansionPanelList(
-      expansionCallback: (int index, bool isExpanded) {
-        stateController.toggleExpand(index, isExpanded);
-      },
-      dividerColor: Colors.transparent,
-      elevation: 0,
-      expandedHeaderPadding: EdgeInsets.zero,
-      materialGapSize: 0,
-      expandIconColor: theme.colors.primary,
-      children: [
-        for (final groupedHands in state.generatedHands) ...[
-          ExpansionPanel(
-            backgroundColor: theme.colors.background,
-            headerBuilder: (context, isExpanded) => Column(
-              children: [
-                _HandRankHeader(
-                  hand: groupedHands.pokerHands[0],
-                  params: params,
+    return state.loadingState == LoadingState.loading
+        ? const Center(child: CircularProgressIndicator())
+        : ExpansionPanelList(
+            expansionCallback: (int index, bool isExpanded) {
+              stateController.toggleExpand(index, isExpanded);
+            },
+            dividerColor: Colors.transparent,
+            elevation: 0,
+            expandedHeaderPadding: EdgeInsets.zero,
+            materialGapSize: 0,
+            expandIconColor: theme.colors.primary,
+            children: [
+              for (final groupedHands in state.generatedHands) ...[
+                ExpansionPanel(
+                  backgroundColor: theme.colors.background,
+                  headerBuilder: (context, isExpanded) => Column(
+                    children: [
+                      _HandRankHeader(
+                        hand: groupedHands.pokerHands[0],
+                        params: params,
+                      ),
+                      _HandPreview(
+                        hand: groupedHands.pokerHands[0],
+                        params: params,
+                        widthMultiplier: 0.6,
+                      ),
+                      24.toAutoScaledHeight.toVerticalSizedBox,
+                    ],
+                  ),
+                  body: Column(
+                    children: [
+                      for (final hand in groupedHands.pokerHands) ...[
+                        24.toAutoScaledHeight.toVerticalSizedBox,
+                        _HandPreview(hand: hand, params: params),
+                      ]
+                    ],
+                  ),
+                  canTapOnHeader: true,
+                  isExpanded: groupedHands.isExpaned,
                 ),
-                _HandPreview(
-                  hand: groupedHands.pokerHands[0],
-                  params: params,
-                  widthMultiplier: 0.6,
-                ),
-                24.toAutoScaledHeight.toVerticalSizedBox,
-              ],
-            ),
-            body: Column(
-              children: [
-                for (final hand in groupedHands.pokerHands) ...[
-                  24.toAutoScaledHeight.toVerticalSizedBox,
-                  _HandPreview(hand: hand, params: params),
-                ]
-              ],
-            ),
-            canTapOnHeader: true,
-            isExpanded: groupedHands.isExpaned,
-          ),
-        ]
-      ],
-    );
+              ]
+            ],
+          );
   }
 }
