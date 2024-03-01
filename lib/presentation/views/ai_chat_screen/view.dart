@@ -113,15 +113,15 @@ class ChatWidget extends ConsumerWidget {
       ),
     );
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: MyAppX.environment.googleGenerativeAIKey.isNotEmpty
-                ? GestureDetector(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: MyAppX.environment.googleGenerativeAIKey.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: GestureDetector(
                     onTap: stateController.hideKeyboard,
                     child: ListView.builder(
                       controller: stateController.scrollController,
@@ -135,56 +135,92 @@ class ChatWidget extends ConsumerWidget {
                       },
                       itemCount: state.history.length,
                     ),
-                  )
-                : ListView(
-                    children: const [
-                      Text('No API key found. Please provide an API Key.'),
-                    ],
                   ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 25,
-              horizontal: 15,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    autofocus: true,
-                    focusNode: stateController.textFieldFocus,
-                    decoration: textFieldDecoration,
-                    controller: stateController.textController,
+                )
+              : ListView(
+                  children: const [
+                    Text('No API key found. Please provide an API Key.'),
+                  ],
+                ),
+        ),
+        Column(
+          children: [
+            SizedBox(
+              height: 48.toAutoScaledHeight,
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.toAutoScaledWidth,
+                ),
+                shrinkWrap: true,
+                itemBuilder: (context, index) => ActionChip(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.toAutoScaledWidth,
+                  ),
+                  color: MaterialStateColor.resolveWith((states) {
+                    if (states.contains(MaterialState.pressed)) {
+                      return Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.5);
+                    }
+                    return Theme.of(context).colorScheme.secondaryContainer;
+                  }),
+                  label: Text(
+                    userActions[index],
                     style: GoogleFonts.inter().copyWith(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
-                    onSubmitted: (String value) {
-                      stateController.sendChatMessage(value, context);
-                    },
                   ),
+                  onPressed: () {
+                    stateController.sendChatMessage(userActions[index], context);
+                  },
                 ),
-                const SizedBox.square(
-                  dimension: 15,
-                ),
-                if (state.loading != LoadingState.loading)
-                  IconButton(
-                    onPressed: () async {
-                      stateController.sendChatMessage(stateController.textController.text, context);
-                    },
-                    icon: Icon(
-                      Icons.send,
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                    ),
-                  )
-                else
-                  CircularProgressIndicator(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                  ),
-              ],
+                scrollDirection: Axis.horizontal,
+                itemCount: userActions.length,
+              ),
             ),
-          ),
-        ],
-      ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 16.toAutoScaledWidth,
+                right: 16.toAutoScaledWidth,
+                bottom: 16.toAutoScaledWidth,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      focusNode: stateController.textFieldFocus,
+                      decoration: textFieldDecoration,
+                      controller: stateController.textController,
+                      style: GoogleFonts.inter().copyWith(
+                        color: Theme.of(context).colorScheme.secondaryContainer,
+                      ),
+                      onSubmitted: (String value) {
+                        stateController.sendChatMessage(value, context);
+                      },
+                    ),
+                  ),
+                  const SizedBox.square(
+                    dimension: 15,
+                  ),
+                  if (state.loading != LoadingState.loading)
+                    IconButton(
+                      onPressed: () async {
+                        stateController.sendChatMessage(stateController.textController.text, context);
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
+                      ),
+                    )
+                  else
+                    CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

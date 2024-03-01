@@ -183,7 +183,7 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   String get inputPrompt =>
-      """You are a Texas Hold'em Poker expert. You will be given a query by the user, and your task is to resolve it in the best possible way. The current hand of the user is ${params.userSelectedCards.map((e) => '${e.rank.name} of ${e.suit.name}').join(", ")}.${state.houseCards.isNotEmpty ? ' Currently open house cards are ${state.houseCards.map((e) => '${e.rank.name} of ${e.suit.name},').join(", ")}.' : ''}
+      """You are a Texas Hold'em Poker expert. You will be given a query by the user, and your task is to resolve it in the best possible way. The current hand of the user is ${params.userSelectedCards.map((e) => '${e.rank.name} of ${e.suit.name}').join(", ")}.${state.houseCards.isNotEmpty ? ' Currently open house cards are ${state.houseCards.map((e) => '${e.rank.name} of ${e.suit.name},').join(", ")}.' : 'No house cards are currently open.'}
 
 -------------------
 

@@ -1,5 +1,12 @@
 part of 'view.dart';
 
+List<String> userActions = [
+  'How can I win?',
+  'What are my cards?',
+  'What are the house cards?',
+  'What are the hand ranks?'
+];
+
 class _VSControllerParams extends Equatable {
   const _VSControllerParams({
     required this.title,
