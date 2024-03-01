@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/core_widgets/clickable.dart';
@@ -55,7 +56,7 @@ class ChangeAppThemeSheet extends ConsumerWidget {
     )
         .animate(
           delay: const Duration(
-            milliseconds: 200,
+            milliseconds: 100,
           ),
         )
         .fadeIn();
@@ -88,20 +89,20 @@ class ChangeAppThemeSheet extends ConsumerWidget {
 
   Widget _buildIconLabel(ThemeState theme, int index) {
     return Center(
-      child: Text(
-        themes[index]['label'] as String? ?? '',
-        style: theme.themeText.bodyText1?.copyWith(
-          color: MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.onTertiary ??
-              Colors.black,
-        ),
-        textAlign: TextAlign.center,
-      )
-          .animate(
-            delay: Duration(
-              milliseconds: 500 + (10 * index),
-            ),
-          )
-          .fadeIn(),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          themes[index]['label'] as String? ?? '',
+          style: theme.themeText.caption?.copyWith(),
+          textAlign: TextAlign.center,
+        )
+            .animate(
+              delay: Duration(
+                milliseconds: 400 + (10 * index),
+              ),
+            )
+            .fadeIn(),
+      ),
     );
   }
 
@@ -111,62 +112,53 @@ class ChangeAppThemeSheet extends ConsumerWidget {
     ThemeType currentSelectedTheme,
   ) {
     final isSelected = ((themes[index]['type'] as ThemeType? ?? ThemeType.olive) == currentSelectedTheme);
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.toAutoScaledWidth),
-          border: Border.all(
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.toAutoScaledWidth),
+            border: Border.all(
+              color: isSelected ? theme.colors.primary.withOpacity(0.7) : theme.colors.secondaryContainer,
+              width: 2.toAutoScaledWidth,
+              strokeAlign: BorderSide.strokeAlignInside,
+            ),
             color: isSelected ? theme.colors.primary.withOpacity(0.7) : theme.colors.secondaryContainer,
-            width: 2.toAutoScaledWidth,
           ),
-          color: isSelected ? theme.colors.primary.withOpacity(0.7) : theme.colors.secondaryContainer,
-        ),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2.toAutoScaledWidth),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(6.toAutoScaledWidth),
+            child: ShaderMask(
+              shaderCallback: (bounds) {
+                return LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.background ??
+                        Colors.orange,
+                    MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.tertiary ??
+                        Colors.blue,
+                    MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.secondary ??
+                        Colors.green,
+                    MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.primary ??
+                        Colors.red,
+                  ],
+                ).createShader(bounds);
+              },
+              blendMode: BlendMode.xor,
+              child: Image.asset(
+                Assets.images.other.whiteDeck2.path,
+                fit: BoxFit.contain,
               ),
-              child: ShaderMask(
-                shaderCallback: (bounds) {
-                  return LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.background ??
-                          Colors.orange,
-                      MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.tertiary ??
-                          Colors.blue,
-                      MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.secondary ??
-                          Colors.green,
-                      MyAppX.theme.getThemeColors(themes[index]['type'] as ThemeType? ?? ThemeType.olive)?.primary ??
-                          Colors.red,
-                    ],
-                  ).createShader(bounds);
-                },
-                blendMode: BlendMode.color,
-                child: Image.asset(
-                  Assets.images.other.whiteDeck2.path,
-                  fit: BoxFit.contain,
-                ),
+            ),
+          ),
+        )
+            .animate(
+              delay: Duration(
+                milliseconds: 200 + (10 * index),
               ),
             )
-                .animate(
-                  delay: Duration(
-                    milliseconds: 300 + (10 * index),
-                  ),
-                )
-                .fadeIn(),
-            _buildIconLabel(theme, index)
-          ],
-        ),
-      )
-          .animate(
-            delay: Duration(
-              milliseconds: 400 + (10 * index),
-            ),
-          )
-          .fadeIn(),
+            .fadeIn(),
+        _buildIconLabel(theme, index)
+      ],
     );
   }
 }
