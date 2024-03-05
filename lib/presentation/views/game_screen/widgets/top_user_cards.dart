@@ -32,32 +32,25 @@ class _TopUserCards extends ConsumerWidget {
           child: Row(
             children: [
               32.toAutoScaledWidth.toHorizontalSizedBox,
-              Row(
-                children: params.userSelectedCards
-                    .take(4)
-                    .map(
-                      (e) => Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.1),
-                                width: 2,
-                              ),
-                            ),
-                            child: Text(
-                              ' ${e.suit.emoji} ${e.rank.emoji} ',
-                              style: theme.themeText.headline6?.copyWith(fontSize: 16.toAutoScaledFont),
-                            ),
+              ...params.userSelectedCards.take(4).map(
+                    (e) => Padding(
+                      padding: EdgeInsets.only(right: 8.toAutoScaledWidth),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            color: Colors.black.withOpacity(0.1),
+                            width: 2,
                           ),
-                          8.toAutoScaledWidth.toHorizontalSizedBox,
-                        ],
+                        ),
+                        child: Text(
+                          ' ${e.suit.emoji} ${e.rank.emoji} ',
+                          style: theme.themeText.headline6?.copyWith(fontSize: 16.toAutoScaledFont),
+                        ),
                       ),
-                    )
-                    .toList(),
-              ),
+                    ),
+                  ),
               const Spacer(),
               for (final bulb in state.streetLight.bulbs) ...[
                 4.toAutoScaledWidth.toHorizontalSizedBox,
