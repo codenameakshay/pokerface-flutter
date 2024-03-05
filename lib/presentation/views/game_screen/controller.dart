@@ -120,9 +120,14 @@ class _VSController extends StateNotifier<_ViewState> {
     reGenHands(context, params.userSelectedCards);
   }
 
-  int get calScore {
+  int get score {
     final userHand = UserHand(userCards: params.userSelectedCards, houseCards: state.houseCards);
-    return userHand.calculateScore();
+    return int.parse(userHand.calculateScoreDistribution().reduce((value, element) => value + element).toString());
+  }
+
+  Map<String, String> get scoreDistribution {
+    final userHand = UserHand(userCards: params.userSelectedCards, houseCards: state.houseCards);
+    return userHand.parsedScoreDistribution();
   }
 
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {

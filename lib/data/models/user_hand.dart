@@ -17,53 +17,29 @@ class UserHand with _$UserHand {
 extension UserHandExtension on UserHand {
   List<Card> get allCards => [...userCards, ...houseCards];
 
-  int calculateScore() {
+  List<int> calculateScoreDistribution() {
     List<int> scoreDistribution = [];
-    int score = 0;
 
     if (allCards.length > 2) {
       for (int i = 0; i < allCards.length; i++) {
         for (int j = i + 1; j < allCards.length; j++) {
           if (allCards[i].rank == allCards[j].rank) {
             // Pair
-            scoreDistribution.add(2);
-            score += 2;
+            scoreDistribution.add(getScoreForType['Pair']!);
           }
 
           // Suited
           if (allCards[0].suit == allCards[1].suit) {
-            scoreDistribution.add(5);
-            score += 5;
+            scoreDistribution.add(getScoreForType['Suited']!);
           }
 
           // Connectors
           if ((allCards[0].rank.index - allCards[1].rank.index).abs() == 1) {
-            scoreDistribution.add(4);
-            score += 4;
+            scoreDistribution.add(getScoreForType['Connectors']!);
           }
         }
       }
     }
-
-    // if (userCards.length == 2) {
-    //   // Pair
-    //   if (userCards[0].rank == userCards[1].rank) {
-    //     scoreDistribution.add(8); // High pair
-    //     score += 8; // High pair
-    //   }
-
-    //   // Suited
-    //   if (userCards[0].suit == userCards[1].suit) {
-    //     scoreDistribution.add(5);
-    //     score += 5;
-    //   }
-
-    //   // Connectors
-    //   if ((userCards[0].rank.index - userCards[1].rank.index).abs() == 1) {
-    //     scoreDistribution.add(4);
-    //     score += 4;
-    //   }
-    // }
 
     Map<String, int> rankCounts = {};
     Map<String, int> suitCounts = {};
@@ -74,28 +50,21 @@ extension UserHandExtension on UserHand {
 
     // Check for pairs, three of a kind, four of a kind
     for (var count in rankCounts.values) {
-      if (count == 2) {
-        scoreDistribution.add(2);
-        score += 2; // Pair
-      } else if (count == 3) {
-        scoreDistribution.add(6);
-        score += 6; // Three of a kind
+      if (count == 3) {
+        scoreDistribution.add(getScoreForType['Three of a Kind']!);
       } else if (count == 4) {
-        scoreDistribution.add(12);
-        score += 12; // Four of a kind
+        scoreDistribution.add(getScoreForType['Four of a Kind']!);
       }
     }
 
     // Check for full house
     if (rankCounts.values.contains(3) && rankCounts.values.contains(2)) {
-      scoreDistribution.add(10);
-      score += 10;
+      scoreDistribution.add(getScoreForType['Full House']!);
     }
 
     // Check for flush
     if (suitCounts.values.contains(5)) {
-      scoreDistribution.add(9);
-      score += 9;
+      scoreDistribution.add(getScoreForType['Flush']!);
     }
 
     // Straight
@@ -105,23 +74,49 @@ extension UserHandExtension on UserHand {
         break;
       }
       if (i == ranks.length - 2) {
-        scoreDistribution.add(7);
-        score += 7;
+        scoreDistribution.add(getScoreForType['Straight']!);
       }
     }
 
-    // // Check for straight
-    // List<int> ranks = allCards.map((card) => card.rank.index).toList()..sort();
-    // for (int i = 0; i < ranks.length - 1; i++) {
-    //   if (ranks[i] + 1 != ranks[i + 1]) {
-    //     break;
-    //   }
-    //   if (i == ranks.length - 2) {
-    //     score += 7;
-    //   }
-    // }
+    return scoreDistribution;
+  }
 
-    return score;
-    // return int.parse(scoreDistribution.reduce((value, element) => value + element).toString());
+  Map<String, int> get getScoreForType => {
+        'Pair': 2,
+        'Suited': 5,
+        'Connectors': 4,
+        'Two Pair': 2,
+        'Three of a Kind': 3,
+        'Straight': 7,
+        'Flush': 9,
+        'Full House': 10,
+        'Four of a Kind': 8,
+      };
+
+  Map<String, String> parsedScoreDistribution() {
+    Map<String, int> parsedScoreDistribution = getScoreForType.map((key, value) => MapEntry(key, 0));
+
+    List<int> scoreDistribution = calculateScoreDistribution();
+
+    for (var score in scoreDistribution) {
+      for (var type in getScoreForType.entries) {
+        if (score == type.value) {
+          parsedScoreDistribution[type.key] = parsedScoreDistribution[type.key]! + 1;
+        }
+      }
+    }
+
+    if (parsedScoreDistribution['Pair']! > 1) {
+      parsedScoreDistribution['Two Pair'] = 1;
+      parsedScoreDistribution['Pair'] = parsedScoreDistribution['Pair']! - 2;
+    }
+
+    // convert parsedScoreDistribution int to string with multiplier
+    final parsedScore = parsedScoreDistribution.map((key, value) => MapEntry(
+          key,
+          '$value x ${getScoreForType[key]}',
+        ));
+
+    return parsedScore;
   }
 }
