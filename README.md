@@ -112,7 +112,7 @@ Contributions are what make the open-source community such an amazing place to l
 - [ ] Badges
 - [ ] Achievements
 - [ ] Dynamic app icons
-- [ ] Calculate score for each game
+- [X] Calculate score for each game
 - [ ] Store win/loss of each game
 - [ ] Integrate AI into more features
 - [ ] Premium subscription

@@ -33,6 +33,7 @@ part 'widgets/body.dart';
 part 'widgets/hand_preview.dart';
 part 'widgets/hand_rank_header.dart';
 part 'widgets/hand_ranks_list.dart';
+part 'widgets/score.dart';
 
 @RoutePage(name: 'GameRoute')
 class GameView extends ConsumerStatefulWidget {
