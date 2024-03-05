@@ -406,7 +406,7 @@ class AboutSheet extends ConsumerWidget {
               borderRadius: BorderRadius.circular(400.toAutoScaledWidth),
             ),
             child: Text(
-              'v0.0.1+7',
+              'v1.0.1+9',
               style: theme.themeText.bodyText2?.copyWith(
                 fontFamily: GoogleFonts.inter().fontFamily,
                 fontWeight: FontWeight.w600,
