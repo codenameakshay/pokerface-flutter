@@ -1,35 +1,12 @@
 part of '../view.dart';
 
-class ElapsedTimerWidget extends ConsumerStatefulWidget {
-  const ElapsedTimerWidget({super.key});
+class ElapsedTimerWidget extends ConsumerWidget {
+  const ElapsedTimerWidget({
+    super.key,
+    required this.params,
+  });
 
-  @override
-  ElapsedTimerWidgetState createState() => ElapsedTimerWidgetState();
-}
-
-class ElapsedTimerWidgetState extends ConsumerState<ElapsedTimerWidget> {
-  Timer? _timer;
-  int _elapsedSeconds = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _startTimer();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _elapsedSeconds++;
-      });
-    });
-  }
+  final _VSControllerParams params;
 
   String _formatElapsedTime(int totalSeconds) {
     final int minutes = totalSeconds ~/ 60;
@@ -38,15 +15,16 @@ class ElapsedTimerWidgetState extends ConsumerState<ElapsedTimerWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(MyAppX.theme.current);
+    final state = ref.watch(_vsProvider(params));
 
     return Positioned(
       top: 0,
       child: SafeArea(
         bottom: false,
         child: Text(
-          _formatElapsedTime(_elapsedSeconds),
+          _formatElapsedTime(state.elapsedSeconds),
           style: GoogleFonts.inter().copyWith(
             color: theme.colors.onBackground.withOpacity(0.5),
             fontSize: 12.toAutoScaledFont,

@@ -16,7 +16,12 @@ class _VSControllerParams extends Equatable {
   final ThemeState theme;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        userSelectedCards[0],
+        userSelectedCards[1],
+        numberOfPlayers,
+        numberOfHouseCards,
+      ];
 }
 
 final _paramsProvider = Provider<_VSControllerParams>((ref) {
@@ -42,6 +47,7 @@ class _ViewState {
     required this.loadingState,
     required this.showAIChat,
     required this.aiChatHistory,
+    required this.elapsedSeconds,
   });
 
   final List<Card> houseCards;
@@ -51,6 +57,7 @@ class _ViewState {
   final LoadingState loadingState;
   final bool showAIChat;
   final List<Content> aiChatHistory;
+  final int elapsedSeconds;
 
   _ViewState.initial()
       : this(
@@ -61,6 +68,7 @@ class _ViewState {
           loadingState: LoadingState.init,
           showAIChat: false,
           aiChatHistory: [],
+          elapsedSeconds: 0,
         );
 
   _ViewState copyWith({
@@ -71,6 +79,7 @@ class _ViewState {
     LoadingState? loadingState,
     bool? showAIChat,
     List<Content>? aiChatHistory,
+    int? elapsedSeconds,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
@@ -80,6 +89,7 @@ class _ViewState {
       loadingState: loadingState ?? this.loadingState,
       showAIChat: showAIChat ?? this.showAIChat,
       aiChatHistory: aiChatHistory ?? this.aiChatHistory,
+      elapsedSeconds: elapsedSeconds ?? this.elapsedSeconds,
     );
   }
 }
@@ -89,8 +99,10 @@ class _VSController extends StateNotifier<_ViewState> {
     required this.params,
   }) : super(_ViewState.initial());
   _VSControllerParams params;
+  Timer? _timer;
 
   void initState(BuildContext context, ThemeState theme) {
+    _startTimer();
     state = state.copyWith(
       generateTime: Stopwatch(),
       streetLight: StreetLight(
@@ -120,6 +132,12 @@ class _VSController extends StateNotifier<_ViewState> {
     reGenHands(context, params.userSelectedCards);
   }
 
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      state = state.copyWith(elapsedSeconds: state.elapsedSeconds + 1);
+    });
+  }
+
   int get score {
     final userHand = UserHand(userCards: params.userSelectedCards, houseCards: state.houseCards);
     final scoreDistribution = userHand.calculateScoreDistribution();
@@ -140,15 +158,17 @@ class _VSController extends StateNotifier<_ViewState> {
     state = state.copyWith(generateTime: Stopwatch()..start(), loadingState: LoadingState.loading);
     final generatedHands = await MyAppX.isolateManager.runFindTopNHands(cards, 20);
     final groupedHands = generatedHands.map((e) => GroupedHands(pokerHands: e, isExpaned: false)).toList();
-    state = state.copyWith(
-      generatedHands: groupedHands,
-      streetLight: state.streetLight.copyWith(
-        bulbs: state.streetLight.bulbs
-            .map((e) => e.copyWith(
-                isOn: groupedHands[0].pokerHands[0].handRankStatus + 1 == state.streetLight.bulbs.indexOf(e)))
-            .toList(),
-      ),
-    );
+    if (mounted) {
+      state = state.copyWith(
+        generatedHands: groupedHands,
+        streetLight: state.streetLight.copyWith(
+          bulbs: state.streetLight.bulbs
+              .map((e) => e.copyWith(
+                  isOn: groupedHands[0].pokerHands[0].handRankStatus + 1 == state.streetLight.bulbs.indexOf(e)))
+              .toList(),
+        ),
+      );
+    }
     state.generateTime?.stop();
     state = state.copyWith(loadingState: LoadingState.success);
   }
@@ -184,7 +204,7 @@ class _VSController extends StateNotifier<_ViewState> {
     );
   }
 
-  Future<void> showStartGameSheet(BuildContext context, int index) async {
+  Future<void> onSelectHouseCards(BuildContext context, int index) async {
     final cards = await showSelectCardsBottomSheet(context, state.houseCards);
     if (cards != null) {
       // ignore: use_build_context_synchronously
@@ -204,4 +224,36 @@ class _VSController extends StateNotifier<_ViewState> {
 -------------------
 
 """;
+
+  void navigateToNewGame({
+    required List<Card> userSelectedCards,
+    required double numberOfPlayers,
+    required double numberOfHouseCards,
+  }) {
+    state = _ViewState.initial();
+    Future.delayed(Duration.zero, () {
+      MyAppX.router.navigate(
+        GameRoute(
+          userSelectedCards: userSelectedCards,
+          numberOfPlayers: numberOfPlayers,
+          numberOfHouseCards: numberOfHouseCards,
+        ),
+      );
+    });
+  }
+
+  Future<void> showStartGameBottomSheet(BuildContext context) async {
+    final data = await showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => const StartGameBottomSheet(),
+    );
+
+    if (data != null) {
+      navigateToNewGame(
+        userSelectedCards: data['userSelectedCards'] as List<Card>,
+        numberOfPlayers: data['numberOfPlayers'],
+        numberOfHouseCards: data['numberOfHouseCards'],
+      );
+    }
+  }
 }

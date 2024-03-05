@@ -19,7 +19,13 @@ class _BottomHouseCards extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _AIChatButton(params: params),
+          Row(
+            children: [
+              _RestartButton(params: params),
+              const Spacer(),
+              _AIChatButton(params: params),
+            ],
+          ),
           Container(
             decoration: ShapeDecoration(
               color: theme.colors.background,
@@ -49,7 +55,7 @@ class _BottomHouseCards extends ConsumerWidget {
                       params.numberOfHouseCards.toInt(),
                       (index) => DashedCardButton(
                         // onPressed: () => stateController.reGenHands(context, params.userSelectedCards.sublist(0, index + 2)),
-                        onPressed: () => stateController.showStartGameSheet(context, index),
+                        onPressed: () => stateController.onSelectHouseCards(context, index),
                         width: MediaQuery.of(context).size.width * 0.7 / params.numberOfHouseCards,
                         card: state.houseCards.length > index ? state.houseCards[index] : null,
                       ),

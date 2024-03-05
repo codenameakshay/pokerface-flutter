@@ -13,6 +13,7 @@ import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/data/models/street_light.dart';
 import 'package:pokerface/data/models/user_hand.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
+import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
 import 'package:pokerface/presentation/app/core_widgets/clickable.dart';
 import 'package:pokerface/presentation/app/core_widgets/dashed_border.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
@@ -34,6 +35,7 @@ part 'widgets/elapsed_time.dart';
 part 'widgets/hand_preview.dart';
 part 'widgets/hand_rank_header.dart';
 part 'widgets/hand_ranks_list.dart';
+part 'widgets/restart_button.dart';
 part 'widgets/score.dart';
 
 @RoutePage(name: 'GameRoute')
@@ -79,7 +81,7 @@ class _GameViewState extends ConsumerState<GameView> {
               _TopUserCards(params: params),
               _BottomHouseCards(params: params),
               _AIChatPopup(params: params),
-              const ElapsedTimerWidget(),
+              ElapsedTimerWidget(params: params),
             ],
           ),
         ),
