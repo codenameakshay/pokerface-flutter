@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:pokerface/data/models/bulb.dart';
 import 'package:pokerface/data/models/card.dart';
+import 'package:pokerface/data/models/game_history.dart';
 import 'package:pokerface/data/models/grouped_hands.dart';
 import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/data/models/street_light.dart';

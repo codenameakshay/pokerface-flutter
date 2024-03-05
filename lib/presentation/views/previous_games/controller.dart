@@ -22,12 +22,21 @@ final _vsProvider =
 });
 
 class _ViewState {
-  _ViewState();
+  _ViewState({required this.gameHistories});
 
-  _ViewState.initial() : this();
+  final List<GameHistory> gameHistories;
 
-  _ViewState copyWith() {
-    return _ViewState();
+  _ViewState.initial()
+      : this(
+          gameHistories: [],
+        );
+
+  _ViewState copyWith({
+    List<GameHistory>? gameHistories,
+  }) {
+    return _ViewState(
+      gameHistories: gameHistories ?? this.gameHistories,
+    );
   }
 }
 
@@ -37,7 +46,9 @@ class _VSController extends StateNotifier<_ViewState> {
   }) : super(_ViewState.initial());
   _VSControllerParams params;
 
-  void initState() {}
+  void initState() {
+    MyAppX.gameHistory.getGameHistory().then((value) => state = state.copyWith(gameHistories: value));
+  }
 
   void navigateToNewGame({
     required List<Card> userSelectedCards,
@@ -72,32 +83,7 @@ class _VSController extends StateNotifier<_ViewState> {
     );
   }
 
-  void navigateToPreviousGamesRoute() {
-    MyAppX.router.navigate(
-      const PreviousGamesRoute(),
-    );
-  }
-
   Future<void> showStartGameBottomSheet(BuildContext context) async {
-    // MyAppX.router.pushNativeRoute(
-    //   MaterialWithModalsPageRoute(
-    //     fullscreenDialog: true,
-    //     builder: (BuildContext context) => BlankView(
-    //       onInit: () => showCupertinoModalBottomSheet(
-    //         context: context,
-    //         builder: (context) => const StartGameBottomSheet(),
-    //       ),
-    //     ),
-    //   ),
-    // );
-    // MyAppX.router.navigate(
-    //   BlankRoute(
-    //     onInit: () => showCupertinoModalBottomSheet(
-    //       context: context,
-    //       builder: (context) => const StartGameBottomSheet(),
-    //     ),
-    //   ),
-    // );
     final data = await showCupertinoModalBottomSheet(
       context: context,
       builder: (context) => const StartGameBottomSheet(),

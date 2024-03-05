@@ -16,6 +16,10 @@ class MyAppRoutesRegistry {
       path: MyAppPathsRegistry.game,
       page: GameRoute.page,
     ),
+    AdaptiveRoute(
+      path: MyAppPathsRegistry.previousGames,
+      page: PreviousGamesRoute.page,
+    ),
     // CustomRoute(
     //   path: MyAppPathsRegistry.startGameBottomSheet,
     //   page: StartGameBottomSheetRoute.page,

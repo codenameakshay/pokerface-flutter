@@ -55,6 +55,12 @@ abstract class _$IntrinsicRouter extends RootStackRouter {
         child: const HomeView(),
       );
     },
+    PreviousGamesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PreviousGamesView(),
+      );
+    },
     SelectCardsBottomSheetRoute.name: (routeData) {
       final args = routeData.argsAs<SelectCardsBottomSheetRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -223,6 +229,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PreviousGamesView]
+class PreviousGamesRoute extends PageRouteInfo<void> {
+  const PreviousGamesRoute({List<PageRouteInfo>? children})
+      : super(
+          PreviousGamesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PreviousGamesRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

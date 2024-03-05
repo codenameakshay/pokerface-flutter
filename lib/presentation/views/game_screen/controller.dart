@@ -48,6 +48,7 @@ class _ViewState {
     required this.showAIChat,
     required this.aiChatHistory,
     required this.elapsedSeconds,
+    required this.gameHistory,
   });
 
   final List<Card> houseCards;
@@ -58,6 +59,7 @@ class _ViewState {
   final bool showAIChat;
   final List<Content> aiChatHistory;
   final int elapsedSeconds;
+  final GameHistory? gameHistory;
 
   _ViewState.initial()
       : this(
@@ -69,6 +71,7 @@ class _ViewState {
           showAIChat: false,
           aiChatHistory: [],
           elapsedSeconds: 0,
+          gameHistory: null,
         );
 
   _ViewState copyWith({
@@ -80,6 +83,7 @@ class _ViewState {
     bool? showAIChat,
     List<Content>? aiChatHistory,
     int? elapsedSeconds,
+    GameHistory? gameHistory,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
@@ -90,6 +94,7 @@ class _ViewState {
       showAIChat: showAIChat ?? this.showAIChat,
       aiChatHistory: aiChatHistory ?? this.aiChatHistory,
       elapsedSeconds: elapsedSeconds ?? this.elapsedSeconds,
+      gameHistory: gameHistory ?? this.gameHistory,
     );
   }
 }
@@ -103,6 +108,19 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void initState(BuildContext context, ThemeState theme) {
     _startTimer();
+    final gameHistory = GameHistory(
+      userSelectedCards: params.userSelectedCards,
+      numberOfPlayers: params.numberOfPlayers,
+      numberOfHouseCards: params.numberOfHouseCards,
+      openHouseCards: state.houseCards,
+      gameStartAt: DateTime.now(),
+      gameUpdatedAt: DateTime.now(),
+      elapsedSeconds: state.elapsedSeconds,
+      isUserWinner: false,
+      score: score,
+    );
+    MyAppX.gameHistory.updateGameHistory(gameHistory);
+
     state = state.copyWith(
       generateTime: Stopwatch(),
       streetLight: StreetLight(
@@ -127,9 +145,23 @@ class _VSController extends StateNotifier<_ViewState> {
           ),
         ],
       ),
+      gameHistory: gameHistory,
       loadingState: LoadingState.init,
     );
     reGenHands(context, params.userSelectedCards);
+  }
+
+  void updateGameHistory() {
+    state = state.copyWith(
+      gameHistory: state.gameHistory?.copyWith(
+        openHouseCards: state.houseCards,
+        elapsedSeconds: state.elapsedSeconds,
+        isUserWinner: false,
+        score: score,
+        gameUpdatedAt: DateTime.now(),
+      ),
+    );
+    MyAppX.gameHistory.updateGameHistory(state.gameHistory!);
   }
 
   void _startTimer() {
@@ -255,5 +287,12 @@ class _VSController extends StateNotifier<_ViewState> {
         numberOfHouseCards: data['numberOfHouseCards'],
       );
     }
+  }
+
+  @override
+  void dispose() {
+    updateGameHistory();
+    _timer?.cancel();
+    super.dispose();
   }
 }

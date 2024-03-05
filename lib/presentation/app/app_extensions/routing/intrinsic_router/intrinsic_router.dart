@@ -6,6 +6,7 @@ import 'package:pokerface/presentation/views/blank_screen/view.dart';
 import 'package:pokerface/presentation/views/card_photo_screen/view.dart';
 import 'package:pokerface/presentation/views/game_screen/view.dart';
 import 'package:pokerface/presentation/views/home_screen/view.dart';
+import 'package:pokerface/presentation/views/previous_games/view.dart';
 import 'package:pokerface/presentation/views/select_cards_bottom_sheet/view.dart';
 import 'package:pokerface/presentation/views/splash_screen/view.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';

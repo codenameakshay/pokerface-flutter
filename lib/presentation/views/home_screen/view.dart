@@ -114,13 +114,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       //   text: 'Chat with AI',
                       //   type: ButtonType.tertiary,
                       // ),
-                      // SquareButton(
-                      //   onPressed: () {
-                      //     // context.router.push(const HomeRoute());
-                      //   },
-                      //   text: 'New Game',
-                      //   type: ButtonType.warning,
-                      // ),
+                      SquareButton(
+                        onPressed: stateController.navigateToPreviousGamesRoute,
+                        text: 'Previous games',
+                        type: ButtonType.secondary,
+                      ),
                       SquareButton(
                         onPressed: () => stateController.showChangeThemeBottomSheet(context),
                         text: 'Change theme',

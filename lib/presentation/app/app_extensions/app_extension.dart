@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:isolate';
@@ -15,6 +16,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:pokerface/data/models/card.dart';
+import 'package:pokerface/data/models/game_history.dart';
 import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_router/intrinsic_router.dart';
@@ -33,6 +35,7 @@ part 'app_review/app_review.dart';
 part 'device_info/device_info.dart';
 part 'dynamic_icon/dynamic_icon.dart';
 part 'environment/environment.dart';
+part 'game_history/game_history.dart';
 part 'generative_ai/generative_ai.dart';
 part 'haptics/haptics.dart';
 part 'routing/observers/route_observer.dart';
@@ -196,4 +199,6 @@ class MyAppX {
   static GenerativeAI generativeAI = GenerativeAI.instance;
 
   static Environment environment = Environment.instance;
+
+  static GameHistorySave gameHistory = GameHistorySave.instance;
 }
