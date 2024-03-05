@@ -122,6 +122,12 @@ class _VSController extends StateNotifier<_ViewState> {
 
   int get score {
     final userHand = UserHand(userCards: params.userSelectedCards, houseCards: state.houseCards);
+    final scoreDistribution = userHand.calculateScoreDistribution();
+
+    if (scoreDistribution.isEmpty) {
+      return 0;
+    }
+
     return int.parse(userHand.calculateScoreDistribution().reduce((value, element) => value + element).toString());
   }
 

@@ -12,25 +12,21 @@ class _HandRankHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(MyAppX.theme.current);
+    final evaluatedHand = hand.evaluateHand();
 
     return ListTile(
       leading: Padding(
         padding: EdgeInsets.only(left: 16.toAutoScaledWidth),
         child: Text(
-          hand.evaluateHand().emoji,
+          evaluatedHand.emoji,
           textAlign: TextAlign.center,
           style: theme.themeText.headline6,
         ),
       ),
-      title: Text(
-        hand.evaluateHand().name,
-        textAlign: TextAlign.center,
-        style: theme.themeText.headline6,
-      ),
       trailing: Padding(
         padding: EdgeInsets.only(right: 8.toAutoScaledWidth),
         child: Text(
-          (hand.score).toString(),
+          evaluatedHand.name,
           textAlign: TextAlign.center,
           style: theme.themeText.headline6,
         ),
