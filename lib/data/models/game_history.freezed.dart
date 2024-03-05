@@ -29,6 +29,7 @@ mixin _$GameHistory {
   int get elapsedSeconds => throw _privateConstructorUsedError;
   DateTime get gameStartAt => throw _privateConstructorUsedError;
   DateTime get gameUpdatedAt => throw _privateConstructorUsedError;
+  PokerHand get topPokerHand => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,10 @@ abstract class $GameHistoryCopyWith<$Res> {
       int score,
       int elapsedSeconds,
       DateTime gameStartAt,
-      DateTime gameUpdatedAt});
+      DateTime gameUpdatedAt,
+      PokerHand topPokerHand});
+
+  $PokerHandCopyWith<$Res> get topPokerHand;
 }
 
 /// @nodoc
@@ -73,6 +77,7 @@ class _$GameHistoryCopyWithImpl<$Res, $Val extends GameHistory> implements $Game
     Object? elapsedSeconds = null,
     Object? gameStartAt = null,
     Object? gameUpdatedAt = null,
+    Object? topPokerHand = null,
   }) {
     return _then(_value.copyWith(
       userSelectedCards: null == userSelectedCards
@@ -111,7 +116,19 @@ class _$GameHistoryCopyWithImpl<$Res, $Val extends GameHistory> implements $Game
           ? _value.gameUpdatedAt
           : gameUpdatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      topPokerHand: null == topPokerHand
+          ? _value.topPokerHand
+          : topPokerHand // ignore: cast_nullable_to_non_nullable
+              as PokerHand,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PokerHandCopyWith<$Res> get topPokerHand {
+    return $PokerHandCopyWith<$Res>(_value.topPokerHand, (value) {
+      return _then(_value.copyWith(topPokerHand: value) as $Val);
+    });
   }
 }
 
@@ -130,7 +147,11 @@ abstract class _$$GameHistoryImplCopyWith<$Res> implements $GameHistoryCopyWith<
       int score,
       int elapsedSeconds,
       DateTime gameStartAt,
-      DateTime gameUpdatedAt});
+      DateTime gameUpdatedAt,
+      PokerHand topPokerHand});
+
+  @override
+  $PokerHandCopyWith<$Res> get topPokerHand;
 }
 
 /// @nodoc
@@ -151,6 +172,7 @@ class __$$GameHistoryImplCopyWithImpl<$Res> extends _$GameHistoryCopyWithImpl<$R
     Object? elapsedSeconds = null,
     Object? gameStartAt = null,
     Object? gameUpdatedAt = null,
+    Object? topPokerHand = null,
   }) {
     return _then(_$GameHistoryImpl(
       userSelectedCards: null == userSelectedCards
@@ -189,6 +211,10 @@ class __$$GameHistoryImplCopyWithImpl<$Res> extends _$GameHistoryCopyWithImpl<$R
           ? _value.gameUpdatedAt
           : gameUpdatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      topPokerHand: null == topPokerHand
+          ? _value.topPokerHand
+          : topPokerHand // ignore: cast_nullable_to_non_nullable
+              as PokerHand,
     ));
   }
 }
@@ -205,7 +231,8 @@ class _$GameHistoryImpl implements _GameHistory {
       required this.score,
       required this.elapsedSeconds,
       required this.gameStartAt,
-      required this.gameUpdatedAt})
+      required this.gameUpdatedAt,
+      required this.topPokerHand})
       : _userSelectedCards = userSelectedCards,
         _openHouseCards = openHouseCards;
 
@@ -241,10 +268,12 @@ class _$GameHistoryImpl implements _GameHistory {
   final DateTime gameStartAt;
   @override
   final DateTime gameUpdatedAt;
+  @override
+  final PokerHand topPokerHand;
 
   @override
   String toString() {
-    return 'GameHistory(userSelectedCards: $userSelectedCards, numberOfPlayers: $numberOfPlayers, numberOfHouseCards: $numberOfHouseCards, openHouseCards: $openHouseCards, isUserWinner: $isUserWinner, score: $score, elapsedSeconds: $elapsedSeconds, gameStartAt: $gameStartAt, gameUpdatedAt: $gameUpdatedAt)';
+    return 'GameHistory(userSelectedCards: $userSelectedCards, numberOfPlayers: $numberOfPlayers, numberOfHouseCards: $numberOfHouseCards, openHouseCards: $openHouseCards, isUserWinner: $isUserWinner, score: $score, elapsedSeconds: $elapsedSeconds, gameStartAt: $gameStartAt, gameUpdatedAt: $gameUpdatedAt, topPokerHand: $topPokerHand)';
   }
 
   @override
@@ -261,7 +290,8 @@ class _$GameHistoryImpl implements _GameHistory {
             (identical(other.score, score) || other.score == score) &&
             (identical(other.elapsedSeconds, elapsedSeconds) || other.elapsedSeconds == elapsedSeconds) &&
             (identical(other.gameStartAt, gameStartAt) || other.gameStartAt == gameStartAt) &&
-            (identical(other.gameUpdatedAt, gameUpdatedAt) || other.gameUpdatedAt == gameUpdatedAt));
+            (identical(other.gameUpdatedAt, gameUpdatedAt) || other.gameUpdatedAt == gameUpdatedAt) &&
+            (identical(other.topPokerHand, topPokerHand) || other.topPokerHand == topPokerHand));
   }
 
   @JsonKey(ignore: true)
@@ -276,7 +306,8 @@ class _$GameHistoryImpl implements _GameHistory {
       score,
       elapsedSeconds,
       gameStartAt,
-      gameUpdatedAt);
+      gameUpdatedAt,
+      topPokerHand);
 
   @JsonKey(ignore: true)
   @override
@@ -302,7 +333,8 @@ abstract class _GameHistory implements GameHistory {
       required final int score,
       required final int elapsedSeconds,
       required final DateTime gameStartAt,
-      required final DateTime gameUpdatedAt}) = _$GameHistoryImpl;
+      required final DateTime gameUpdatedAt,
+      required final PokerHand topPokerHand}) = _$GameHistoryImpl;
 
   factory _GameHistory.fromJson(Map<String, dynamic> json) = _$GameHistoryImpl.fromJson;
 
@@ -324,6 +356,8 @@ abstract class _GameHistory implements GameHistory {
   DateTime get gameStartAt;
   @override
   DateTime get gameUpdatedAt;
+  @override
+  PokerHand get topPokerHand;
   @override
   @JsonKey(ignore: true)
   _$$GameHistoryImplCopyWith<_$GameHistoryImpl> get copyWith => throw _privateConstructorUsedError;

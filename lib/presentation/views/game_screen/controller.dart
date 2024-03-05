@@ -118,6 +118,9 @@ class _VSController extends StateNotifier<_ViewState> {
       elapsedSeconds: state.elapsedSeconds,
       isUserWinner: false,
       score: score,
+      topPokerHand: PokerHand(
+        cards: params.userSelectedCards,
+      ),
     );
     MyAppX.gameHistory.updateGameHistory(gameHistory);
 
@@ -159,6 +162,7 @@ class _VSController extends StateNotifier<_ViewState> {
         isUserWinner: false,
         score: score,
         gameUpdatedAt: DateTime.now(),
+        topPokerHand: state.generatedHands[0].pokerHands[0],
       ),
     );
     MyAppX.gameHistory.updateGameHistory(state.gameHistory!);

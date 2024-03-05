@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pokerface/data/models/card.dart';
+import 'package:pokerface/data/models/poker_hand.dart';
 
 part 'game_history.freezed.dart';
 part 'game_history.g.dart';
@@ -16,6 +17,7 @@ class GameHistory with _$GameHistory {
     required int elapsedSeconds,
     required DateTime gameStartAt,
     required DateTime gameUpdatedAt,
+    required PokerHand topPokerHand,
   }) = _GameHistory;
 
   factory GameHistory.fromJson(Map<String, dynamic> json) => _$GameHistoryFromJson(json);

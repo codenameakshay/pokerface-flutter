@@ -6,7 +6,7 @@ class GameHistorySave {
   static final GameHistorySave _instance = GameHistorySave._();
   static GameHistorySave get instance => _instance;
 
-  static const gameHistorySaveKey = 'GameHistorySaveKey#01';
+  static const gameHistorySaveKey = 'GameHistorySaveKey#02';
 
   Future<List<GameHistory>> getGameHistory() async {
     return (await MyAppX.prefs.retrieve(

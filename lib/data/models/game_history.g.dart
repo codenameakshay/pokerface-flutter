@@ -18,6 +18,7 @@ _$GameHistoryImpl _$$GameHistoryImplFromJson(Map<String, dynamic> json) => _$Gam
       elapsedSeconds: json['elapsedSeconds'] as int,
       gameStartAt: DateTime.parse(json['gameStartAt'] as String),
       gameUpdatedAt: DateTime.parse(json['gameUpdatedAt'] as String),
+      topPokerHand: PokerHand.fromJson(json['topPokerHand'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$GameHistoryImplToJson(_$GameHistoryImpl instance) => <String, dynamic>{
@@ -30,4 +31,5 @@ Map<String, dynamic> _$$GameHistoryImplToJson(_$GameHistoryImpl instance) => <St
       'elapsedSeconds': instance.elapsedSeconds,
       'gameStartAt': instance.gameStartAt.toIso8601String(),
       'gameUpdatedAt': instance.gameUpdatedAt.toIso8601String(),
+      'topPokerHand': instance.topPokerHand.toJson(),
     };

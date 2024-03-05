@@ -1,4 +1,8 @@
-part of '../view.dart';
+import 'package:flutter/material.dart' hide Card;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokerface/data/models/card.dart';
+import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
+import 'package:pokerface/presentation/utils/cards/cards_png.dart';
 
 class CardPreview extends ConsumerWidget {
   final double width;
