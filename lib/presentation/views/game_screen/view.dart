@@ -10,6 +10,7 @@ import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/data/models/grouped_hands.dart';
 import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/data/models/street_light.dart';
+import 'package:pokerface/data/models/user_hand.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/core_widgets/dashed_border.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';

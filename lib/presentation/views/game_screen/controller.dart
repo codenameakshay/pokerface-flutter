@@ -120,6 +120,11 @@ class _VSController extends StateNotifier<_ViewState> {
     reGenHands(context, params.userSelectedCards);
   }
 
+  int get calScore {
+    final userHand = UserHand(userCards: params.userSelectedCards, houseCards: state.houseCards);
+    return userHand.calculateScore();
+  }
+
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
     state = state.copyWith(generateTime: Stopwatch()..start(), loadingState: LoadingState.loading);
     final generatedHands = await MyAppX.isolateManager.runFindTopNHands(cards, 20);
