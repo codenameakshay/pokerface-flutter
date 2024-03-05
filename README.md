@@ -104,16 +104,17 @@ Contributions are what make the open-source community such an amazing place to l
 5. Open a Pull Request
 
 ## Roadmap
+
 - [X] Game timer (to time games)
 - [X] Currently you have to new game for each round, show option to restart when all house cards are selected
 - [X] Save game history
+- [ ] Store win/loss of each game
 - [ ] Background music + SFX
 - [ ] Volume control and settings
 - [ ] Badges
 - [ ] Achievements
 - [ ] Dynamic app icons
 - [X] Calculate score for each game
-- [ ] Store win/loss of each game
 - [ ] Integrate AI into more features
 - [ ] Premium subscription
 - [ ] Onboarding
