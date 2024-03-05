@@ -30,6 +30,7 @@ part 'widgets/ai_chat_popup.dart';
 part 'widgets/top_user_cards.dart';
 part 'widgets/bottom_house_cards.dart';
 part 'widgets/body.dart';
+part 'widgets/elapsed_time.dart';
 part 'widgets/hand_preview.dart';
 part 'widgets/hand_rank_header.dart';
 part 'widgets/hand_ranks_list.dart';
@@ -78,6 +79,7 @@ class _GameViewState extends ConsumerState<GameView> {
               _TopUserCards(params: params),
               _BottomHouseCards(params: params),
               _AIChatPopup(params: params),
+              const ElapsedTimerWidget(),
             ],
           ),
         ),

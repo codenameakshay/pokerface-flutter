@@ -104,7 +104,7 @@ Contributions are what make the open-source community such an amazing place to l
 5. Open a Pull Request
 
 ## Roadmap
-- [ ] Game timer (to time games)
+- [X] Game timer (to time games)
 - [ ] Currently you have to new game for each round, show option to restart when all house cards are selected
 - [ ] Save game history
 - [ ] Background music + SFX
