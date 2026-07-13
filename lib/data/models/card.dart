@@ -93,7 +93,7 @@ extension RankExtension on Rank {
 }
 
 @freezed
-class Card with _$Card {
+abstract class Card with _$Card {
   const factory Card({
     required Rank rank,
     required Suit suit,

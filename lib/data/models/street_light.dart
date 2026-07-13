@@ -4,7 +4,7 @@ import 'package:pokerface/data/models/bulb.dart';
 part 'street_light.freezed.dart';
 
 @freezed
-class StreetLight with _$StreetLight {
+abstract class StreetLight with _$StreetLight {
   factory StreetLight({
     required List<Bulb> bulbs,
   }) = _StreetLight;

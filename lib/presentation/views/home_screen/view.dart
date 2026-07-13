@@ -69,7 +69,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       Text(
                         'POKERFACE',
                         style: theme.themeText.headline1?.copyWith(
-                          fontFamily: GoogleFonts.bigShouldersDisplay().fontFamily,
+                          fontFamily: GoogleFonts.bigShoulders().fontFamily,
                           fontWeight: FontWeight.w900,
                           color: theme.type.isDark ? Colors.white : const Color(0xFF020513),
                         ),

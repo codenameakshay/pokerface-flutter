@@ -81,7 +81,7 @@ extension HandRankExtension on HandRank {
 }
 
 @freezed
-class PokerHand with _$PokerHand {
+abstract class PokerHand with _$PokerHand {
   factory PokerHand({
     required List<Card> cards,
   }) = _PokerHand;

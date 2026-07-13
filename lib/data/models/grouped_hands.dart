@@ -5,7 +5,7 @@ part 'grouped_hands.freezed.dart';
 part 'grouped_hands.g.dart';
 
 @freezed
-class GroupedHands with _$GroupedHands {
+abstract class GroupedHands with _$GroupedHands {
   factory GroupedHands({
     required bool isExpaned,
     required List<PokerHand> pokerHands,

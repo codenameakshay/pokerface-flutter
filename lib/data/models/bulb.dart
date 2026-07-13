@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'bulb.freezed.dart';
 
 @freezed
-class Bulb with _$Bulb {
+abstract class Bulb with _$Bulb {
   factory Bulb({
     required Color onColor,
     required Color offColor,

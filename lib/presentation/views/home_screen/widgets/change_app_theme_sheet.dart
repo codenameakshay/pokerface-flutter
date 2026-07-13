@@ -74,8 +74,8 @@ class ChangeAppThemeSheet extends ConsumerWidget {
       padding: EdgeInsets.only(bottom: 64.toAutoScaledHeight),
       itemBuilder: (context, index) {
         return Clickable(
-          onPressed: () async {
-            await MyAppX.router.pop(themes[index]['type']);
+          onPressed: () {
+            MyAppX.router.pop(themes[index]['type']);
           },
           child: _buildIcon(theme, index, currentSelectedTheme),
         );

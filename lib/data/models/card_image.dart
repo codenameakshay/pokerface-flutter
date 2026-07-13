@@ -4,7 +4,7 @@ part 'card_image.freezed.dart';
 part 'card_image.g.dart';
 
 @freezed
-class CardImage with _$CardImage {
+abstract class CardImage with _$CardImage {
   factory CardImage({
     required String svg,
     required String png,

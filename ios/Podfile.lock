@@ -1,44 +1,26 @@
 PODS:
-  - audioplayers_darwin (0.0.1):
-    - Flutter
-  - device_info_plus (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - flutter_dynamic_icon (0.0.1):
-    - Flutter
-  - fluttertoast (0.0.2):
     - Flutter
   - sensors (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
-  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_dynamic_icon (from `.symlinks/plugins/flutter_dynamic_icon/ios`)
-  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - sensors (from `.symlinks/plugins/sensors/ios`)
 
 EXTERNAL SOURCES:
-  audioplayers_darwin:
-    :path: ".symlinks/plugins/audioplayers_darwin/ios"
-  device_info_plus:
-    :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
     :path: Flutter
   flutter_dynamic_icon:
     :path: ".symlinks/plugins/flutter_dynamic_icon/ios"
-  fluttertoast:
-    :path: ".symlinks/plugins/fluttertoast/ios"
   sensors:
     :path: ".symlinks/plugins/sensors/ios"
 
 SPEC CHECKSUMS:
-  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_dynamic_icon: fb0cd2f84c817c1a0ddbbc383fbebec3cd5e88d8
-  fluttertoast: 21eecd6935e7064cc1fcb733a4c5a428f3f24f0f
   sensors: 84eb7a30e47a649e4172b71d6e81be614c280336
 
 PODFILE CHECKSUM: 4f1c12611da7338d21589c0b2ecd6bd20b109694
