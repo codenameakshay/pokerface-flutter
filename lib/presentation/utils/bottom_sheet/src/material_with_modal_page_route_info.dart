@@ -53,9 +53,7 @@ class MaterialWithModalPage<T> extends Page<T> {
 // This route uses the builder from the page to build its content. This ensures
 // the content is up to date after page updates.
 class _PageBasedMaterialWithModalPageRoute<T> extends PageRoute<T> with MaterialRouteTransitionMixin<T> {
-  _PageBasedMaterialWithModalPageRoute({
-    required MaterialWithModalPage<T> page,
-  }) : super(settings: page);
+  _PageBasedMaterialWithModalPageRoute({required MaterialWithModalPage<T> page}) : super(settings: page);
 
   ModalSheetRoute? _nextModalRoute;
 
@@ -85,7 +83,11 @@ class _PageBasedMaterialWithModalPageRoute<T> extends PageRoute<T> with Material
 
   @override
   Widget buildTransitions(
-      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     final theme = Theme.of(context).pageTransitionsTheme;
     final nextRoute = _nextModalRoute;
     if (nextRoute != null) {

@@ -9,5 +9,7 @@ part of 'card_image.dart';
 _CardImage _$CardImageFromJson(Map<String, dynamic> json) =>
     _CardImage(svg: json['svg'] as String, png: json['png'] as String);
 
-Map<String, dynamic> _$CardImageToJson(_CardImage instance) =>
-    <String, dynamic>{'svg': instance.svg, 'png': instance.png};
+Map<String, dynamic> _$CardImageToJson(_CardImage instance) => <String, dynamic>{
+  'svg': instance.svg,
+  'png': instance.png,
+};

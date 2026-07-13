@@ -3,11 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class DefaultDraggable extends StatefulWidget {
-  const DefaultDraggable({
-    super.key,
-    required this.child,
-    this.childWhenDragging = const SizedBox(),
-  });
+  const DefaultDraggable({super.key, required this.child, this.childWhenDragging = const SizedBox()});
 
   final Widget child;
   final Widget childWhenDragging;
@@ -43,10 +39,7 @@ class DraggableRotatingFeedbackState extends State<DraggableRotatingFeedback> wi
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(days: 10),
-    )..repeat();
+    _controller = AnimationController(vsync: this, duration: const Duration(days: 10))..repeat();
 
     _timer = Timer.periodic(const Duration(milliseconds: 300), (timer) {
       setState(() {
@@ -72,10 +65,7 @@ class DraggableRotatingFeedbackState extends State<DraggableRotatingFeedback> wi
       animation: _controller,
       child: widget.child,
       builder: (context, child) {
-        return Transform.rotate(
-          angle: 200000 * pi * _controller.value,
-          child: child,
-        );
+        return Transform.rotate(angle: 200000 * pi * _controller.value, child: child);
       },
     );
   }

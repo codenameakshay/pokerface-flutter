@@ -1,14 +1,10 @@
 part of '../app_extension.dart';
 
-final _themeProvider = StateNotifierProvider.autoDispose<ThemeStateNotifier, ThemeState>(
-  (ref) {
-    final notifier = ThemeStateNotifier(
-      ThemeState.defaults(),
-    )..initState();
+final _themeProvider = StateNotifierProvider.autoDispose<ThemeStateNotifier, ThemeState>((ref) {
+  final notifier = ThemeStateNotifier(ThemeState.defaults())..initState();
 
-    return notifier;
-  },
-);
+  return notifier;
+});
 
 class ThemeState {
   ThemeState({
@@ -24,32 +20,30 @@ class ThemeState {
   });
 
   ThemeState.defaults()
-      : this(
-          type: ThemeType.olive,
-          margins: ThemeMargins(),
-          paddings: ThemePaddings(),
-          borders: ThemeBorders(),
-          colors: ThemeColors.dark(),
-          fontSizes: ThemeFontSizes(),
-          fontWeights: ThemeFontWeights(),
-          fontLineHeights: ThemeFontLineHeights(),
-          themeText: ThemeText(),
-        );
+    : this(
+        type: ThemeType.olive,
+        margins: ThemeMargins(),
+        paddings: ThemePaddings(),
+        borders: ThemeBorders(),
+        colors: ThemeColors.dark(),
+        fontSizes: ThemeFontSizes(),
+        fontWeights: ThemeFontWeights(),
+        fontLineHeights: ThemeFontLineHeights(),
+        themeText: ThemeText(),
+      );
 
-  ThemeState.saved(
-    ThemeType type,
-    ThemeColors colors,
-  ) : this(
-          type: type,
-          margins: ThemeMargins(),
-          paddings: ThemePaddings(),
-          borders: ThemeBorders(),
-          colors: colors,
-          fontSizes: ThemeFontSizes(),
-          fontWeights: ThemeFontWeights(),
-          fontLineHeights: ThemeFontLineHeights(),
-          themeText: ThemeText(),
-        );
+  ThemeState.saved(ThemeType type, ThemeColors colors)
+    : this(
+        type: type,
+        margins: ThemeMargins(),
+        paddings: ThemePaddings(),
+        borders: ThemeBorders(),
+        colors: colors,
+        fontSizes: ThemeFontSizes(),
+        fontWeights: ThemeFontWeights(),
+        fontLineHeights: ThemeFontLineHeights(),
+        themeText: ThemeText(),
+      );
 
   final ThemeType type;
   final ThemeMargins margins;
@@ -94,27 +88,18 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
   }
 
   Future<void> fetchSavedTheme() async {
-    final themeType = await MyAppX.prefs.retrieve(
-          key: themeTypeKey,
-          decoder: (themeType) => themeType.toThemeType,
-        ) ??
+    final themeType =
+        await MyAppX.prefs.retrieve(key: themeTypeKey, decoder: (themeType) => themeType.toThemeType) ??
         ThemeType.olive;
 
     switchTheme(themeType, showToast: false);
   }
 
   void switchTheme(ThemeType themeType, {bool showToast = true}) {
-    MyAppX.prefs.update(
-      key: themeTypeKey,
-      updatedData: themeType,
-      encoder: (themeType) => themeType.name,
-    );
+    MyAppX.prefs.update(key: themeTypeKey, updatedData: themeType, encoder: (themeType) => themeType.name);
     final colors = getThemeColors(themeType);
 
-    state = ThemeState.defaults().copyWith(
-      type: themeType,
-      colors: colors,
-    );
+    state = ThemeState.defaults().copyWith(type: themeType, colors: colors);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarBrightness: themeType.isDark ? Brightness.dark : Brightness.light, // iOS
@@ -125,9 +110,7 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [SystemUiOverlay.top]);
 
     if (showToast) {
-      MyAppX.showToast(
-        message: 'Theme switched to ${themeType.label}',
-      );
+      MyAppX.showToast(message: 'Theme switched to ${themeType.label}');
     }
   }
 

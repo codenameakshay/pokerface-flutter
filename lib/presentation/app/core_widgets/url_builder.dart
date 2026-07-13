@@ -21,12 +21,7 @@ class UrlBuilder extends ConsumerWidget {
             child: Text(
               placeholderText ?? url,
               style: currentTheme.themeText.caption?.copyWith(
-                shadows: [
-                  Shadow(
-                    color: currentTheme.colors.onBackground,
-                    offset: Offset(0, -1.toAutoScaledHeight),
-                  ),
-                ],
+                shadows: [Shadow(color: currentTheme.colors.onBackground, offset: Offset(0, -1.toAutoScaledHeight))],
                 fontSize: currentTheme.fontSizes.s12,
                 color: Colors.transparent,
                 height: currentTheme.fontLineHeights.lh16 / currentTheme.fontSizes.s12,

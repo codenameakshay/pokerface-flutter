@@ -82,9 +82,7 @@ extension HandRankExtension on HandRank {
 
 @freezed
 abstract class PokerHand with _$PokerHand {
-  factory PokerHand({
-    required List<Card> cards,
-  }) = _PokerHand;
+  factory PokerHand({required List<Card> cards}) = _PokerHand;
 
   factory PokerHand.fromJson(Map<String, dynamic> json) => _$PokerHandFromJson(json);
 }

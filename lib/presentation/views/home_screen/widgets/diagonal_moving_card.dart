@@ -55,17 +55,14 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
     position = widget.initialPosition;
     startAnimationLoop();
 
-    _glowController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 50),
-    );
-    _glowColorAnimation = ColorTween(
-      begin: widget.theme.colors.onBackground.withOpacity(0),
-      end: widget.theme.colors.onBackground,
-    ).animate(_glowController!)
-      ..addListener(() {
-        setState(() {});
-      });
+    _glowController = AnimationController(vsync: this, duration: const Duration(milliseconds: 50));
+    _glowColorAnimation =
+        ColorTween(
+          begin: widget.theme.colors.onBackground.withOpacity(0),
+          end: widget.theme.colors.onBackground,
+        ).animate(_glowController!)..addListener(() {
+          setState(() {});
+        });
   }
 
   void startAnimationLoop() {
@@ -103,7 +100,8 @@ class DiagonalMovingCardState extends State<DiagonalMovingCard> with TickerProvi
     }
 
     // Corner detection
-    bool isCornerHit = (newPosition.dx <= 0 || newPosition.dx >= screenSize.width - cardWidth) &&
+    bool isCornerHit =
+        (newPosition.dx <= 0 || newPosition.dx >= screenSize.width - cardWidth) &&
         (newPosition.dy <= 0 || newPosition.dy >= screenSize.height - cardHeight);
 
     if (isCornerHit || collidedWithHorizontalEdge || collidedWithVerticalEdge) {

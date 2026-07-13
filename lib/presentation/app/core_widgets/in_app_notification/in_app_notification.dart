@@ -14,13 +14,8 @@ typedef ToastActionable = void Function();
 typedef ToastDismissCallback = void Function();
 
 class ToastAction {
-  const ToastAction({
-    this.text,
-    this.child,
-    required this.onPressed,
-    this.backgroundColor,
-    this.textColor,
-  }) : assert(text != null || child != null, 'Either text or child must be provided');
+  const ToastAction({this.text, this.child, required this.onPressed, this.backgroundColor, this.textColor})
+    : assert(text != null || child != null, 'Either text or child must be provided');
 
   final String? text;
   final Widget? child;
@@ -82,30 +77,22 @@ class ToastDetails extends Equatable {
 }
 
 class ShowToast extends EventX {
-  ShowToast({
-    required this.details,
-  });
+  ShowToast({required this.details});
   final ToastDetails details;
 }
 
 class HideToast extends EventX {
-  HideToast({
-    this.animated = true,
-  });
+  HideToast({this.animated = true});
   final bool animated;
 }
 
 class ShowBottomToast extends EventX {
-  ShowBottomToast({
-    required this.details,
-  });
+  ShowBottomToast({required this.details});
   final ToastDetails details;
 }
 
 class HideBottomToast extends EventX {
-  HideBottomToast({
-    this.animated = true,
-  });
+  HideBottomToast({this.animated = true});
   final bool animated;
 }
 
@@ -135,17 +122,11 @@ class ToastController {
       overrideDismiss: overrideDismiss,
     );
 
-    EventBrokerX.shared.emitEvent(
-      ShowToast(
-        details: notificationDetails,
-      ),
-    );
+    EventBrokerX.shared.emitEvent(ShowToast(details: notificationDetails));
   }
 
   Future<void> hideToast() async {
-    EventBrokerX.shared.emitEvent(
-      HideToast(),
-    );
+    EventBrokerX.shared.emitEvent(HideToast());
   }
 
   void showBottomToast({
@@ -171,25 +152,16 @@ class ToastController {
       overrideDismiss: overrideDismiss,
     );
 
-    EventBrokerX.shared.emitEvent(
-      ShowBottomToast(
-        details: notificationDetails,
-      ),
-    );
+    EventBrokerX.shared.emitEvent(ShowBottomToast(details: notificationDetails));
   }
 
   Future<void> hideBottomToast() async {
-    EventBrokerX.shared.emitEvent(
-      HideBottomToast(),
-    );
+    EventBrokerX.shared.emitEvent(HideBottomToast());
   }
 }
 
 class ToastProvider extends StatefulWidget {
-  const ToastProvider({
-    super.key,
-    this.child,
-  });
+  const ToastProvider({super.key, this.child});
   final Widget? child;
 
   @override
@@ -207,22 +179,14 @@ class _ToastProviderState extends State<ToastProvider>
 
   late AnimationController controller = AnimationController(
     vsync: this,
-    duration: const Duration(
-      milliseconds: 120,
-    ),
-    reverseDuration: const Duration(
-      milliseconds: 80,
-    ),
+    duration: const Duration(milliseconds: 120),
+    reverseDuration: const Duration(milliseconds: 80),
   );
 
   late AnimationController bottomController = AnimationController(
     vsync: this,
-    duration: const Duration(
-      milliseconds: 120,
-    ),
-    reverseDuration: const Duration(
-      milliseconds: 80,
-    ),
+    duration: const Duration(milliseconds: 120),
+    reverseDuration: const Duration(milliseconds: 80),
   );
 
   @override
@@ -249,10 +213,7 @@ class _ToastProviderState extends State<ToastProvider>
         children: [
           if (widget.child != null) widget.child!,
           if (notificationDetails != null)
-            AnimatedToast(
-              controller: controller,
-              notificationDetails: notificationDetails!,
-            ),
+            AnimatedToast(controller: controller, notificationDetails: notificationDetails!),
           if (bottomNotificationDetails != null)
             Positioned(
               bottom: 0,
@@ -276,27 +237,19 @@ class _ToastProviderState extends State<ToastProvider>
     log('[Toast.onEvent] event.runtimeType : ${event.runtimeType}');
 
     if (event is ShowToast) {
-      _showToast(
-        event.details,
-      );
+      _showToast(event.details);
     }
 
     if (event is HideToast) {
-      _hideToast(
-        animated: event.animated,
-      );
+      _hideToast(animated: event.animated);
     }
 
     if (event is ShowBottomToast) {
-      _showBottomToast(
-        event.details,
-      );
+      _showBottomToast(event.details);
     }
 
     if (event is HideBottomToast) {
-      _hideBottomToast(
-        animated: event.animated,
-      );
+      _hideBottomToast(animated: event.animated);
     }
   }
 
@@ -332,11 +285,9 @@ class _ToastProviderState extends State<ToastProvider>
     }
 
     // Clear the dismissed notification's details
-    setState(
-      () {
-        notificationDetails = null;
-      },
-    );
+    setState(() {
+      notificationDetails = null;
+    });
   }
 
   Future<void> _showBottomToast(ToastDetails details) async {
@@ -371,11 +322,9 @@ class _ToastProviderState extends State<ToastProvider>
     }
 
     // Clear the dismissed notification's details
-    setState(
-      () {
-        bottomNotificationDetails = null;
-      },
-    );
+    setState(() {
+      bottomNotificationDetails = null;
+    });
   }
 
   void _setUpDismissTimerIfRequired(ToastDetails details) {
@@ -399,10 +348,7 @@ class _ToastProviderState extends State<ToastProvider>
 
     if (details.isDismissible) {
       timer?.cancel();
-      timer = Timer(
-        dismissDuration,
-        _hideToast,
-      );
+      timer = Timer(dismissDuration, _hideToast);
     } else {
       // No need to set timer as this is a non-dismissible notification
     }
@@ -429,10 +375,7 @@ class _ToastProviderState extends State<ToastProvider>
 
     if (details.isDismissible) {
       bottomTimer?.cancel();
-      bottomTimer = Timer(
-        dismissDuration,
-        _hideBottomToast,
-      );
+      bottomTimer = Timer(dismissDuration, _hideBottomToast);
     } else {
       // No need to set timer as this is a non-dismissible notification
     }
@@ -440,25 +383,14 @@ class _ToastProviderState extends State<ToastProvider>
 }
 
 class AnimatedToast extends AnimatedWidget {
-  const AnimatedToast({
-    super.key,
-    required AnimationController controller,
-    required this.notificationDetails,
-  }) : super(listenable: controller);
+  const AnimatedToast({super.key, required AnimationController controller, required this.notificationDetails})
+    : super(listenable: controller);
   final ToastDetails notificationDetails;
 
   Animation<Offset> get offset => Tween<Offset>(
-        begin: const Offset(
-          0,
-          -1,
-        ),
-        end: Offset.zero,
-      ).animate(
-        CurvedAnimation(
-          parent: listenable as Animation<double>,
-          curve: const Cubic(0.21, 1.12, 1, 1),
-        ),
-      );
+    begin: const Offset(0, -1),
+    end: Offset.zero,
+  ).animate(CurvedAnimation(parent: listenable as Animation<double>, curve: const Cubic(0.21, 1.12, 1, 1)));
 
   @override
   Widget build(BuildContext context) {
@@ -489,9 +421,7 @@ class AnimatedToast extends AnimatedWidget {
             },
             key: const Key('InAppNotifications'),
             child: Container(
-              padding: EdgeInsets.all(
-                20.toAutoScaledWidth,
-              ),
+              padding: EdgeInsets.all(20.toAutoScaledWidth),
               color: () {
                 late final Color color;
 
@@ -516,30 +446,21 @@ class AnimatedToast extends AnimatedWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _buildMessage(),
-                    if (leadingAction != null || trailingAction != null)
-                      const SizedBox(
-                        height: 16,
-                      ),
+                    if (leadingAction != null || trailingAction != null) const SizedBox(height: 16),
                     Row(
                       children: [
                         if (leadingAction != null)
-                          Expanded(
-                            child: _buildLeadingAction(leadingAction),
-                          )
+                          Expanded(child: _buildLeadingAction(leadingAction))
                         else
                           const Spacer(),
                         if (leadingAction != null && trailingAction != null)
-                          SizedBox(
-                            width: spacingBetweenActions ?? 20.toAutoScaledWidth,
-                          ),
+                          SizedBox(width: spacingBetweenActions ?? 20.toAutoScaledWidth),
                         if (trailingAction != null)
-                          Expanded(
-                            child: _buildTrailingAction(trailingAction),
-                          )
+                          Expanded(child: _buildTrailingAction(trailingAction))
                         else
                           const Spacer(),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -551,22 +472,23 @@ class AnimatedToast extends AnimatedWidget {
   }
 
   Widget _buildMessage() => Consumer(
-        builder: (context, ref, child) {
-          final currentTheme = ref.watch(MyAppX.theme.current);
+    builder: (context, ref, child) {
+      final currentTheme = ref.watch(MyAppX.theme.current);
 
-          return Text(
-            notificationDetails.message,
-            style: notificationDetails.messageStyle ??
-                TextStyle(
-                  color: currentTheme.colors.onPrimary,
-                  fontSize: currentTheme.fontSizes.s13,
-                  height: currentTheme.fontLineHeights.lh20 / currentTheme.fontSizes.s13,
-                  fontWeight: currentTheme.fontWeights.wRegular,
-                ),
-            textAlign: TextAlign.start,
-          );
-        },
+      return Text(
+        notificationDetails.message,
+        style:
+            notificationDetails.messageStyle ??
+            TextStyle(
+              color: currentTheme.colors.onPrimary,
+              fontSize: currentTheme.fontSizes.s13,
+              height: currentTheme.fontLineHeights.lh20 / currentTheme.fontSizes.s13,
+              fontWeight: currentTheme.fontWeights.wRegular,
+            ),
+        textAlign: TextAlign.start,
       );
+    },
+  );
 
   Widget _buildLeadingAction(ToastAction action) {
     final child = action.child;
@@ -582,18 +504,12 @@ class AnimatedToast extends AnimatedWidget {
           onPressed: action.onPressed,
           style: ElevatedButton.styleFrom(
             elevation: 0,
-            padding: EdgeInsets.symmetric(
-              horizontal: currentTheme.paddings.h10,
-              vertical: currentTheme.paddings.v10,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                300,
-              ),
-            ),
+            padding: EdgeInsets.symmetric(horizontal: currentTheme.paddings.h10, vertical: currentTheme.paddings.v10),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(300)),
             backgroundColor: bgColor ?? currentTheme.colors.secondaryContainer,
           ),
-          child: child ??
+          child:
+              child ??
               (text != null
                   ? Text(
                       text,
@@ -623,16 +539,9 @@ class AnimatedToast extends AnimatedWidget {
         return ElevatedButton(
           onPressed: action.onPressed,
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-              horizontal: currentTheme.paddings.h10,
-              vertical: currentTheme.paddings.v10,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: currentTheme.paddings.h10, vertical: currentTheme.paddings.v10),
             elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                300.toAutoScaledWidth,
-              ),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(300.toAutoScaledWidth)),
             backgroundColor: () {
               late final Color color;
 
@@ -651,7 +560,8 @@ class AnimatedToast extends AnimatedWidget {
               return bgColor ?? color;
             }(),
           ),
-          child: child ??
+          child:
+              child ??
               (text != null
                   ? Text(
                       text,
@@ -694,14 +604,9 @@ class AnimatedBottomToast extends AnimatedWidget {
   final ToastDetails notificationDetails;
 
   Animation<Offset> get offset => Tween<Offset>(
-        begin: const Offset(0, 1),
-        end: Offset.zero,
-      ).animate(
-        CurvedAnimation(
-          parent: listenable as Animation<double>,
-          curve: const Cubic(0.21, 1.12, 1, 1),
-        ),
-      );
+    begin: const Offset(0, 1),
+    end: Offset.zero,
+  ).animate(CurvedAnimation(parent: listenable as Animation<double>, curve: const Cubic(0.21, 1.12, 1, 1)));
 
   @override
   Widget build(BuildContext context) {
@@ -732,9 +637,7 @@ class AnimatedBottomToast extends AnimatedWidget {
             },
             key: const Key('InAppNotifications'),
             child: Container(
-              padding: EdgeInsets.all(
-                20.toAutoScaledWidth,
-              ),
+              padding: EdgeInsets.all(20.toAutoScaledWidth),
               color: () {
                 late final Color color;
 
@@ -759,30 +662,21 @@ class AnimatedBottomToast extends AnimatedWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _buildMessage(),
-                    if (leadingAction != null || trailingAction != null)
-                      const SizedBox(
-                        height: 16,
-                      ),
+                    if (leadingAction != null || trailingAction != null) const SizedBox(height: 16),
                     Row(
                       children: [
                         if (leadingAction != null)
-                          Expanded(
-                            child: _buildLeadingAction(leadingAction),
-                          )
+                          Expanded(child: _buildLeadingAction(leadingAction))
                         else
                           const Spacer(),
                         if (leadingAction != null && trailingAction != null)
-                          SizedBox(
-                            width: spacingBetweenActions ?? 20.toAutoScaledWidth,
-                          ),
+                          SizedBox(width: spacingBetweenActions ?? 20.toAutoScaledWidth),
                         if (trailingAction != null)
-                          Expanded(
-                            child: _buildTrailingAction(trailingAction),
-                          )
+                          Expanded(child: _buildTrailingAction(trailingAction))
                         else
                           const Spacer(),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -794,22 +688,23 @@ class AnimatedBottomToast extends AnimatedWidget {
   }
 
   Widget _buildMessage() => Consumer(
-        builder: (context, ref, child) {
-          final currentTheme = ref.watch(MyAppX.theme.current);
+    builder: (context, ref, child) {
+      final currentTheme = ref.watch(MyAppX.theme.current);
 
-          return Text(
-            notificationDetails.message,
-            style: notificationDetails.messageStyle ??
-                TextStyle(
-                  color: currentTheme.colors.onPrimary,
-                  fontSize: currentTheme.fontSizes.s13,
-                  height: currentTheme.fontLineHeights.lh20 / currentTheme.fontSizes.s13,
-                  fontWeight: currentTheme.fontWeights.wRegular,
-                ),
-            textAlign: TextAlign.start,
-          );
-        },
+      return Text(
+        notificationDetails.message,
+        style:
+            notificationDetails.messageStyle ??
+            TextStyle(
+              color: currentTheme.colors.onPrimary,
+              fontSize: currentTheme.fontSizes.s13,
+              height: currentTheme.fontLineHeights.lh20 / currentTheme.fontSizes.s13,
+              fontWeight: currentTheme.fontWeights.wRegular,
+            ),
+        textAlign: TextAlign.start,
       );
+    },
+  );
 
   Widget _buildLeadingAction(ToastAction action) {
     final child = action.child;
@@ -825,18 +720,12 @@ class AnimatedBottomToast extends AnimatedWidget {
           onPressed: action.onPressed,
           style: ElevatedButton.styleFrom(
             elevation: 0,
-            padding: EdgeInsets.symmetric(
-              horizontal: currentTheme.paddings.h10,
-              vertical: currentTheme.paddings.v10,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                300,
-              ),
-            ),
+            padding: EdgeInsets.symmetric(horizontal: currentTheme.paddings.h10, vertical: currentTheme.paddings.v10),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(300)),
             backgroundColor: bgColor ?? currentTheme.colors.secondaryContainer,
           ),
-          child: child ??
+          child:
+              child ??
               (text != null
                   ? Text(
                       text,
@@ -866,16 +755,9 @@ class AnimatedBottomToast extends AnimatedWidget {
         return ElevatedButton(
           onPressed: action.onPressed,
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-              horizontal: currentTheme.paddings.h10,
-              vertical: currentTheme.paddings.v10,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: currentTheme.paddings.h10, vertical: currentTheme.paddings.v10),
             elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                300.toAutoScaledWidth,
-              ),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(300.toAutoScaledWidth)),
             backgroundColor: () {
               late final Color color;
 
@@ -894,7 +776,8 @@ class AnimatedBottomToast extends AnimatedWidget {
               return bgColor ?? color;
             }(),
           ),
-          child: child ??
+          child:
+              child ??
               (text != null
                   ? Text(
                       text,

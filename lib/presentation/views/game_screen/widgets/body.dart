@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _Body extends StatelessWidget {
-  const _Body({
-    required this.params,
-  });
+  const _Body({required this.params});
 
   final _VSControllerParams params;
 

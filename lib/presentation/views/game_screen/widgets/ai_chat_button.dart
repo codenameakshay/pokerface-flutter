@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _AIChatButton extends ConsumerWidget {
-  const _AIChatButton({
-    required this.params,
-  });
+  const _AIChatButton({required this.params});
 
   final _VSControllerParams params;
 
@@ -19,10 +17,7 @@ class _AIChatButton extends ConsumerWidget {
         padding: EdgeInsets.all(24.toAutoScaledWidth),
         child: FloatingActionButton(
           onPressed: stateController.toggleAIChat,
-          child: Icon(
-            state.showAIChat ? Icons.close : Icons.bolt,
-            color: theme.colors.onPrimary,
-          ),
+          child: Icon(state.showAIChat ? Icons.close : Icons.bolt, color: theme.colors.onPrimary),
         ),
       ),
     );

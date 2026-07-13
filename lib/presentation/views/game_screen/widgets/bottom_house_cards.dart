@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _BottomHouseCards extends ConsumerWidget {
-  const _BottomHouseCards({
-    required this.params,
-  });
+  const _BottomHouseCards({required this.params});
 
   final _VSControllerParams params;
 

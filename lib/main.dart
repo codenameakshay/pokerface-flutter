@@ -15,9 +15,7 @@ Future<void> initializeApp() async {
   //   webRecaptchaSiteKey: 'recaptcha-v3-site-key',
   //   androidProvider: AndroidProvider.debug,
   // );
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
 void main() async {
@@ -40,11 +38,5 @@ void main() async {
   //     ),
   //   ),
   // );
-  runApp(
-    const ProviderScope(
-      child: MyApp(
-        key: Key('MyApp'),
-      ),
-    ),
-  );
+  runApp(const ProviderScope(child: MyApp(key: Key('MyApp'))));
 }

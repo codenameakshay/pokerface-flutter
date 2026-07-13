@@ -12,11 +12,11 @@ final _paramsProvider = Provider<_VSControllerParams>((ref) {
   throw UnimplementedError();
 });
 
-final _vsProvider =
-    StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
-  final stateController = _VSController(
-    params: params,
-  )..initState();
+final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((
+  ref,
+  params,
+) {
+  final stateController = _VSController(params: params)..initState();
 
   return stateController;
 });
@@ -32,9 +32,7 @@ class _ViewState {
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController({
-    required this.params,
-  }) : super(_ViewState.initial());
+  _VSController({required this.params}) : super(_ViewState.initial());
   _VSControllerParams params;
 
   void initState() {}
@@ -118,10 +116,7 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   void showAboutSheet(BuildContext context) {
-    showCupertinoModalBottomSheet<ThemeType>(
-      context: context,
-      builder: (context) => const AboutSheet(),
-    );
+    showCupertinoModalBottomSheet<ThemeType>(context: context, builder: (context) => const AboutSheet());
   }
 
   // @override

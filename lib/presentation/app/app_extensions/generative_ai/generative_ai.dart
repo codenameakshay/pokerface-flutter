@@ -14,10 +14,7 @@ class GenerativeAI {
 
   Future<GenerateContentResponse?> generateText(String input) async {
     const prompt = 'Do these look store-bought or homemade?';
-    final content = [
-      Content.text(prompt),
-      Content.text(input),
-    ];
+    final content = [Content.text(prompt), Content.text(input)];
 
     final response = await model?.generateContent(content);
     print(response?.text);

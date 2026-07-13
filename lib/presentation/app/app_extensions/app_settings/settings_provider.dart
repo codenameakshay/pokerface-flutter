@@ -1,33 +1,20 @@
 part of '../app_extension.dart';
 
-final _settingsProvider = StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>(
-  (ref) {
-    final notifier = SettingsStateNotifier(
-      SettingsState.defaults(),
-    )..initState();
+final _settingsProvider = StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>((ref) {
+  final notifier = SettingsStateNotifier(SettingsState.defaults())..initState();
 
-    return notifier;
-  },
-);
+  return notifier;
+});
 
 class SettingsState {
-  SettingsState({
-    required this.isHighEndAnimation,
-  });
+  SettingsState({required this.isHighEndAnimation});
 
-  SettingsState.defaults()
-      : this(
-          isHighEndAnimation: MyAppX.device.isIOS,
-        );
+  SettingsState.defaults() : this(isHighEndAnimation: MyAppX.device.isIOS);
 
   final bool isHighEndAnimation;
 
-  SettingsState copyWith({
-    bool? isHighEndAnimation,
-  }) {
-    return SettingsState(
-      isHighEndAnimation: isHighEndAnimation ?? this.isHighEndAnimation,
-    );
+  SettingsState copyWith({bool? isHighEndAnimation}) {
+    return SettingsState(isHighEndAnimation: isHighEndAnimation ?? this.isHighEndAnimation);
   }
 }
 
@@ -39,11 +26,8 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
   }
 
   Future<void> fetchSavedSettings() async {
-    final animationType = await MyAppX.prefs.retrieve(
-          key: animationTypeKey,
-          decoder: (animationType) => animationType == 'true',
-        ) ??
-        true;
+    final animationType =
+        await MyAppX.prefs.retrieve(key: animationTypeKey, decoder: (animationType) => animationType == 'true') ?? true;
 
     switchAnimationSetting(animationType: animationType);
   }
@@ -55,9 +39,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
       encoder: (animationType) => animationType.toString(),
     );
 
-    state = SettingsState.defaults().copyWith(
-      isHighEndAnimation: animationType,
-    );
+    state = SettingsState.defaults().copyWith(isHighEndAnimation: animationType);
   }
 
   void nextAnimation() {

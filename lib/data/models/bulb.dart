@@ -5,10 +5,6 @@ part 'bulb.freezed.dart';
 
 @freezed
 abstract class Bulb with _$Bulb {
-  factory Bulb({
-    required Color onColor,
-    required Color offColor,
-    required Color borderColor,
-    required bool isOn,
-  }) = _Bulb;
+  factory Bulb({required Color onColor, required Color offColor, required Color borderColor, required bool isOn}) =
+      _Bulb;
 }

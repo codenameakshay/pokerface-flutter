@@ -71,7 +71,5 @@ class _ThemeColorsLightWhiteImpl implements ThemeColors {
   Color get warning => const Color(0xFFEBB252);
 
   @override
-  ColorScheme get colorScheme => ColorScheme.fromSeed(
-        seedColor: const Color(0xFF3A82F7),
-      );
+  ColorScheme get colorScheme => ColorScheme.fromSeed(seedColor: const Color(0xFF3A82F7));
 }

@@ -38,9 +38,7 @@ class ChatScreen extends ConsumerWidget {
     final state = ref.watch(_vsProvider(params));
 
     return ProviderScope(
-      overrides: [
-        _paramsProvider.overrideWithValue(params),
-      ],
+      overrides: [_paramsProvider.overrideWithValue(params)],
       child: Container(
         color: theme.colors.secondary,
         child: Column(
@@ -70,9 +68,7 @@ class ChatScreen extends ConsumerWidget {
                 ],
               ),
             ),
-            const Expanded(
-              child: ChatWidget(),
-            ),
+            const Expanded(child: ChatWidget()),
           ],
         ),
       ),
@@ -91,25 +87,15 @@ class ChatWidget extends ConsumerWidget {
 
     var textFieldDecoration = InputDecoration(
       contentPadding: const EdgeInsets.all(15),
-      hintStyle: GoogleFonts.inter().copyWith(
-        color: Theme.of(context).colorScheme.secondaryContainer,
-      ),
+      hintStyle: GoogleFonts.inter().copyWith(color: Theme.of(context).colorScheme.secondaryContainer),
       hintText: 'Enter your doubt...',
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(8.toAutoScaledWidth),
-        ),
-        borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.secondaryContainer,
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(8.toAutoScaledWidth)),
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(8.toAutoScaledWidth),
-        ),
-        borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.secondaryContainer,
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(8.toAutoScaledWidth)),
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
       ),
     );
 
@@ -128,34 +114,23 @@ class ChatWidget extends ConsumerWidget {
                       itemBuilder: (context, idx) {
                         var content = state.history[idx];
                         var text = content.parts.whereType<TextPart>().map<String>((e) => e.text).join('');
-                        return MessageWidget(
-                          text: text,
-                          isFromUser: content.role == 'user',
-                        );
+                        return MessageWidget(text: text, isFromUser: content.role == 'user');
                       },
                       itemCount: state.history.length,
                     ),
                   ),
                 )
-              : ListView(
-                  children: const [
-                    Text('No API key found. Please provide an API Key.'),
-                  ],
-                ),
+              : ListView(children: const [Text('No API key found. Please provide an API Key.')]),
         ),
         Column(
           children: [
             SizedBox(
               height: 48.toAutoScaledHeight,
               child: ListView.builder(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.toAutoScaledWidth,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
                 shrinkWrap: true,
                 itemBuilder: (context, index) => ActionChip(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.toAutoScaledWidth,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.toAutoScaledWidth),
                   color: MaterialStateColor.resolveWith((states) {
                     if (states.contains(MaterialState.pressed)) {
                       return Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.5);
@@ -164,9 +139,7 @@ class ChatWidget extends ConsumerWidget {
                   }),
                   label: Text(
                     userActions[index],
-                    style: GoogleFonts.inter().copyWith(
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
+                    style: GoogleFonts.inter().copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer),
                   ),
                   onPressed: () {
                     stateController.sendChatMessage(userActions[index], context);
@@ -190,31 +163,22 @@ class ChatWidget extends ConsumerWidget {
                       focusNode: stateController.textFieldFocus,
                       decoration: textFieldDecoration,
                       controller: stateController.textController,
-                      style: GoogleFonts.inter().copyWith(
-                        color: Theme.of(context).colorScheme.secondaryContainer,
-                      ),
+                      style: GoogleFonts.inter().copyWith(color: Theme.of(context).colorScheme.secondaryContainer),
                       onSubmitted: (String value) {
                         stateController.sendChatMessage(value, context);
                       },
                     ),
                   ),
-                  const SizedBox.square(
-                    dimension: 15,
-                  ),
+                  const SizedBox.square(dimension: 15),
                   if (state.loading != LoadingState.loading)
                     IconButton(
                       onPressed: () async {
                         stateController.sendChatMessage(stateController.textController.text, context);
                       },
-                      icon: Icon(
-                        Icons.send,
-                        color: Theme.of(context).colorScheme.secondaryContainer,
-                      ),
+                      icon: Icon(Icons.send, color: Theme.of(context).colorScheme.secondaryContainer),
                     )
                   else
-                    CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                    ),
+                    CircularProgressIndicator(color: Theme.of(context).colorScheme.secondaryContainer),
                 ],
               ),
             ),
@@ -229,11 +193,7 @@ class MessageWidget extends StatelessWidget {
   final String text;
   final bool isFromUser;
 
-  const MessageWidget({
-    super.key,
-    required this.text,
-    required this.isFromUser,
-  });
+  const MessageWidget({super.key, required this.text, required this.isFromUser});
 
   @override
   Widget build(BuildContext context) {
@@ -244,8 +204,9 @@ class MessageWidget extends StatelessWidget {
           child: Container(
             constraints: const BoxConstraints(maxWidth: 600),
             decoration: BoxDecoration(
-              color:
-                  isFromUser ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.tertiaryContainer,
+              color: isFromUser
+                  ? Theme.of(context).colorScheme.tertiary
+                  : Theme.of(context).colorScheme.tertiaryContainer,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8.toAutoScaledWidth),
                 topRight: Radius.circular(8.toAutoScaledWidth),
@@ -258,10 +219,7 @@ class MessageWidget extends StatelessWidget {
                     : Theme.of(context).colorScheme.tertiary,
               ),
             ),
-            padding: EdgeInsets.symmetric(
-              vertical: 8.toAutoScaledWidth,
-              horizontal: 16.toAutoScaledWidth,
-            ),
+            padding: EdgeInsets.symmetric(vertical: 8.toAutoScaledWidth, horizontal: 16.toAutoScaledWidth),
             margin: const EdgeInsets.only(bottom: 8),
             child: MarkdownBody(
               selectable: true,

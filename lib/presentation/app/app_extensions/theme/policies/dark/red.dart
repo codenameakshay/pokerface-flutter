@@ -71,8 +71,5 @@ class _ThemeColorsDarkRedImpl implements ThemeColors {
   Color get warning => const Color(0xFFEBB252);
 
   @override
-  ColorScheme get colorScheme => ColorScheme.fromSeed(
-        seedColor: Colors.red,
-        brightness: Brightness.dark,
-      );
+  ColorScheme get colorScheme => ColorScheme.fromSeed(seedColor: Colors.red, brightness: Brightness.dark);
 }

@@ -23,9 +23,7 @@ enum ThemeType {
 
   systemTheme(mode: ThemeMode.system);
 
-  const ThemeType({
-    required this.mode,
-  });
+  const ThemeType({required this.mode});
 
   final ThemeMode mode;
 

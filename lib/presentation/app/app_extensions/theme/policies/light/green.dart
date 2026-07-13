@@ -71,7 +71,5 @@ class _ThemeColorsLightGreenImpl implements ThemeColors {
   Color get warning => const Color(0xFFEBB252);
 
   @override
-  ColorScheme get colorScheme => ColorScheme.fromSeed(
-        seedColor: const Color(0xFF7EC341),
-      );
+  ColorScheme get colorScheme => ColorScheme.fromSeed(seedColor: const Color(0xFF7EC341));
 }

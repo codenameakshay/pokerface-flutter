@@ -177,10 +177,7 @@ class ModalSheetRoute<T> extends PageRoute<T> {
   @override
   AnimationController createAnimationController() {
     assert(_animationController == null);
-    _animationController = ModalBottomSheet.createAnimationController(
-      navigator!,
-      duration: transitionDuration,
-    );
+    _animationController = ModalBottomSheet.createAnimationController(navigator!, duration: transitionDuration);
     return _animationController!;
   }
 
@@ -213,11 +210,7 @@ class ModalSheetRoute<T> extends PageRoute<T> {
   bool canTransitionFrom(TransitionRoute<dynamic> previousRoute) =>
       previousRoute is ModalSheetRoute || previousRoute is PageRoute;
 
-  Widget getPreviousRouteTransition(
-    BuildContext context,
-    Animation<double> secondAnimation,
-    Widget child,
-  ) {
+  Widget getPreviousRouteTransition(BuildContext context, Animation<double> secondAnimation, Widget child) {
     return child;
   }
 }
@@ -248,20 +241,22 @@ Future<T?> showCustomModalBottomSheet<T>({
   final hasMaterialLocalizations = Localizations.of<MaterialLocalizations>(context, MaterialLocalizations) != null;
   final barrierLabel = hasMaterialLocalizations ? MaterialLocalizations.of(context).modalBarrierDismissLabel : '';
 
-  final result = await Navigator.of(context, rootNavigator: useRootNavigator).push(ModalSheetRoute<T>(
-    builder: builder,
-    bounce: bounce,
-    containerBuilder: containerWidget,
-    secondAnimationController: secondAnimation,
-    expanded: expand,
-    barrierLabel: barrierLabel,
-    isDismissible: isDismissible,
-    modalBarrierColor: barrierColor,
-    enableDrag: enableDrag,
-    animationCurve: animationCurve,
-    duration: duration,
-    settings: settings,
-    closeProgressThreshold: closeProgressThreshold,
-  ));
+  final result = await Navigator.of(context, rootNavigator: useRootNavigator).push(
+    ModalSheetRoute<T>(
+      builder: builder,
+      bounce: bounce,
+      containerBuilder: containerWidget,
+      secondAnimationController: secondAnimation,
+      expanded: expand,
+      barrierLabel: barrierLabel,
+      isDismissible: isDismissible,
+      modalBarrierColor: barrierColor,
+      enableDrag: enableDrag,
+      animationCurve: animationCurve,
+      duration: duration,
+      settings: settings,
+      closeProgressThreshold: closeProgressThreshold,
+    ),
+  );
   return result;
 }

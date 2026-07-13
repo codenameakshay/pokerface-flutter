@@ -24,12 +24,7 @@ class MyAppTransitionBuilders {
       position: Tween<Offset>(
         begin: const Offset(0, 1),
         end: Offset.zero,
-      ).animate(
-        CurvedAnimation(
-          curve: const Cubic(0.06, 1.05, 1, 1),
-          parent: animation,
-        ),
-      ),
+      ).animate(CurvedAnimation(curve: const Cubic(0.06, 1.05, 1, 1), parent: animation)),
       child: child,
     );
   }
@@ -58,28 +53,12 @@ class MyAppTransitionBuilders {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    final curve = CurvedAnimation(
-      curve: Curves.easeOutCubic,
-      reverseCurve: Curves.easeOutCubic,
-      parent: animation,
-    );
+    final curve = CurvedAnimation(curve: Curves.easeOutCubic, reverseCurve: Curves.easeOutCubic, parent: animation);
     return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(0, 1),
-        end: Offset.zero,
-      ).animate(curve),
+      position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(curve),
       child: FadeTransition(
-        opacity: Tween<double>(
-          begin: 0,
-          end: 1,
-        ).animate(curve),
-        child: ScaleTransition(
-          scale: Tween<double>(
-            begin: 0,
-            end: 1,
-          ).animate(curve),
-          child: child,
-        ),
+        opacity: Tween<double>(begin: 0, end: 1).animate(curve),
+        child: ScaleTransition(scale: Tween<double>(begin: 0, end: 1).animate(curve), child: child),
       ),
     );
   }
@@ -92,17 +71,7 @@ class MyAppTransitionBuilders {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    final curve = CurvedAnimation(
-      curve: Curves.easeOutCubic,
-      reverseCurve: Curves.easeOutCubic,
-      parent: animation,
-    );
-    return FadeTransition(
-      opacity: Tween<double>(
-        begin: 0,
-        end: 1,
-      ).animate(curve),
-      child: child,
-    );
+    final curve = CurvedAnimation(curve: Curves.easeOutCubic, reverseCurve: Curves.easeOutCubic, parent: animation);
+    return FadeTransition(opacity: Tween<double>(begin: 0, end: 1).animate(curve), child: child);
   }
 }

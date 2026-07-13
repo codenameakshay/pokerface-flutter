@@ -21,69 +21,29 @@ Path squirclePath(Rect rect, BorderRadius? radius) {
   }
 
   return Path()
-
     // Start position
     ..moveTo(startX, startY + radius.topLeft.y)
-
     // top left corner
-    ..cubicTo(
-      startX,
-      startY,
-      startX,
-      startY,
-      startX + radius.topLeft.x,
-      startY,
-    )
-
+    ..cubicTo(startX, startY, startX, startY, startX + radius.topLeft.x, startY)
     // top line
     ..lineTo(endX - radius.topRight.x, startY)
-
     // top right corner
-    ..cubicTo(
-      endX,
-      startY,
-      endX,
-      startY,
-      endX,
-      startY + radius.topRight.y,
-    )
-
+    ..cubicTo(endX, startY, endX, startY, endX, startY + radius.topRight.y)
     // right line
     ..lineTo(endX, endY - radius.bottomRight.y)
-
     // bottom right corner
-    ..cubicTo(
-      endX,
-      endY,
-      endX,
-      endY,
-      endX - radius.bottomRight.x,
-      endY,
-    )
-
+    ..cubicTo(endX, endY, endX, endY, endX - radius.bottomRight.x, endY)
     // bottom line
     ..lineTo(startX + radius.bottomLeft.x, endY)
-
     // bottom left corner
-    ..cubicTo(
-      startX,
-      endY,
-      startX,
-      endY,
-      startX,
-      endY - radius.bottomLeft.y,
-    )
-
+    ..cubicTo(startX, endY, startX, endY, startX, endY - radius.bottomLeft.y)
     // left line
     //..moveTo(startX, startY + radius)
     ..close();
 }
 
 class SquircleBorder extends ShapeBorder {
-  const SquircleBorder({
-    this.side = BorderSide.none,
-    this.radius,
-  });
+  const SquircleBorder({this.side = BorderSide.none, this.radius});
 
   final BorderSide side;
   final BorderRadius? radius;
@@ -93,10 +53,7 @@ class SquircleBorder extends ShapeBorder {
 
   @override
   ShapeBorder scale(double t) {
-    return SquircleBorder(
-      side: side.scale(t),
-      radius: radius,
-    );
+    return SquircleBorder(side: side.scale(t), radius: radius);
   }
 
   @override

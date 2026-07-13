@@ -34,9 +34,4 @@ const _$RankEnumMap = {
   Rank.ace: 'ace',
 };
 
-const _$SuitEnumMap = {
-  Suit.clubs: 'clubs',
-  Suit.diamonds: 'diamonds',
-  Suit.hearts: 'hearts',
-  Suit.spades: 'spades',
-};
+const _$SuitEnumMap = {Suit.clubs: 'clubs', Suit.diamonds: 'diamonds', Suit.hearts: 'hearts', Suit.spades: 'spades'};

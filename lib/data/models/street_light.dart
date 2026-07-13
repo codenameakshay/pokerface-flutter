@@ -5,7 +5,5 @@ part 'street_light.freezed.dart';
 
 @freezed
 abstract class StreetLight with _$StreetLight {
-  factory StreetLight({
-    required List<Bulb> bulbs,
-  }) = _StreetLight;
+  factory StreetLight({required List<Bulb> bulbs}) = _StreetLight;
 }

@@ -21,11 +21,7 @@ class CardFan extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use Stack to overlay cards
     return Padding(
-      padding: EdgeInsets.only(
-        left: 16.toAutoScaledWidth,
-        right: 16.toAutoScaledWidth,
-        top: 16.toAutoScaledHeight,
-      ),
+      padding: EdgeInsets.only(left: 16.toAutoScaledWidth, right: 16.toAutoScaledWidth, top: 16.toAutoScaledHeight),
       child: SizedBox(
         width: // calculate total width based on number of cards
             width + (cards.length - 1) * offsetStep,
@@ -57,16 +53,10 @@ class CardFan extends StatelessWidget {
                           width: width,
                           height: width * (333 / 234),
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1,
-                            ),
+                            border: Border.all(color: Colors.black, width: 1),
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Image.asset(
-                            cards[index].image.png,
-                            fit: BoxFit.cover,
-                          ),
+                          child: Image.asset(cards[index].image.png, fit: BoxFit.cover),
                         ),
                       ),
                     ),

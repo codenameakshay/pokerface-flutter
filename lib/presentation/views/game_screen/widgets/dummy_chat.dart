@@ -46,9 +46,7 @@ class _DummyChatScreenState extends ConsumerState<DummyChatScreen> {
               ],
             ),
           ),
-          Expanded(
-            child: Container(),
-          ),
+          Expanded(child: Container()),
         ],
       ),
     );

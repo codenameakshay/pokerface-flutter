@@ -47,9 +47,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       child: Scaffold(
         // overlayStyle: stateController.statusBarStyle(theme),
         body: DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.colors.background,
-          ),
+          decoration: BoxDecoration(color: theme.colors.background),
           child: Stack(
             children: [
               const StackCards(),
@@ -67,27 +65,22 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     children: [
                       300.toAutoScaledWidth.toVerticalSizedBox,
                       Text(
-                        'POKERFACE',
-                        style: theme.themeText.headline1?.copyWith(
-                          fontFamily: GoogleFonts.bigShoulders().fontFamily,
-                          fontWeight: FontWeight.w900,
-                          color: theme.type.isDark ? Colors.white : const Color(0xFF020513),
-                        ),
-                      )
-                          .animate()
-                          .animate(
-                            onPlay: (controller) => controller.repeat(),
-                          )
-                          .then(
-                            delay: const Duration(
-                              seconds: 2,
+                            'POKERFACE',
+                            style: theme.themeText.headline1?.copyWith(
+                              fontFamily: GoogleFonts.bigShoulders().fontFamily,
+                              fontWeight: FontWeight.w900,
+                              color: theme.type.isDark ? Colors.white : const Color(0xFF020513),
                             ),
                           )
+                          .animate()
+                          .animate(onPlay: (controller) => controller.repeat())
+                          .then(delay: const Duration(seconds: 2))
                           .shimmer(
-                              duration: const Duration(seconds: 2),
-                              color: theme.type.isDark
-                                  ? const Color(0xFF020513).withOpacity(0.3)
-                                  : Colors.white.withOpacity(0.3)),
+                            duration: const Duration(seconds: 2),
+                            color: theme.type.isDark
+                                ? const Color(0xFF020513).withOpacity(0.3)
+                                : Colors.white.withOpacity(0.3),
+                          ),
                       const Spacer(),
                       // SquareButton(
                       //   onPressed: () {

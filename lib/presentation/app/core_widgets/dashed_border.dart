@@ -20,9 +20,9 @@ class DashedBorder extends ShapeBorder {
     this.right = false,
     Color color = Colors.black,
   }) : painter = Paint()
-          ..color = color
-          ..strokeWidth = strokeWidth
-          ..style = PaintingStyle.stroke;
+         ..color = color
+         ..strokeWidth = strokeWidth
+         ..style = PaintingStyle.stroke;
 
   @override
   EdgeInsetsGeometry get dimensions => const EdgeInsets.all(1);

@@ -98,8 +98,11 @@ Future<List<List<Map<String, dynamic>>>> findTopNHands(List<Map<String, dynamic>
     List<PokerHand> allPossibleHands = [];
 
     // Generate combinations for the remaining community cards
-    List<List<Card>> communityCombinations =
-        await generateCommunityCardCombinations(key, deck, numCommunityCardsToGenerate);
+    List<List<Card>> communityCombinations = await generateCommunityCardCombinations(
+      key,
+      deck,
+      numCommunityCardsToGenerate,
+    );
 
     // Generate and evaluate all possible hands
     for (var combination in communityCombinations) {

@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _AIChatPopup extends ConsumerWidget {
-  const _AIChatPopup({
-    required this.params,
-  });
+  const _AIChatPopup({required this.params});
 
   final _VSControllerParams params;
 
@@ -37,10 +35,7 @@ class _AIChatPopup extends ConsumerWidget {
                   initialHistory: state.aiChatHistory,
                   inputPrompt: stateController.inputPrompt,
                 )
-              : DummyChatScreen(
-                  title: 'Pokerface AI',
-                  onClose: () => stateController.toggleAIChat(),
-                ),
+              : DummyChatScreen(title: 'Pokerface AI', onClose: () => stateController.toggleAIChat()),
         ),
       ),
     );

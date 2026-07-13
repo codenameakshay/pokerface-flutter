@@ -30,37 +30,43 @@ class BarBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlayStyle ?? SystemUiOverlayStyle.light,
-      child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
-        const SizedBox(height: 12),
-        SafeArea(
-          bottom: false,
-          child: control ??
-              Container(
-                height: 6,
-                width: 40,
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
-              ),
-        ),
-        const SizedBox(height: 8),
-        Flexible(
-          flex: 1,
-          fit: FlexFit.loose,
-          child: Material(
-            shape: shape ??
-                const RoundedRectangleBorder(
-                  side: BorderSide(),
-                  borderRadius: BorderRadius.only(topLeft: kDefaultBarTopRadius, topRight: kDefaultBarTopRadius),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 12),
+          SafeArea(
+            bottom: false,
+            child:
+                control ??
+                Container(
+                  height: 6,
+                  width: 40,
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
                 ),
-            clipBehavior: clipBehavior ?? Clip.hardEdge,
-            color: backgroundColor ?? Colors.white,
-            elevation: elevation ?? 2,
-            child: SizedBox(
-              width: double.infinity,
-              child: MediaQuery.removePadding(context: context, removeTop: true, child: child),
+          ),
+          const SizedBox(height: 8),
+          Flexible(
+            flex: 1,
+            fit: FlexFit.loose,
+            child: Material(
+              shape:
+                  shape ??
+                  const RoundedRectangleBorder(
+                    side: BorderSide(),
+                    borderRadius: BorderRadius.only(topLeft: kDefaultBarTopRadius, topRight: kDefaultBarTopRadius),
+                  ),
+              clipBehavior: clipBehavior ?? Clip.hardEdge,
+              color: backgroundColor ?? Colors.white,
+              elevation: elevation ?? 2,
+              child: SizedBox(
+                width: double.infinity,
+                child: MediaQuery.removePadding(context: context, removeTop: true, child: child),
+              ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
@@ -88,28 +94,30 @@ Future<T?> showBarModalBottomSheet<T>({
 }) async {
   assert(debugCheckHasMediaQuery(context));
   assert(debugCheckHasMaterialLocalizations(context));
-  final result = await Navigator.of(context, rootNavigator: useRootNavigator).push(ModalSheetRoute<T>(
-    builder: builder,
-    bounce: bounce,
-    closeProgressThreshold: closeProgressThreshold,
-    containerBuilder: (_, __, child) => BarBottomSheet(
-      control: topControl,
-      clipBehavior: clipBehavior,
-      shape: shape,
-      backgroundColor: backgroundColor,
-      elevation: elevation,
-      overlayStyle: overlayStyle,
-      child: child,
+  final result = await Navigator.of(context, rootNavigator: useRootNavigator).push(
+    ModalSheetRoute<T>(
+      builder: builder,
+      bounce: bounce,
+      closeProgressThreshold: closeProgressThreshold,
+      containerBuilder: (_, __, child) => BarBottomSheet(
+        control: topControl,
+        clipBehavior: clipBehavior,
+        shape: shape,
+        backgroundColor: backgroundColor,
+        elevation: elevation,
+        overlayStyle: overlayStyle,
+        child: child,
+      ),
+      secondAnimationController: secondAnimation,
+      expanded: expand,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      isDismissible: isDismissible,
+      modalBarrierColor: barrierColor,
+      enableDrag: enableDrag,
+      animationCurve: animationCurve,
+      duration: duration,
+      settings: settings,
     ),
-    secondAnimationController: secondAnimation,
-    expanded: expand,
-    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-    isDismissible: isDismissible,
-    modalBarrierColor: barrierColor,
-    enableDrag: enableDrag,
-    animationCurve: animationCurve,
-    duration: duration,
-    settings: settings,
-  ));
+  );
   return result;
 }

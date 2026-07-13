@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 
 class RouteDetectorWidget extends StatefulWidget {
-  const RouteDetectorWidget({
-    super.key,
-    required this.child,
-    required this.onHidden,
-    required this.onShown,
-  });
+  const RouteDetectorWidget({super.key, required this.child, required this.onHidden, required this.onShown});
 
   final Widget child;
   final VoidCallback onHidden;

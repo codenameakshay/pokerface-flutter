@@ -5,9 +5,7 @@ typedef EventListenersFilter = bool Function(EventListener listener);
 /// [EventX] represents an event that can be emitted via [EventBrokerX] to
 /// its listeners.
 class EventX<T> {
-  const EventX({
-    this.extraData,
-  });
+  const EventX({this.extraData});
 
   final T? extraData;
 }
@@ -21,10 +19,7 @@ abstract class EventBrokerX {
   /// [filter] can be used to select specific listeners based on some condition.
   /// If [filter] for a given listener returns `true`, that listener will be selected
   /// for this event's target.
-  void emitEvent(
-    EventX event, {
-    EventListenersFilter? filter,
-  });
+  void emitEvent(EventX event, {EventListenersFilter? filter});
 }
 
 abstract class EventListener {

@@ -6,10 +6,7 @@ part 'grouped_hands.g.dart';
 
 @freezed
 abstract class GroupedHands with _$GroupedHands {
-  factory GroupedHands({
-    required bool isExpaned,
-    required List<PokerHand> pokerHands,
-  }) = _GroupedHands;
+  factory GroupedHands({required bool isExpaned, required List<PokerHand> pokerHands}) = _GroupedHands;
 
   factory GroupedHands.fromJson(Map<String, dynamic> json) => _$GroupedHandsFromJson(json);
 }

@@ -69,10 +69,7 @@ class _CupertinoBottomSheetContainer extends StatelessWidget {
           child: MediaQuery.removePadding(
             context: context,
             removeTop: true, //Remove top Safe Area
-            child: CupertinoUserInterfaceLevel(
-              data: CupertinoUserInterfaceLevelData.elevated,
-              child: child,
-            ),
+            child: CupertinoUserInterfaceLevel(data: CupertinoUserInterfaceLevelData.elevated, child: child),
           ),
         ),
       ),
@@ -116,32 +113,33 @@ Future<T?> showCupertinoModalBottomSheet<T>({
   final barrierLabel = hasMaterialLocalizations ? MaterialLocalizations.of(context).modalBarrierDismissLabel : '';
   final result = await Navigator.of(context, rootNavigator: useRootNavigator).push(
     CupertinoModalBottomSheetRoute<T>(
-        builder: builder,
-        containerBuilder: (context, _, child) => _CupertinoBottomSheetContainer(
-              backgroundColor: backgroundColor,
-              topRadius: topRadius,
-              shadow: shadow,
-              overlayStyle: overlayStyle,
-              child: child,
-            ),
-        secondAnimationController: secondAnimation,
-        expanded: expand,
-        closeProgressThreshold: closeProgressThreshold,
-        barrierLabel: barrierLabel,
-        elevation: elevation,
-        bounce: bounce,
-        shape: shape,
-        clipBehavior: clipBehavior,
-        isDismissible: isDismissible ?? expand == false ? true : false,
-        modalBarrierColor: barrierColor ?? Colors.black12,
-        enableDrag: enableDrag,
+      builder: builder,
+      containerBuilder: (context, _, child) => _CupertinoBottomSheetContainer(
+        backgroundColor: backgroundColor,
         topRadius: topRadius,
-        animationCurve: animationCurve,
-        previousRouteAnimationCurve: previousRouteAnimationCurve,
-        duration: duration,
-        settings: settings,
-        transitionBackgroundColor: transitionBackgroundColor ?? Colors.black,
-        overlayStyle: overlayStyle),
+        shadow: shadow,
+        overlayStyle: overlayStyle,
+        child: child,
+      ),
+      secondAnimationController: secondAnimation,
+      expanded: expand,
+      closeProgressThreshold: closeProgressThreshold,
+      barrierLabel: barrierLabel,
+      elevation: elevation,
+      bounce: bounce,
+      shape: shape,
+      clipBehavior: clipBehavior,
+      isDismissible: isDismissible ?? expand == false ? true : false,
+      modalBarrierColor: barrierColor ?? Colors.black12,
+      enableDrag: enableDrag,
+      topRadius: topRadius,
+      animationCurve: animationCurve,
+      previousRouteAnimationCurve: previousRouteAnimationCurve,
+      duration: duration,
+      settings: settings,
+      transitionBackgroundColor: transitionBackgroundColor ?? Colors.black,
+      overlayStyle: overlayStyle,
+    ),
   );
   return result;
 }
@@ -156,9 +154,7 @@ class CupertinoModalBottomSheetRoute<T> extends ModalSheetRoute<T> {
   // Background color behind all routes
   // Black by default
   final Color? transitionBackgroundColor;
-  @Deprecated(
-    'Will be ignored. OverlayStyle is computed from luminance of transitionBackgroundColor',
-  )
+  @Deprecated('Will be ignored. OverlayStyle is computed from luminance of transitionBackgroundColor')
   final SystemUiOverlayStyle? overlayStyle;
 
   CupertinoModalBottomSheetRoute({
@@ -200,11 +196,7 @@ class CupertinoModalBottomSheetRoute<T> extends ModalSheetRoute<T> {
     return AnimatedBuilder(
       builder: (context, child) => Transform.translate(
         offset: Offset(0, offsetY),
-        child: Transform.scale(
-          scale: scale,
-          alignment: Alignment.topCenter,
-          child: child,
-        ),
+        child: Transform.scale(scale: scale, alignment: Alignment.topCenter, child: child),
       ),
       animation: secondaryAnimation,
       child: child,
@@ -248,10 +240,7 @@ class _CupertinoModalTransition extends StatelessWidget {
       //https://kylebashour.com/posts/finding-the-real-iphone-x-corner-radius
     }
 
-    final curvedAnimation = CurvedAnimation(
-      parent: secondaryAnimation,
-      curve: animationCurve ?? Curves.easeOut,
-    );
+    final curvedAnimation = CurvedAnimation(parent: secondaryAnimation, curve: animationCurve ?? Curves.easeOut);
 
     return AnimatedBuilder(
       animation: curvedAnimation,
@@ -275,14 +264,8 @@ class _CupertinoModalTransition extends StatelessWidget {
                     data: CupertinoUserInterfaceLevelData.elevated,
                     child: Builder(
                       builder: (context) => CupertinoTheme(
-                        data: createPreviousRouteTheme(
-                          context,
-                          curvedAnimation,
-                        ),
-                        child: CupertinoUserInterfaceLevel(
-                          data: CupertinoUserInterfaceLevelData.base,
-                          child: child!,
-                        ),
+                        data: createPreviousRouteTheme(context, curvedAnimation),
+                        child: CupertinoUserInterfaceLevel(data: CupertinoUserInterfaceLevelData.base, child: child!),
                       ),
                     ),
                   ),
@@ -295,21 +278,12 @@ class _CupertinoModalTransition extends StatelessWidget {
     );
   }
 
-  CupertinoThemeData createPreviousRouteTheme(
-    BuildContext context,
-    Animation<double> animation,
-  ) {
+  CupertinoThemeData createPreviousRouteTheme(BuildContext context, Animation<double> animation) {
     final cTheme = CupertinoTheme.of(context);
 
-    final systemBackground = CupertinoDynamicColor.resolve(
-      cTheme.scaffoldBackgroundColor,
-      context,
-    );
+    final systemBackground = CupertinoDynamicColor.resolve(cTheme.scaffoldBackgroundColor, context);
 
-    final barBackgroundColor = CupertinoDynamicColor.resolve(
-      cTheme.barBackgroundColor,
-      context,
-    );
+    final barBackgroundColor = CupertinoDynamicColor.resolve(cTheme.barBackgroundColor, context);
 
     var previousRouteTheme = cTheme;
 
@@ -416,9 +390,7 @@ class CupertinoScaffold extends StatefulWidget {
     Duration? duration,
     RouteSettings? settings,
     BoxShadow? shadow,
-    @Deprecated(
-      'Will be ignored. OverlayStyle is computed from luminance of transitionBackgroundColor',
-    )
+    @Deprecated('Will be ignored. OverlayStyle is computed from luminance of transitionBackgroundColor')
     SystemUiOverlayStyle? overlayStyle,
   }) async {
     assert(debugCheckHasMediaQuery(context));
@@ -431,29 +403,31 @@ class CupertinoScaffold extends StatefulWidget {
     final topRadius = CupertinoScaffold.of(context)!.topRadius;
     final transitionBackgroundColor = CupertinoScaffold.of(context)!.transitionBackgroundColor;
     final overlayStyle = overlayStyleFromColor(transitionBackgroundColor);
-    final result = await Navigator.of(context, rootNavigator: useRootNavigator).push(CupertinoModalBottomSheetRoute<T>(
-      closeProgressThreshold: closeProgressThreshold,
-      builder: builder,
-      secondAnimationController: CupertinoScaffold.of(context)!.animation,
-      containerBuilder: (context, _, child) => _CupertinoBottomSheetContainer(
-        backgroundColor: backgroundColor,
+    final result = await Navigator.of(context, rootNavigator: useRootNavigator).push(
+      CupertinoModalBottomSheetRoute<T>(
+        closeProgressThreshold: closeProgressThreshold,
+        builder: builder,
+        secondAnimationController: CupertinoScaffold.of(context)!.animation,
+        containerBuilder: (context, _, child) => _CupertinoBottomSheetContainer(
+          backgroundColor: backgroundColor,
+          topRadius: topRadius ?? _kDefaultTopRadius,
+          shadow: shadow,
+          overlayStyle: overlayStyle,
+          child: child,
+        ),
+        expanded: expand,
+        barrierLabel: barrierLabel,
+        bounce: bounce,
+        isDismissible: isDismissible ?? expand == false ? true : false,
+        modalBarrierColor: barrierColor ?? Colors.black12,
+        enableDrag: enableDrag,
         topRadius: topRadius ?? _kDefaultTopRadius,
-        shadow: shadow,
-        overlayStyle: overlayStyle,
-        child: child,
+        animationCurve: animationCurve,
+        previousRouteAnimationCurve: previousRouteAnimationCurve,
+        duration: duration,
+        settings: settings,
       ),
-      expanded: expand,
-      barrierLabel: barrierLabel,
-      bounce: bounce,
-      isDismissible: isDismissible ?? expand == false ? true : false,
-      modalBarrierColor: barrierColor ?? Colors.black12,
-      enableDrag: enableDrag,
-      topRadius: topRadius ?? _kDefaultTopRadius,
-      animationCurve: animationCurve,
-      previousRouteAnimationCurve: previousRouteAnimationCurve,
-      duration: duration,
-      settings: settings,
-    ));
+    );
     return result;
   }
 }

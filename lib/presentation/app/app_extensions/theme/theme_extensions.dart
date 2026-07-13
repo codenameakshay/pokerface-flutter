@@ -186,33 +186,21 @@ extension MarginIntX on int {
 }
 
 extension SizedBoxX on double {
-  SizedBox get toHorizontalSizedBox => SizedBox(
-        width: this,
-      );
+  SizedBox get toHorizontalSizedBox => SizedBox(width: this);
 
-  SizedBox get toVerticalSizedBox => SizedBox(
-        height: this,
-      );
+  SizedBox get toVerticalSizedBox => SizedBox(height: this);
 }
 
 extension SizedBoxIntX on int {
-  SizedBox get toHorizontalSizedBox => SizedBox(
-        width: toDouble(),
-      );
+  SizedBox get toHorizontalSizedBox => SizedBox(width: toDouble());
 
-  SizedBox get toVerticalSizedBox => SizedBox(
-        height: toDouble(),
-      );
+  SizedBox get toVerticalSizedBox => SizedBox(height: toDouble());
 }
 
 extension TextStyleX on double {
-  TextStyle get toTextStyle => TextStyle(
-        fontSize: this,
-      );
+  TextStyle get toTextStyle => TextStyle(fontSize: this);
 }
 
 extension TextStyleIntX on int {
-  TextStyle get toTextStyle => TextStyle(
-        fontSize: toDouble(),
-      );
+  TextStyle get toTextStyle => TextStyle(fontSize: toDouble());
 }

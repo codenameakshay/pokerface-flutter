@@ -64,9 +64,7 @@ class _GameViewState extends ConsumerState<GameView> {
       overrides: [_paramsProvider.overrideWithValue(params)],
       child: Scaffold(
         body: DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.colors.background,
-          ),
+          decoration: BoxDecoration(color: theme.colors.background),
           child: Stack(
             alignment: Alignment.center,
             children: [

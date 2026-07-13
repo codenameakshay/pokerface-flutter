@@ -5,10 +5,7 @@ part 'card_image.g.dart';
 
 @freezed
 abstract class CardImage with _$CardImage {
-  factory CardImage({
-    required String svg,
-    required String png,
-  }) = _CardImage;
+  factory CardImage({required String svg, required String png}) = _CardImage;
 
   factory CardImage.fromJson(Map<String, dynamic> json) => _$CardImageFromJson(json);
 }

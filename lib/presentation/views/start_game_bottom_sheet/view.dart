@@ -34,20 +34,14 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
       overrides: [_paramsProvider.overrideWithValue(params)],
       child: Scaffold(
         body: DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.colors.background,
-          ),
+          decoration: BoxDecoration(color: theme.colors.background),
           child: SingleChildScrollView(
             controller: ModalScrollController.of(context),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 32.toAutoScaledHeight.toVerticalSizedBox,
-                Text(
-                  'Select your hand',
-                  textAlign: TextAlign.center,
-                  style: theme.themeText.headline4,
-                ),
+                Text('Select your hand', textAlign: TextAlign.center, style: theme.themeText.headline4),
                 16.toAutoScaledHeight.toVerticalSizedBox,
                 Wrap(
                   alignment: WrapAlignment.center,

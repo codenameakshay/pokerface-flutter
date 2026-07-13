@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DraggableSticker extends StatefulWidget {
-  const DraggableSticker({
-    super.key,
-    required this.child,
-  });
+  const DraggableSticker({super.key, required this.child});
 
   final Widget child;
 
@@ -27,10 +24,7 @@ class _DraggableStickerState extends State<DraggableSticker> with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
     _controller.addListener(() {
       setState(() {

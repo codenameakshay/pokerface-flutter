@@ -11,10 +11,7 @@ class URLLauncher {
     try {
       final urlUri = Uri.parse(url);
       // if (await canLaunchUrl(urlUri)) {
-      await launchUrl(
-        urlUri,
-        mode: LaunchMode.externalApplication,
-      );
+      await launchUrl(urlUri, mode: LaunchMode.externalApplication);
       // } else {
       //   MyAppX.showBottomToast(type: ToastType.failure, message: 'Could not launch $url');
       // }

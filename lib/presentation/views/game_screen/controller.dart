@@ -24,11 +24,11 @@ final _paramsProvider = Provider<_VSControllerParams>((ref) {
   throw UnimplementedError();
 });
 
-final _vsProvider =
-    StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
-  final stateController = _VSController(
-    params: params,
-  )..initState(params.context, params.theme);
+final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((
+  ref,
+  params,
+) {
+  final stateController = _VSController(params: params)..initState(params.context, params.theme);
 
   return stateController;
 });
@@ -53,15 +53,15 @@ class _ViewState {
   final List<Content> aiChatHistory;
 
   _ViewState.initial()
-      : this(
-          houseCards: [],
-          generatedHands: [],
-          generateTime: null,
-          streetLight: StreetLight(bulbs: []),
-          loadingState: LoadingState.init,
-          showAIChat: false,
-          aiChatHistory: [],
-        );
+    : this(
+        houseCards: [],
+        generatedHands: [],
+        generateTime: null,
+        streetLight: StreetLight(bulbs: []),
+        loadingState: LoadingState.init,
+        showAIChat: false,
+        aiChatHistory: [],
+      );
 
   _ViewState copyWith({
     List<Card>? houseCards,
@@ -85,9 +85,7 @@ class _ViewState {
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController({
-    required this.params,
-  }) : super(_ViewState.initial());
+  _VSController({required this.params}) : super(_ViewState.initial());
   _VSControllerParams params;
 
   void initState(BuildContext context, ThemeState theme) {
@@ -128,8 +126,11 @@ class _VSController extends StateNotifier<_ViewState> {
       generatedHands: groupedHands,
       streetLight: state.streetLight.copyWith(
         bulbs: state.streetLight.bulbs
-            .map((e) => e.copyWith(
-                isOn: groupedHands[0].pokerHands[0].handRankStatus + 1 == state.streetLight.bulbs.indexOf(e)))
+            .map(
+              (e) => e.copyWith(
+                isOn: groupedHands[0].pokerHands[0].handRankStatus + 1 == state.streetLight.bulbs.indexOf(e),
+              ),
+            )
             .toList(),
       ),
     );

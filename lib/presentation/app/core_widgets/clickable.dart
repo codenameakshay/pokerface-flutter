@@ -3,13 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 
 class Clickable extends StatefulWidget {
-  const Clickable({
-    super.key,
-    required this.child,
-    this.onPressed,
-    this.onLongPress,
-    this.enabled = true,
-  });
+  const Clickable({super.key, required this.child, this.onPressed, this.onLongPress, this.enabled = true});
 
   final Widget child;
   final VoidCallback? onPressed;
@@ -36,12 +30,7 @@ class _ClickableState extends State<Clickable> with TickerProviderStateMixin {
     opacityAnimation = Tween<double>(
       begin: 1,
       end: 0.5,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.linearToEaseOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.linearToEaseOut));
   }
 
   @override
@@ -83,10 +72,7 @@ class _ClickableState extends State<Clickable> with TickerProviderStateMixin {
               widget.onLongPress?.call();
               animationController.reverse();
             },
-            child: FadeTransition(
-              opacity: opacityAnimation,
-              child: widget.child,
-            ),
+            child: FadeTransition(opacity: opacityAnimation, child: widget.child),
           )
         : widget.child;
   }

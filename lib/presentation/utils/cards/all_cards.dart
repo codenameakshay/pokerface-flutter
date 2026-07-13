@@ -9,12 +9,7 @@ class Cards {
   static const Hearts hearts = Hearts();
   static const Spades spades = Spades();
 
-  static final all = [
-    ...clubs.all,
-    ...diamonds.all,
-    ...hearts.all,
-    ...spades.all,
-  ];
+  static final all = [...clubs.all, ...diamonds.all, ...hearts.all, ...spades.all];
 
   static Card get any {
     final allCards = all;
@@ -41,21 +36,7 @@ class Clubs {
   Card get queen => Card(rank: Rank.queen, suit: Suit.clubs, image: CardsImages.clubs.queen);
   Card get king => Card(rank: Rank.king, suit: Suit.clubs, image: CardsImages.clubs.king);
 
-  List<Card> get all => [
-        ace,
-        two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine,
-        ten,
-        jack,
-        queen,
-        king,
-      ];
+  List<Card> get all => [ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king];
 }
 
 class Diamonds {
@@ -75,21 +56,7 @@ class Diamonds {
   Card get queen => Card(rank: Rank.queen, suit: Suit.diamonds, image: CardsImages.diamonds.queen);
   Card get king => Card(rank: Rank.king, suit: Suit.diamonds, image: CardsImages.diamonds.king);
 
-  List<Card> get all => [
-        ace,
-        two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine,
-        ten,
-        jack,
-        queen,
-        king,
-      ];
+  List<Card> get all => [ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king];
 }
 
 class Hearts {
@@ -109,21 +76,7 @@ class Hearts {
   Card get queen => Card(rank: Rank.queen, suit: Suit.hearts, image: CardsImages.hearts.queen);
   Card get king => Card(rank: Rank.king, suit: Suit.hearts, image: CardsImages.hearts.king);
 
-  List<Card> get all => [
-        ace,
-        two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine,
-        ten,
-        jack,
-        queen,
-        king,
-      ];
+  List<Card> get all => [ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king];
 }
 
 class Spades {
@@ -143,19 +96,5 @@ class Spades {
   Card get queen => Card(rank: Rank.queen, suit: Suit.spades, image: CardsImages.spades.queen);
   Card get king => Card(rank: Rank.king, suit: Suit.spades, image: CardsImages.spades.king);
 
-  List<Card> get all => [
-        ace,
-        two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine,
-        ten,
-        jack,
-        queen,
-        king,
-      ];
+  List<Card> get all => [ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king];
 }
