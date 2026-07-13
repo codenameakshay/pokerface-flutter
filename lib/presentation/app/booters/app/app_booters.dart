@@ -26,7 +26,6 @@ class AppBooter extends StateNotifier<AppBootStatus> {
       PrefsBooter.instance.bootUp(),
       ThemeBooter.instance.bootUp(),
       MyAppX.soundPlayer.initClickSoundEffect(),
-      dotenv.load(fileName: ".env"),
       // PurchaseBooter.instance.bootUp(),
       // FlutterDownloader.initialize(),
       // WallpaperBooter.instance.bootUp(),

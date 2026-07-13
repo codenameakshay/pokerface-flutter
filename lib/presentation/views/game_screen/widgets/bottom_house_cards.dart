@@ -17,7 +17,6 @@ class _BottomHouseCards extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _AIChatButton(params: params),
           Container(
             decoration: ShapeDecoration(
               color: theme.colors.background,
