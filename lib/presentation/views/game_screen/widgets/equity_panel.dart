@@ -1,6 +1,7 @@
 part of '../view.dart';
 
-/// Compact win-equity readout, e.g. "32% win · against 3 opponents".
+/// Plain-language read on the hand: a verdict headline, the win chance as a
+/// subtitle, and (when you're not ahead) a hint about what would improve it.
 class _EquityPanel extends ConsumerWidget {
   const _EquityPanel({required this.params});
 
@@ -16,39 +17,53 @@ class _EquityPanel extends ConsumerWidget {
       return const SizedBox.shrink();
     }
 
+    final opponents = equity.opponents;
+    final verdict = verdictFor(equity: equity.equity, opponents: opponents);
     final equityPct = (equity.equity * 100).round();
-    final Color accent;
-    if (equity.equity >= 0.5) {
-      accent = theme.colors.primary;
-    } else if (equity.equity >= 0.25) {
-      accent = theme.colors.warning;
-    } else {
-      accent = theme.colors.error;
+
+    final accent = switch (verdict) {
+      HandVerdict.winning => theme.colors.primary,
+      HandVerdict.close => theme.colors.warning,
+      HandVerdict.behind => theme.colors.warning,
+      HandVerdict.losing => theme.colors.error,
+    };
+
+    // "What you need" line — only when you're not already ahead.
+    String? hintLine;
+    if (verdict != HandVerdict.winning) {
+      final tip = improvementHint(holeCards: params.userSelectedCards, board: state.houseCards);
+      if (tip != null) {
+        hintLine = tip;
+      } else if ((verdict == HandVerdict.behind || verdict == HandVerdict.losing) && state.houseCards.length < 5) {
+        hintLine = 'Not much can help this hand — better to fold.';
+      }
     }
 
-    return Column(
-      children: [
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: '$equityPct% ',
-                style: theme.themeText.headline4?.copyWith(color: accent, fontWeight: FontWeight.bold),
-              ),
-              TextSpan(
-                text: 'win',
-                style: theme.themeText.headline6?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.7)),
-              ),
-            ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
+      child: Column(
+        children: [
+          Text(
+            verdict.message,
+            textAlign: TextAlign.center,
+            style: theme.themeText.headline4?.copyWith(color: accent, fontWeight: FontWeight.bold),
           ),
-          textAlign: TextAlign.center,
-        ),
-        Text(
-          'against ${equity.opponents} opponent${equity.opponents == 1 ? '' : 's'}',
-          textAlign: TextAlign.center,
-          style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.6)),
-        ),
-      ],
+          4.toAutoScaledHeight.toVerticalSizedBox,
+          Text(
+            '$equityPct% chance · $opponents opponent${opponents == 1 ? '' : 's'}',
+            textAlign: TextAlign.center,
+            style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.6)),
+          ),
+          if (hintLine != null) ...[
+            12.toAutoScaledHeight.toVerticalSizedBox,
+            Text(
+              hintLine,
+              textAlign: TextAlign.center,
+              style: theme.themeText.bodyText2?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.85)),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }
