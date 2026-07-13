@@ -80,7 +80,9 @@ class _VSController extends StateNotifier<_ViewState> {
       navigateToNewGame(
         userSelectedCards: data['userSelectedCards'] as List<Card>,
         numberOfPlayers: data['numberOfPlayers'],
-        numberOfHouseCards: data['numberOfHouseCards'],
+        // Texas Hold'em always has five community cards, so the game screen
+        // always shows five house-card slots to fill.
+        numberOfHouseCards: 5,
       );
     }
   }

@@ -79,30 +79,12 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                   ),
                 ),
                 32.toAutoScaledHeight.toVerticalSizedBox,
-                Text(
-                  'Open cards (${state.openCards.round()})',
-                  textAlign: TextAlign.center,
-                  style: theme.themeText.headline4,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
-                  child: Slider(
-                    value: state.openCards,
-                    divisions: 4,
-                    onChanged: stateController.changeOpenCards,
-                    max: 5,
-                    min: 1,
-                    label: state.openCards.round().toString(),
-                  ),
-                ),
-                32.toAutoScaledHeight.toVerticalSizedBox,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
                   child: SquareButton(
                     onPressed: () => MyAppX.router.pop({
                       'userSelectedCards': state.selectedCards,
                       'numberOfPlayers': state.numberOfPlayers,
-                      'numberOfHouseCards': state.openCards,
                     }),
                     text: 'Start game',
                     enabled: state.selectedCards.length >= 2,

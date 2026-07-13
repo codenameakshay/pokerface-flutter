@@ -22,19 +22,17 @@ final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _Vie
 });
 
 class _ViewState {
-  _ViewState({required this.selectedCards, required this.numberOfPlayers, required this.openCards});
+  _ViewState({required this.selectedCards, required this.numberOfPlayers});
 
   final List<Card> selectedCards;
   final double numberOfPlayers;
-  final double openCards;
 
-  _ViewState.initial() : this(selectedCards: [], numberOfPlayers: 4, openCards: 5);
+  _ViewState.initial() : this(selectedCards: [], numberOfPlayers: 4);
 
-  _ViewState copyWith({List<Card>? selectedCards, double? numberOfPlayers, double? openCards}) {
+  _ViewState copyWith({List<Card>? selectedCards, double? numberOfPlayers}) {
     return _ViewState(
       selectedCards: selectedCards ?? this.selectedCards,
       numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
-      openCards: openCards ?? this.openCards,
     );
   }
 }
@@ -71,10 +69,6 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void changeNumberOfPlayers(double value) {
     state = state.copyWith(numberOfPlayers: value);
-  }
-
-  void changeOpenCards(double value) {
-    state = state.copyWith(openCards: value);
   }
 
   // @override
