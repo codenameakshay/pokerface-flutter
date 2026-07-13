@@ -22,17 +22,23 @@ final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _Vie
 });
 
 class _ViewState {
-  _ViewState({required this.selectedCards, required this.numberOfPlayers});
+  _ViewState({required this.selectedCards, required this.numberOfPlayers, required this.pot, required this.toCall});
 
   final List<Card> selectedCards;
   final double numberOfPlayers;
 
-  _ViewState.initial() : this(selectedCards: [], numberOfPlayers: 4);
+  /// Optional "Should I call?" inputs. Zero means "not entered".
+  final double pot;
+  final double toCall;
 
-  _ViewState copyWith({List<Card>? selectedCards, double? numberOfPlayers}) {
+  _ViewState.initial() : this(selectedCards: [], numberOfPlayers: 4, pot: 0, toCall: 0);
+
+  _ViewState copyWith({List<Card>? selectedCards, double? numberOfPlayers, double? pot, double? toCall}) {
     return _ViewState(
       selectedCards: selectedCards ?? this.selectedCards,
       numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
+      pot: pot ?? this.pot,
+      toCall: toCall ?? this.toCall,
     );
   }
 }
@@ -70,6 +76,10 @@ class _VSController extends StateNotifier<_ViewState> {
   void changeNumberOfPlayers(double value) {
     state = state.copyWith(numberOfPlayers: value);
   }
+
+  void setPot(double value) => state = state.copyWith(pot: value);
+
+  void setToCall(double value) => state = state.copyWith(toCall: value);
 
   // @override
   // void dispose() {

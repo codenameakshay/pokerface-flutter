@@ -16,7 +16,7 @@ final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _Vie
   ref,
   params,
 ) {
-  final stateController = _VSController(params: params)..initState();
+  final stateController = _VSController(params: params, ref: ref)..initState();
 
   return stateController;
 });
@@ -32,8 +32,9 @@ class _ViewState {
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController({required this.params}) : super(_ViewState.initial());
+  _VSController({required this.params, required this.ref}) : super(_ViewState.initial());
   _VSControllerParams params;
+  final Ref ref;
 
   void initState() {}
 
@@ -77,6 +78,11 @@ class _VSController extends StateNotifier<_ViewState> {
     );
 
     if (data != null) {
+      // Carry the optional "Should I call?" values into the game screen.
+      ref.read(pendingCallInputsProvider.notifier).state = CallInputs(
+        pot: (data['pot'] as double?) ?? 0,
+        toCall: (data['toCall'] as double?) ?? 0,
+      );
       navigateToNewGame(
         userSelectedCards: data['userSelectedCards'] as List<Card>,
         numberOfPlayers: data['numberOfPlayers'],

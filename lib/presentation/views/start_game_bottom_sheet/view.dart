@@ -79,12 +79,49 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                   ),
                 ),
                 32.toAutoScaledHeight.toVerticalSizedBox,
+                Text('Should I call? (optional)', textAlign: TextAlign.center, style: theme.themeText.headline4),
+                12.toAutoScaledHeight.toVerticalSizedBox,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          textAlign: TextAlign.center,
+                          onChanged: (t) => stateController.setPot(double.tryParse(t) ?? 0),
+                          decoration: InputDecoration(
+                            labelText: 'Pot',
+                            isDense: true,
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                      ),
+                      16.toAutoScaledWidth.toHorizontalSizedBox,
+                      Expanded(
+                        child: TextField(
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          textAlign: TextAlign.center,
+                          onChanged: (t) => stateController.setToCall(double.tryParse(t) ?? 0),
+                          decoration: InputDecoration(
+                            labelText: 'To call',
+                            isDense: true,
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                32.toAutoScaledHeight.toVerticalSizedBox,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
                   child: SquareButton(
                     onPressed: () => MyAppX.router.pop({
                       'userSelectedCards': state.selectedCards,
                       'numberOfPlayers': state.numberOfPlayers,
+                      'pot': state.pot,
+                      'toCall': state.toCall,
                     }),
                     text: 'Start game',
                     enabled: state.selectedCards.length >= 2,

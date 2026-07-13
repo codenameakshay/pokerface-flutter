@@ -28,7 +28,10 @@ final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _Vie
   ref,
   params,
 ) {
-  final stateController = _VSController(params: params)..initState(params.context, params.theme);
+  final pending = ref.read(pendingCallInputsProvider);
+  final stateController = _VSController(params: params)
+    ..seedCallInputs(pending)
+    ..initState(params.context, params.theme);
 
   return stateController;
 });
@@ -188,6 +191,13 @@ class _VSController extends StateNotifier<_ViewState> {
   void setPot(double value) => state = state.copyWith(pot: value);
 
   void setToCall(double value) => state = state.copyWith(toCall: value);
+
+  /// Seeds the "Should I call?" fields from values entered in the start sheet.
+  void seedCallInputs(CallInputs? pending) {
+    if (pending != null) {
+      state = state.copyWith(pot: pending.pot, toCall: pending.toCall);
+    }
+  }
 
   Future<List<Card>?> showSelectCardsBottomSheet(BuildContext context, List<Card>? selectedCards) async {
     return showCupertinoModalBottomSheet<List<Card>>(
