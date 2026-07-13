@@ -240,9 +240,10 @@ extension PokerHandExtension on PokerHand {
   }
 
   bool isWheel(List<Card> sortedCards) {
-    // Implement logic to detect a wheel (Ace to Five straight)
-    // Placeholder implementation
-    return false;
+    // A "wheel" is the Ace-to-Five straight (A-2-3-4-5), where the Ace plays
+    // low. Detect it by the exact set of ranks present, independent of order.
+    final ranks = sortedCards.map((card) => card.rank).toSet();
+    return ranks.containsAll(const [Rank.ace, Rank.two, Rank.three, Rank.four, Rank.five]);
   }
 
   double get probability {
