@@ -276,8 +276,6 @@ extension PokerHandExtension on PokerHand {
       case HandRank.highCard:
         // Excluding all other hand types
         return (1302540.0 - 5108.0) / 2598960.0;
-      default:
-        return 0.0; // For unimplemented or unrecognized hand types
     }
   }
 
@@ -304,8 +302,6 @@ extension PokerHandExtension on PokerHand {
         return 1;
       case HandRank.highCard:
         return 1;
-      default:
-        return -1; // For unimplemented or unrecognized hand types
     }
   }
 

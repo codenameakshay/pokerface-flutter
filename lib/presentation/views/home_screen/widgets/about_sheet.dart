@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
@@ -130,7 +129,7 @@ class AboutSheet extends ConsumerWidget {
               fontFamily: GoogleFonts.inter().fontFamily,
               fontWeight: FontWeight.w400,
               fontSize: theme.fontSizes.s9,
-              color: theme.colors.onBackground.withOpacity(0.8),
+              color: theme.colors.onBackground.withValues(alpha: 0.8),
             ),
           ),
         ],
@@ -215,7 +214,7 @@ class AboutSheet extends ConsumerWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: theme.colors.onBackground.withOpacity(0.1),
+                color: theme.colors.onBackground.withValues(alpha: 0.1),
                 blurRadius: 10.toAutoScaledWidth,
                 spreadRadius: -4.toAutoScaledWidth,
                 offset: const Offset(0, 4),
@@ -271,7 +270,7 @@ class AboutSheet extends ConsumerWidget {
           fontFamily: GoogleFonts.inter().fontFamily,
           fontWeight: FontWeight.w400,
           fontSize: theme.fontSizes.s9,
-          color: theme.colors.onBackground.withOpacity(0.8),
+          color: theme.colors.onBackground.withValues(alpha: 0.8),
         ),
       ),
     ).animate(delay: const Duration(milliseconds: 300)).fadeIn();
@@ -298,7 +297,7 @@ class AboutSheet extends ConsumerWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 4.toAutoScaledWidth, vertical: 2.toAutoScaledHeight),
             decoration: BoxDecoration(
-              color: theme.colors.onBackground.withOpacity(0.2),
+              color: theme.colors.onBackground.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(400.toAutoScaledWidth),
             ),
             child: Text(
@@ -307,7 +306,7 @@ class AboutSheet extends ConsumerWidget {
                 fontFamily: GoogleFonts.inter().fontFamily,
                 fontWeight: FontWeight.w600,
                 fontSize: theme.fontSizes.s9,
-                color: theme.colors.onBackground.withOpacity(0.6),
+                color: theme.colors.onBackground.withValues(alpha: 0.6),
               ),
             ),
           ),

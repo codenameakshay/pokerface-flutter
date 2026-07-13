@@ -5,7 +5,7 @@ class _ThemeColorsLightMaterialImpl implements ThemeColors {
   Color get primary => colorScheme.primary;
 
   @override
-  Color get background => colorScheme.background;
+  Color get background => colorScheme.surface;
 
   @override
   Brightness get brightness => colorScheme.brightness;
@@ -17,7 +17,7 @@ class _ThemeColorsLightMaterialImpl implements ThemeColors {
   Color get errorContainer => colorScheme.errorContainer;
 
   @override
-  Color get onBackground => colorScheme.onBackground;
+  Color get onBackground => colorScheme.onSurface;
 
   @override
   Color get onError => colorScheme.onError;
@@ -89,11 +89,9 @@ class _ThemeColorsLightMaterialImpl implements ThemeColors {
     onError: Color(0xffffffff),
     errorContainer: Color(0xfffcd8df),
     onErrorContainer: Color(0xff141213),
-    background: Color(0xfff9f6fe),
-    onBackground: Color(0xff090909),
     surface: Color(0xfff9f6fe),
     onSurface: Color(0xff090909),
-    surfaceVariant: Color(0xfff3edfd),
+    surfaceContainerHighest: Color(0xfff3edfd),
     onSurfaceVariant: Color(0xff131213),
     outline: Color(0xff565656),
     shadow: Color(0xff000000),

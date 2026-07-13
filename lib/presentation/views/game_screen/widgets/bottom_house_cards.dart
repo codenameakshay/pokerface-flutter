@@ -21,7 +21,7 @@ class _BottomHouseCards extends ConsumerWidget {
             decoration: ShapeDecoration(
               color: theme.colors.background,
               shape: DashedBorder(
-                color: theme.colors.secondary.withOpacity(0.1),
+                color: theme.colors.secondary.withValues(alpha: 0.1),
                 dashWidth: 12,
                 dashSpace: 4,
                 strokeWidth: 2,

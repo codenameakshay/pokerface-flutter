@@ -99,7 +99,7 @@ Future<T?> showBarModalBottomSheet<T>({
       builder: builder,
       bounce: bounce,
       closeProgressThreshold: closeProgressThreshold,
-      containerBuilder: (_, __, child) => BarBottomSheet(
+      containerBuilder: (_, _, child) => BarBottomSheet(
         control: topControl,
         clipBehavior: clipBehavior,
         shape: shape,

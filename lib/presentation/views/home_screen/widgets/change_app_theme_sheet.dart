@@ -85,11 +85,11 @@ class ChangeAppThemeSheet extends ConsumerWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.toAutoScaledWidth),
             border: Border.all(
-              color: isSelected ? theme.colors.primary.withOpacity(0.7) : theme.colors.secondaryContainer,
+              color: isSelected ? theme.colors.primary.withValues(alpha: 0.7) : theme.colors.secondaryContainer,
               width: 2.toAutoScaledWidth,
               strokeAlign: BorderSide.strokeAlignInside,
             ),
-            color: isSelected ? theme.colors.primary.withOpacity(0.7) : theme.colors.secondaryContainer,
+            color: isSelected ? theme.colors.primary.withValues(alpha: 0.7) : theme.colors.secondaryContainer,
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(6.toAutoScaledWidth),

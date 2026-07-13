@@ -5,7 +5,7 @@ class _ThemeColorsDarkMaterialImpl implements ThemeColors {
   Color get primary => colorScheme.primary;
 
   @override
-  Color get background => colorScheme.background;
+  Color get background => colorScheme.surface;
 
   @override
   Brightness get brightness => colorScheme.brightness;
@@ -17,7 +17,7 @@ class _ThemeColorsDarkMaterialImpl implements ThemeColors {
   Color get errorContainer => colorScheme.errorContainer;
 
   @override
-  Color get onBackground => colorScheme.onBackground;
+  Color get onBackground => colorScheme.onSurface;
 
   @override
   Color get onError => colorScheme.onError;
@@ -89,11 +89,9 @@ class _ThemeColorsDarkMaterialImpl implements ThemeColors {
     onError: Color(0xff140c0d),
     errorContainer: Color(0xffb1384e),
     onErrorContainer: Color(0xfffbe8ec),
-    background: Color(0xff1b171e),
-    onBackground: Color(0xffedeced),
     surface: Color(0xff1b171e),
     onSurface: Color(0xffedeced),
-    surfaceVariant: Color(0xff251e2c),
+    surfaceContainerHighest: Color(0xff251e2c),
     onSurfaceVariant: Color(0xffdcdbdd),
     outline: Color(0xffa39da3),
     shadow: Color(0xff000000),

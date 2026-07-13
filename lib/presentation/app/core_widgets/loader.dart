@@ -138,7 +138,7 @@ class _NewtonCradleState extends State<NewtonCradle> with SingleTickerProviderSt
     final color = widget.color;
     return AnimatedBuilder(
       animation: _animationController,
-      builder: (_, __) => SizedBox(
+      builder: (_, _) => SizedBox(
         width: widget.size,
         height: widget.size,
         child: Row(

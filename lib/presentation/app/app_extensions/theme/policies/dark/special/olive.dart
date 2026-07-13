@@ -5,7 +5,7 @@ class _ThemeColorsDarkOliveImpl implements ThemeColors {
   Color get primary => colorScheme.primary;
 
   @override
-  Color get background => colorScheme.background;
+  Color get background => colorScheme.surface;
 
   @override
   Brightness get brightness => colorScheme.brightness;
@@ -17,7 +17,7 @@ class _ThemeColorsDarkOliveImpl implements ThemeColors {
   Color get errorContainer => colorScheme.errorContainer;
 
   @override
-  Color get onBackground => colorScheme.onBackground;
+  Color get onBackground => colorScheme.onSurface;
 
   @override
   Color get onError => colorScheme.onError;
@@ -89,11 +89,9 @@ class _ThemeColorsDarkOliveImpl implements ThemeColors {
     onError: Color(0xff140c0d),
     errorContainer: Color(0xffb1384e),
     onErrorContainer: Color(0xfffbe8ec),
-    background: Color(0xff191c17),
-    onBackground: Color(0xffecedec),
     surface: Color(0xff191c17),
     onSurface: Color(0xffecedec),
-    surfaceVariant: Color(0xff21281d),
+    surfaceContainerHighest: Color(0xff21281d),
     onSurfaceVariant: Color(0xffdcdddb),
     outline: Color(0xff9da39d),
     shadow: Color(0xff000000),

@@ -90,20 +90,20 @@ class _VSController extends StateNotifier<_ViewState> {
         bulbs: [
           Bulb(
             isOn: false,
-            borderColor: theme.colors.onPrimary.withOpacity(0.1),
-            offColor: theme.colors.primary.withOpacity(0.2),
+            borderColor: theme.colors.onPrimary.withValues(alpha: 0.1),
+            offColor: theme.colors.primary.withValues(alpha: 0.2),
             onColor: theme.colors.primary,
           ),
           Bulb(
             isOn: false,
-            borderColor: theme.colors.onWarning.withOpacity(0.1),
-            offColor: theme.colors.warning.withOpacity(0.2),
+            borderColor: theme.colors.onWarning.withValues(alpha: 0.1),
+            offColor: theme.colors.warning.withValues(alpha: 0.2),
             onColor: theme.colors.warning,
           ),
           Bulb(
             isOn: false,
-            borderColor: theme.colors.onError.withOpacity(0.1),
-            offColor: theme.colors.error.withOpacity(0.2),
+            borderColor: theme.colors.onError.withValues(alpha: 0.1),
+            offColor: theme.colors.error.withValues(alpha: 0.2),
             onColor: theme.colors.error,
           ),
         ],

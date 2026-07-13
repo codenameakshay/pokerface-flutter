@@ -139,7 +139,7 @@ class CustomError extends ConsumerWidget {
             16.toAutoScaledHeight.toVerticalSizedBox,
             Container(
               decoration: BoxDecoration(
-                color: theme.colors.errorContainer.withOpacity(0.1),
+                color: theme.colors.errorContainer.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: theme.colors.errorContainer),
               ),

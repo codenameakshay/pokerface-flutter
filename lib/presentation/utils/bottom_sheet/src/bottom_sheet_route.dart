@@ -170,7 +170,7 @@ class ModalSheetRoute<T> extends PageRoute<T> {
   final String? barrierLabel;
 
   @override
-  Color get barrierColor => modalBarrierColor ?? Colors.black.withOpacity(0.35);
+  Color get barrierColor => modalBarrierColor ?? Colors.black.withValues(alpha: 0.35);
 
   AnimationController? _animationController;
 

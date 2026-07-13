@@ -116,7 +116,7 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                     textAlign: TextAlign.center,
                     style: theme.themeText.caption?.copyWith(
                       fontSize: 8.toAutoScaledWidth,
-                      color: theme.colors.onBackground.withOpacity(0.5),
+                      color: theme.colors.onBackground.withValues(alpha: 0.5),
                     ),
                   ),
                 ),

@@ -37,7 +37,7 @@ class _EquityPanel extends ConsumerWidget {
               ),
               TextSpan(
                 text: 'win',
-                style: theme.themeText.headline6?.copyWith(color: theme.colors.onBackground.withOpacity(0.7)),
+                style: theme.themeText.headline6?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.7)),
               ),
             ],
           ),
@@ -46,7 +46,7 @@ class _EquityPanel extends ConsumerWidget {
         Text(
           'against ${equity.opponents} opponent${equity.opponents == 1 ? '' : 's'}',
           textAlign: TextAlign.center,
-          style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withOpacity(0.6)),
+          style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.6)),
         ),
       ],
     );

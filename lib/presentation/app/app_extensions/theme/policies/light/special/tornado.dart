@@ -5,7 +5,7 @@ class _ThemeColorsLightRedTornadoImpl implements ThemeColors {
   Color get primary => colorScheme.primary;
 
   @override
-  Color get background => colorScheme.background;
+  Color get background => colorScheme.surface;
 
   @override
   Brightness get brightness => colorScheme.brightness;
@@ -17,7 +17,7 @@ class _ThemeColorsLightRedTornadoImpl implements ThemeColors {
   Color get errorContainer => colorScheme.errorContainer;
 
   @override
-  Color get onBackground => colorScheme.onBackground;
+  Color get onBackground => colorScheme.onSurface;
 
   @override
   Color get onError => colorScheme.onError;
@@ -89,11 +89,9 @@ class _ThemeColorsLightRedTornadoImpl implements ThemeColors {
     onError: Color(0xffffffff),
     errorContainer: Color(0xfff1d8d8),
     onErrorContainer: Color(0xff141212),
-    background: Color(0xfffcf7f7),
-    onBackground: Color(0xff090909),
     surface: Color(0xfffcf7f7),
     onSurface: Color(0xff090909),
-    surfaceVariant: Color(0xfffaefef),
+    surfaceContainerHighest: Color(0xfffaefef),
     onSurfaceVariant: Color(0xff131212),
     outline: Color(0xff565656),
     shadow: Color(0xff000000),

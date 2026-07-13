@@ -52,7 +52,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               const StackCards(),
               SizedBox.expand(
                 child: Container(
-                  color: theme.type.isDark ? const Color(0xFF020513).withOpacity(0.9) : Colors.white.withOpacity(0.9),
+                  color: theme.type.isDark ? const Color(0xFF020513).withValues(alpha: 0.9) : Colors.white.withValues(alpha: 0.9),
                 ),
               ),
               Center(
@@ -77,8 +77,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           .shimmer(
                             duration: const Duration(seconds: 2),
                             color: theme.type.isDark
-                                ? const Color(0xFF020513).withOpacity(0.3)
-                                : Colors.white.withOpacity(0.3),
+                                ? const Color(0xFF020513).withValues(alpha: 0.3)
+                                : Colors.white.withValues(alpha: 0.3),
                           ),
                       const Spacer(),
                       // SquareButton(

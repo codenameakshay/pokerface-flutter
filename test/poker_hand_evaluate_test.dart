@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/data/models/poker_hand.dart';
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 

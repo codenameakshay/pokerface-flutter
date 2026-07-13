@@ -67,8 +67,6 @@ abstract class ThemeColors {
     onTertiaryContainer: onTertiaryContainer,
     surface: surface,
     onSurface: onSurface,
-    background: background,
-    onBackground: onBackground,
     error: error,
     onError: onError,
     errorContainer: errorContainer,
