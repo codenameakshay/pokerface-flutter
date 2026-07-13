@@ -123,15 +123,22 @@ extension PokerHandExtension on PokerHand {
   }
 
   HandRank evaluateHand() {
-    bool isStraight = this.isStraight || isStraightWithAceLow;
+    // A "high" straight is five consecutive ranks (at most Ten-to-Ace); the
+    // Ace-low "wheel" (A-2-3-4-5) is not consecutive by index and is detected
+    // separately via [isStraightWithAceLow].
+    final bool isHighStraight = isStraight;
+    final bool isAnyStraight = isStraight || isStraightWithAceLow;
 
-    // Check for Royal Flush
-    if (isFlush && isStraight && cards.any((card) => card.rank == Rank.ace)) {
+    // Royal Flush is the Ten-to-Ace straight flush. It must be a *high*
+    // straight that contains an Ace — the only such run is T-J-Q-K-A. This
+    // deliberately excludes the Ace-low "steel wheel" (A-2-3-4-5 suited),
+    // which contains an Ace but is only a five-high straight flush.
+    if (isFlush && isHighStraight && cards.any((card) => card.rank == Rank.ace)) {
       return HandRank.royalFlush;
     }
 
-    // Check for Straight Flush
-    if (isFlush && isStraight) {
+    // Check for Straight Flush (includes the Ace-low steel wheel).
+    if (isFlush && isAnyStraight) {
       return HandRank.straightFlush;
     }
 
@@ -150,8 +157,8 @@ extension PokerHandExtension on PokerHand {
       return HandRank.flush;
     }
 
-    // Check for Straight or Straight with Ace Low
-    if (isStraight) {
+    // Check for Straight or Straight with Ace Low (the wheel).
+    if (isAnyStraight) {
       return HandRank.straight;
     }
 
