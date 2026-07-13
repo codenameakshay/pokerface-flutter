@@ -15,6 +15,8 @@ class _Body extends StatelessWidget {
             children: [
               MediaQuery.of(context).padding.top.toVerticalSizedBox,
               36.toAutoScaledHeight.toVerticalSizedBox,
+              _EquityPanel(params: params),
+              24.toAutoScaledHeight.toVerticalSizedBox,
               _HandRanksList(params: params),
               256.toAutoScaledHeight.toVerticalSizedBox,
             ],

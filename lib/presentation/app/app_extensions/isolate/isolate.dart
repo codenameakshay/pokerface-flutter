@@ -13,4 +13,22 @@ class IsolateManager {
     // fail the `as Map` cast on the way back.)
     return Isolate.run(() => findTopNHands(knownCards, n));
   }
+
+  /// Runs the Monte Carlo win-equity simulation on a worker isolate so the
+  /// heavy computation never blocks the UI.
+  Future<EquityResult> runCalculateEquity({
+    required List<Card> holeCards,
+    required List<Card> board,
+    required int opponents,
+    int iterations = 20000,
+  }) async {
+    return Isolate.run(
+      () => calculateEquity(
+        holeCards: holeCards,
+        board: board,
+        opponents: opponents,
+        iterations: iterations,
+      ),
+    );
+  }
 }

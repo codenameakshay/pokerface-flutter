@@ -19,6 +19,7 @@ import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_rout
 import 'package:pokerface/presentation/app/app_extensions/theme/policies/text_theme.dart';
 import 'package:pokerface/presentation/app/core_widgets/confetti/confetti.dart';
 import 'package:pokerface/presentation/app/core_widgets/in_app_notification/in_app_notification.dart';
+import 'package:pokerface/presentation/utils/hands/equity.dart';
 import 'package:pokerface/presentation/utils/hands/testing.dart';
 import 'package:pokerface/presentation/utils/string/string.dart';
 import 'package:rate_my_app/rate_my_app.dart';

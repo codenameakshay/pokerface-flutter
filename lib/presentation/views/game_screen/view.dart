@@ -13,11 +13,13 @@ import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 import 'package:pokerface/presentation/app/core_widgets/dashed_border.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
+import 'package:pokerface/presentation/utils/hands/equity.dart';
 import 'package:pokerface/presentation/utils/state/state.dart';
 import 'package:pokerface/presentation/views/select_cards_bottom_sheet/view.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 
 part 'controller.dart';
+part 'widgets/equity_panel.dart';
 part 'widgets/card_preview.dart';
 part 'widgets/top_user_cards.dart';
 part 'widgets/bottom_house_cards.dart';

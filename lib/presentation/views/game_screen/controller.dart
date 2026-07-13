@@ -40,6 +40,7 @@ class _ViewState {
     required this.generateTime,
     required this.streetLight,
     required this.loadingState,
+    required this.equity,
   });
 
   final List<Card> houseCards;
@@ -47,6 +48,7 @@ class _ViewState {
   final Stopwatch? generateTime;
   final StreetLight streetLight;
   final LoadingState loadingState;
+  final EquityResult equity;
 
   _ViewState.initial()
     : this(
@@ -55,6 +57,7 @@ class _ViewState {
         generateTime: null,
         streetLight: StreetLight(bulbs: []),
         loadingState: LoadingState.init,
+        equity: const EquityResult.empty(),
       );
 
   _ViewState copyWith({
@@ -63,6 +66,7 @@ class _ViewState {
     Stopwatch? generateTime,
     StreetLight? streetLight,
     LoadingState? loadingState,
+    EquityResult? equity,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
@@ -70,6 +74,7 @@ class _ViewState {
       generateTime: generateTime ?? this.generateTime,
       streetLight: streetLight ?? this.streetLight,
       loadingState: loadingState ?? this.loadingState,
+      equity: equity ?? this.equity,
     );
   }
 }
@@ -110,22 +115,52 @@ class _VSController extends StateNotifier<_ViewState> {
 
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
     state = state.copyWith(generateTime: Stopwatch()..start(), loadingState: LoadingState.loading);
-    final generatedHands = await MyAppX.isolateManager.runFindTopNHands(cards, 20);
+
+    final holeCards = params.userSelectedCards;
+    final board = state.houseCards;
+    final opponents = params.numberOfPlayers.round() - 1;
+
+    // Run the top-hands search and the win-equity simulation on their worker
+    // isolates concurrently.
+    final handsFuture = MyAppX.isolateManager.runFindTopNHands(cards, 20);
+    final equityFuture = holeCards.length == 2 && opponents >= 1
+        ? MyAppX.isolateManager.runCalculateEquity(holeCards: holeCards, board: board, opponents: opponents)
+        : Future<EquityResult>.value(const EquityResult.empty());
+
+    final generatedHands = await handsFuture;
+    final equity = await equityFuture;
+
     final groupedHands = generatedHands.map((e) => GroupedHands(pokerHands: e, isExpaned: false)).toList();
+
     state = state.copyWith(
       generatedHands: groupedHands,
-      streetLight: state.streetLight.copyWith(
-        bulbs: state.streetLight.bulbs
-            .map(
-              (e) => e.copyWith(
-                isOn: groupedHands[0].pokerHands[0].handRankStatus + 1 == state.streetLight.bulbs.indexOf(e),
-              ),
-            )
-            .toList(),
-      ),
+      equity: equity,
+      streetLight: _streetLightForEquity(equity),
     );
     state.generateTime?.stop();
     state = state.copyWith(loadingState: LoadingState.success);
+  }
+
+  /// Lights the green / amber / red bulb from the player's win equity: green at
+  /// 50%+, amber at 25–50%, red below 25%. No bulb lights until a simulation
+  /// has run.
+  StreetLight _streetLightForEquity(EquityResult equity) {
+    final bulbs = state.streetLight.bulbs;
+    int litIndex;
+    if (equity.iterations == 0) {
+      litIndex = -1;
+    } else if (equity.equity >= 0.5) {
+      litIndex = 0;
+    } else if (equity.equity >= 0.25) {
+      litIndex = 1;
+    } else {
+      litIndex = 2;
+    }
+    return state.streetLight.copyWith(
+      bulbs: [
+        for (var i = 0; i < bulbs.length; i++) bulbs[i].copyWith(isOn: i == litIndex),
+      ],
+    );
   }
 
   void toggleExpand(int index, bool isExpanded) {
