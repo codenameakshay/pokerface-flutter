@@ -7,11 +7,10 @@ class IsolateManager {
   static IsolateManager get instance => _instance;
 
   Future<List<List<PokerHand>>> runFindTopNHands(List<Card> knownCards, int n) async {
-    final jsonCards = knownCards.map((e) => e.toJson()).toList();
-    final jsonResult = await Isolate.run(() => findTopNHands(jsonCards, n));
-
-    final result = jsonResult.map((e) => e.map((e) => PokerHand.fromJson(e)).toList()).toList();
-
-    return result;
+    // Card / PokerHand are plain immutable data, so they are sent to and from
+    // the worker isolate directly. (The previous toJson/fromJson round-trip was
+    // broken: toJson leaves nested CardImage objects unserialized, which then
+    // fail the `as Map` cast on the way back.)
+    return Isolate.run(() => findTopNHands(knownCards, n));
   }
 }
