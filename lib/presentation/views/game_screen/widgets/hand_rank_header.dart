@@ -16,10 +16,6 @@ class _HandRankHeader extends ConsumerWidget {
         child: Text(hand.evaluateHand().emoji, textAlign: TextAlign.center, style: theme.themeText.headline6),
       ),
       title: Text(hand.evaluateHand().name, textAlign: TextAlign.center, style: theme.themeText.headline6),
-      trailing: Padding(
-        padding: EdgeInsets.only(right: 8.toAutoScaledWidth),
-        child: Text((hand.score).toString(), textAlign: TextAlign.center, style: theme.themeText.headline6),
-      ),
     );
   }
 }
