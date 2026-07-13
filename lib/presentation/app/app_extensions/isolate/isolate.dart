@@ -16,18 +16,28 @@ class IsolateManager {
 
   /// Runs the Monte Carlo win-equity simulation on a worker isolate so the
   /// heavy computation never blocks the UI.
+  ///
+  /// The RNG is seeded deterministically from the known cards, so an identical
+  /// situation always yields the same percentage instead of flickering by a
+  /// point or two between recomputes. 5000 trials keeps the estimate within
+  /// ~1% while staying fast enough to rerun on every card reveal.
   Future<EquityResult> runCalculateEquity({
     required List<Card> holeCards,
     required List<Card> board,
     required int opponents,
-    int iterations = 20000,
+    int iterations = 5000,
   }) async {
+    var seed = opponents;
+    for (final card in [...holeCards, ...board]) {
+      seed = seed * 53 + card.rank.index * 4 + card.suit.index;
+    }
     return Isolate.run(
       () => calculateEquity(
         holeCards: holeCards,
         board: board,
         opponents: opponents,
         iterations: iterations,
+        random: Random(seed),
       ),
     );
   }
