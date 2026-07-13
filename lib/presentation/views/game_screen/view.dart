@@ -21,6 +21,7 @@ import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 
 part 'controller.dart';
 part 'widgets/equity_panel.dart';
+part 'widgets/call_helper.dart';
 part 'widgets/card_preview.dart';
 part 'widgets/top_user_cards.dart';
 part 'widgets/bottom_house_cards.dart';

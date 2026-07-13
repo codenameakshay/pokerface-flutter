@@ -41,6 +41,8 @@ class _ViewState {
     required this.streetLight,
     required this.loadingState,
     required this.equity,
+    required this.pot,
+    required this.toCall,
   });
 
   final List<Card> houseCards;
@@ -50,6 +52,10 @@ class _ViewState {
   final LoadingState loadingState;
   final EquityResult equity;
 
+  /// Optional "Should I call?" inputs. Zero means "not entered".
+  final double pot;
+  final double toCall;
+
   _ViewState.initial()
     : this(
         houseCards: [],
@@ -58,6 +64,8 @@ class _ViewState {
         streetLight: StreetLight(bulbs: []),
         loadingState: LoadingState.init,
         equity: const EquityResult.empty(),
+        pot: 0,
+        toCall: 0,
       );
 
   _ViewState copyWith({
@@ -67,6 +75,8 @@ class _ViewState {
     StreetLight? streetLight,
     LoadingState? loadingState,
     EquityResult? equity,
+    double? pot,
+    double? toCall,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
@@ -75,6 +85,8 @@ class _ViewState {
       streetLight: streetLight ?? this.streetLight,
       loadingState: loadingState ?? this.loadingState,
       equity: equity ?? this.equity,
+      pot: pot ?? this.pot,
+      toCall: toCall ?? this.toCall,
     );
   }
 }
@@ -172,6 +184,10 @@ class _VSController extends StateNotifier<_ViewState> {
     }).toList();
     state = state.copyWith(generatedHands: newGeneratedHands);
   }
+
+  void setPot(double value) => state = state.copyWith(pot: value);
+
+  void setToCall(double value) => state = state.copyWith(toCall: value);
 
   Future<List<Card>?> showSelectCardsBottomSheet(BuildContext context, List<Card>? selectedCards) async {
     return showCupertinoModalBottomSheet<List<Card>>(

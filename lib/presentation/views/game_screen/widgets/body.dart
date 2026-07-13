@@ -17,6 +17,8 @@ class _Body extends StatelessWidget {
               36.toAutoScaledHeight.toVerticalSizedBox,
               _EquityPanel(params: params),
               24.toAutoScaledHeight.toVerticalSizedBox,
+              _CallHelper(params: params),
+              24.toAutoScaledHeight.toVerticalSizedBox,
               _HandRanksList(params: params),
               256.toAutoScaledHeight.toVerticalSizedBox,
             ],
