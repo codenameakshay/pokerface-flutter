@@ -5,12 +5,7 @@ class DashedCardButton extends ConsumerWidget {
   final double width;
   final Card? card;
 
-  const DashedCardButton({
-    super.key,
-    required this.onPressed,
-    required this.width,
-    this.card,
-  });
+  const DashedCardButton({super.key, required this.onPressed, required this.width, this.card});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

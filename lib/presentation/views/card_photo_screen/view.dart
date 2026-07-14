@@ -8,12 +8,7 @@ import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 
 @RoutePage(name: 'CardPhotoRoute')
 class CardPhotoView extends ConsumerStatefulWidget {
-  const CardPhotoView({
-    super.key,
-    this.onInit,
-    required this.card,
-    required this.isSelected,
-  });
+  const CardPhotoView({super.key, this.onInit, required this.card, required this.isSelected});
 
   final Future<dynamic> Function()? onInit;
   final Card card;
@@ -26,14 +21,9 @@ class CardPhotoView extends ConsumerStatefulWidget {
 class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
   @override
   void initState() {
-    Future.delayed(
-      Duration.zero,
-      () {
-        widget.onInit?.call().then(
-              (value) => MyAppX.router.pop(value),
-            );
-      },
-    );
+    Future.delayed(Duration.zero, () {
+      widget.onInit?.call().then((value) => MyAppX.router.pop(value));
+    });
     super.initState();
   }
 
@@ -49,26 +39,17 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
               width: MediaQuery.of(context).size.width * 0.6,
               height: MediaQuery.of(context).size.width * 0.6 * (333 / 234),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 4,
-                  strokeAlign: BorderSide.strokeAlignOutside,
-                ),
+                border: Border.all(color: Colors.black, width: 4, strokeAlign: BorderSide.strokeAlignOutside),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SvgPicture.asset(
-                widget.card.image.svg,
-                fit: BoxFit.cover,
-              ),
+              child: SvgPicture.asset(widget.card.image.svg, fit: BoxFit.cover),
             ),
           ),
           32.toAutoScaledHeight.toVerticalSizedBox,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(
-                flex: 1,
-              ),
+              const Spacer(flex: 1),
               Expanded(
                 flex: 2,
                 child: SquareButton(
@@ -86,11 +67,9 @@ class _CardPhotoViewState extends ConsumerState<CardPhotoView> {
                   onPressed: () => MyAppX.router.pop(),
                 ),
               ),
-              const Spacer(
-                flex: 1,
-              ),
+              const Spacer(flex: 1),
             ],
-          )
+          ),
         ],
       ),
     );

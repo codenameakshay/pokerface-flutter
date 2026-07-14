@@ -12,11 +12,11 @@ final _paramsProvider = Provider<_VSControllerParams>((ref) {
   throw UnimplementedError();
 });
 
-final _vsProvider =
-    StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
-  final stateController = _VSController(
-    params: params,
-  )..initState();
+final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((
+  ref,
+  params,
+) {
+  final stateController = _VSController(params: params, ref: ref)..initState();
 
   return stateController;
 });
@@ -32,10 +32,9 @@ class _ViewState {
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController({
-    required this.params,
-  }) : super(_ViewState.initial());
+  _VSController({required this.params, required this.ref}) : super(_ViewState.initial());
   _VSControllerParams params;
+  final Ref ref;
 
   void initState() {}
 
@@ -49,25 +48,6 @@ class _VSController extends StateNotifier<_ViewState> {
         userSelectedCards: userSelectedCards,
         numberOfPlayers: numberOfPlayers,
         numberOfHouseCards: numberOfHouseCards,
-      ),
-    );
-  }
-
-  void navigateToAIScreen() {
-    MyAppX.router.pushNativeRoute(
-      MaterialWithModalsPageRoute(
-        fullscreenDialog: true,
-        builder: (BuildContext context) => ChatScreen(
-          title: 'Pokerface',
-          onClose: MyAppX.router.pop,
-          initialHistory: [],
-          inputPrompt:
-              """You are a Texas Hold'em Poker expert. You will be given a query by the user, and your task is to resolve it in the best possible way. The current hand of the user is 2H and AD. Currently open house cards are 4S, 5H and 9C.
-
--------------------
-
-""",
-        ),
       ),
     );
   }
@@ -98,10 +78,17 @@ class _VSController extends StateNotifier<_ViewState> {
     );
 
     if (data != null) {
+      // Carry the optional "Should I call?" values into the game screen.
+      ref.read(pendingCallInputsProvider.notifier).state = CallInputs(
+        pot: (data['pot'] as double?) ?? 0,
+        toCall: (data['toCall'] as double?) ?? 0,
+      );
       navigateToNewGame(
         userSelectedCards: data['userSelectedCards'] as List<Card>,
         numberOfPlayers: data['numberOfPlayers'],
-        numberOfHouseCards: data['numberOfHouseCards'],
+        // Texas Hold'em always has five community cards, so the game screen
+        // always shows five house-card slots to fill.
+        numberOfHouseCards: 5,
       );
     }
   }
@@ -118,10 +105,7 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   void showAboutSheet(BuildContext context) {
-    showCupertinoModalBottomSheet<ThemeType>(
-      context: context,
-      builder: (context) => const AboutSheet(),
-    );
+    showCupertinoModalBottomSheet<ThemeType>(context: context, builder: (context) => const AboutSheet());
   }
 
   // @override

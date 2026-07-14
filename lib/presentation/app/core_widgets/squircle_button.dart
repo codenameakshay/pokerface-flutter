@@ -7,13 +7,7 @@ import 'package:pokerface/presentation/app/core_widgets/cta_clickable.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_border.dart';
 
 class SquircleButton extends ConsumerWidget {
-  const SquircleButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-    this.enabled = true,
-    this.loading,
-  });
+  const SquircleButton({super.key, required this.text, required this.onPressed, this.enabled = true, this.loading});
   final String text;
   final VoidCallback? onPressed;
   final bool enabled;
@@ -26,11 +20,7 @@ class SquircleButton extends ConsumerWidget {
       onPressed: onPressed,
       enabled: enabled,
       child: Material(
-        shape: SquircleBorder(
-          radius: BorderRadius.circular(
-            30.toAutoScaledWidth,
-          ),
-        ),
+        shape: SquircleBorder(radius: BorderRadius.circular(30.toAutoScaledWidth)),
         color: theme.colors.primary,
         child: Container(
           width: double.infinity,
@@ -50,10 +40,7 @@ class SquircleButton extends ConsumerWidget {
                   child: SizedBox(
                     height: 22.toAutoScaledHeight,
                     width: 22.toAutoScaledHeight,
-                    child: CircularProgressIndicator(
-                      value: loading! / 100,
-                      color: theme.colors.onPrimary,
-                    ),
+                    child: CircularProgressIndicator(value: loading! / 100, color: theme.colors.onPrimary),
                   ),
                 ),
         ),
@@ -63,13 +50,7 @@ class SquircleButton extends ConsumerWidget {
 }
 
 class RoundedButton extends ConsumerWidget {
-  const RoundedButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-    this.enabled = true,
-    this.loading,
-  });
+  const RoundedButton({super.key, required this.text, required this.onPressed, this.enabled = true, this.loading});
   final String text;
   final VoidCallback? onPressed;
   final bool enabled;
@@ -82,11 +63,7 @@ class RoundedButton extends ConsumerWidget {
       onPressed: onPressed,
       enabled: enabled,
       child: Material(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            500.toAutoScaledWidth,
-          ),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500.toAutoScaledWidth)),
         color: theme.colors.primary,
         child: Container(
           width: double.infinity,
@@ -106,10 +83,7 @@ class RoundedButton extends ConsumerWidget {
                   child: SizedBox(
                     height: 22.toAutoScaledHeight,
                     width: 22.toAutoScaledHeight,
-                    child: CircularProgressIndicator(
-                      value: loading! / 100,
-                      color: theme.colors.onPrimary,
-                    ),
+                    child: CircularProgressIndicator(value: loading! / 100, color: theme.colors.onPrimary),
                   ),
                 ),
         ),
@@ -118,13 +92,7 @@ class RoundedButton extends ConsumerWidget {
   }
 }
 
-enum ButtonType {
-  primary,
-  secondary,
-  tertiary,
-  warning,
-  error,
-}
+enum ButtonType { primary, secondary, tertiary, warning, error }
 
 class SquareButton extends ConsumerWidget {
   const SquareButton({
@@ -211,17 +179,10 @@ class SquareButton extends ConsumerWidget {
         enabled: enabled,
         child: Container(
           decoration: BoxDecoration(
-              border: Border.all(
-                color: textColor(theme),
-                width: 2,
-              ),
-              color: mainColor(theme),
-              boxShadow: [
-                BoxShadow(
-                  color: mainContainerColor(theme),
-                  offset: const Offset(4, 4),
-                ),
-              ]),
+            border: Border.all(color: textColor(theme), width: 2),
+            color: mainColor(theme),
+            boxShadow: [BoxShadow(color: mainContainerColor(theme), offset: const Offset(4, 4))],
+          ),
           width: double.infinity,
           padding: EdgeInsets.symmetric(vertical: 12.toAutoScaledHeight),
           child: loading == null
@@ -239,10 +200,7 @@ class SquareButton extends ConsumerWidget {
                   child: SizedBox(
                     height: 22.toAutoScaledHeight,
                     width: 22.toAutoScaledHeight,
-                    child: CircularProgressIndicator(
-                      value: loading! / 100,
-                      color: textColor(theme),
-                    ),
+                    child: CircularProgressIndicator(value: loading! / 100, color: textColor(theme)),
                   ),
                 ),
         ),

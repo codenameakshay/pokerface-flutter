@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _Body extends StatelessWidget {
-  const _Body({
-    required this.params,
-  });
+  const _Body({required this.params});
 
   final _VSControllerParams params;
 
@@ -16,7 +14,11 @@ class _Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               MediaQuery.of(context).padding.top.toVerticalSizedBox,
-              36.toAutoScaledHeight.toVerticalSizedBox,
+              16.toAutoScaledHeight.toVerticalSizedBox,
+              _EquityPanel(params: params),
+              16.toAutoScaledHeight.toVerticalSizedBox,
+              _CallHelper(params: params),
+              20.toAutoScaledHeight.toVerticalSizedBox,
               _HandRanksList(params: params),
               256.toAutoScaledHeight.toVerticalSizedBox,
             ],

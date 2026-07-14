@@ -12,16 +12,10 @@ import 'package:flutter/widgets.dart';
 /// See [PrimaryScrollController]
 class ModalScrollController extends InheritedWidget {
   /// Creates a widget that associates a [ScrollController] with a subtree.
-  ModalScrollController({
-    super.key,
-    required this.controller,
-    required Widget child,
-  }) : super(
-          child: PrimaryScrollController(
-            controller: controller,
-            child: child,
-          ),
-        );
+  ModalScrollController({super.key, required this.controller, required Widget child})
+    : super(
+        child: PrimaryScrollController(controller: controller, child: child),
+      );
 
   /// The [ScrollController] associated with the subtree.
   ///
@@ -47,7 +41,8 @@ class ModalScrollController extends InheritedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<ScrollController>('controller', controller, ifNull: 'no controller', showName: false));
+    properties.add(
+      DiagnosticsProperty<ScrollController>('controller', controller, ifNull: 'no controller', showName: false),
+    );
   }
 }

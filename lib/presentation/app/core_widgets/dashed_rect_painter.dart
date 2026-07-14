@@ -25,12 +25,7 @@ class DashedRectPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     var path = Path();
-    path.addRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-        Radius.circular(borderRadius),
-      ),
-    );
+    path.addRRect(RRect.fromRectAndRadius(Rect.fromLTWH(0, 0, size.width, size.height), Radius.circular(borderRadius)));
 
     Path dashPath = Path();
 

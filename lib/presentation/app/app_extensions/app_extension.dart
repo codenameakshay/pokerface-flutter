@@ -2,17 +2,16 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:isolate';
+import 'dart:math' show Random;
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:auto_route/auto_route.dart';
+import 'package:auto_route/auto_route.dart' hide CupertinoFullscreenDialogTransition;
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/data/models/poker_hand.dart';
@@ -21,6 +20,7 @@ import 'package:pokerface/presentation/app/app_extensions/routing/intrinsic_rout
 import 'package:pokerface/presentation/app/app_extensions/theme/policies/text_theme.dart';
 import 'package:pokerface/presentation/app/core_widgets/confetti/confetti.dart';
 import 'package:pokerface/presentation/app/core_widgets/in_app_notification/in_app_notification.dart';
+import 'package:pokerface/presentation/utils/hands/equity.dart';
 import 'package:pokerface/presentation/utils/hands/testing.dart';
 import 'package:pokerface/presentation/utils/string/string.dart';
 import 'package:rate_my_app/rate_my_app.dart';
@@ -32,8 +32,6 @@ part 'audio_player/audio_player.dart';
 part 'app_review/app_review.dart';
 part 'device_info/device_info.dart';
 part 'dynamic_icon/dynamic_icon.dart';
-part 'environment/environment.dart';
-part 'generative_ai/generative_ai.dart';
 part 'haptics/haptics.dart';
 part 'routing/observers/route_observer.dart';
 part 'routing/observers/page_route_observer.dart';
@@ -192,8 +190,4 @@ class MyAppX {
   static JSONLocalFile jsonLocalFile = JSONLocalFile.instance;
 
   static IsolateManager isolateManager = IsolateManager.instance;
-
-  static GenerativeAI generativeAI = GenerativeAI.instance;
-
-  static Environment environment = Environment.instance;
 }

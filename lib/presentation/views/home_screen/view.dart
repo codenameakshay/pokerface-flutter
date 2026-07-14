@@ -16,9 +16,9 @@ import 'package:pokerface/presentation/app/core_widgets/route_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/shake_detector.dart';
 import 'package:pokerface/presentation/app/core_widgets/squircle_button.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pokerface/presentation/utils/call_inputs.dart';
 import 'package:pokerface/presentation/utils/cards/all_cards.dart';
 import 'package:pokerface/presentation/utils/cards/cards_png.dart';
-import 'package:pokerface/presentation/views/ai_chat_screen/view.dart';
 import 'package:pokerface/presentation/views/home_screen/widgets/about_sheet.dart';
 import 'package:pokerface/presentation/views/home_screen/widgets/change_app_theme_sheet.dart';
 import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
@@ -47,15 +47,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
       child: Scaffold(
         // overlayStyle: stateController.statusBarStyle(theme),
         body: DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.colors.background,
-          ),
+          decoration: BoxDecoration(color: theme.colors.background),
           child: Stack(
             children: [
               const StackCards(),
               SizedBox.expand(
                 child: Container(
-                  color: theme.type.isDark ? const Color(0xFF020513).withOpacity(0.9) : Colors.white.withOpacity(0.9),
+                  color: theme.type.isDark ? const Color(0xFF020513).withValues(alpha: 0.9) : Colors.white.withValues(alpha: 0.9),
                 ),
               ),
               Center(
@@ -67,27 +65,22 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     children: [
                       300.toAutoScaledWidth.toVerticalSizedBox,
                       Text(
-                        'POKERFACE',
-                        style: theme.themeText.headline1?.copyWith(
-                          fontFamily: GoogleFonts.bigShouldersDisplay().fontFamily,
-                          fontWeight: FontWeight.w900,
-                          color: theme.type.isDark ? Colors.white : const Color(0xFF020513),
-                        ),
-                      )
-                          .animate()
-                          .animate(
-                            onPlay: (controller) => controller.repeat(),
-                          )
-                          .then(
-                            delay: const Duration(
-                              seconds: 2,
+                            'POKERFACE',
+                            style: theme.themeText.headline1?.copyWith(
+                              fontFamily: GoogleFonts.bigShoulders().fontFamily,
+                              fontWeight: FontWeight.w900,
+                              color: theme.type.isDark ? Colors.white : const Color(0xFF020513),
                             ),
                           )
+                          .animate()
+                          .animate(onPlay: (controller) => controller.repeat())
+                          .then(delay: const Duration(seconds: 2))
                           .shimmer(
-                              duration: const Duration(seconds: 2),
-                              color: theme.type.isDark
-                                  ? const Color(0xFF020513).withOpacity(0.3)
-                                  : Colors.white.withOpacity(0.3)),
+                            duration: const Duration(seconds: 2),
+                            color: theme.type.isDark
+                                ? const Color(0xFF020513).withValues(alpha: 0.3)
+                                : Colors.white.withValues(alpha: 0.3),
+                          ),
                       const Spacer(),
                       // SquareButton(
                       //   onPressed: () {
@@ -107,13 +100,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         text: 'New Game',
                         type: ButtonType.primary,
                       ),
-                      // SquareButton(
-                      //   onPressed: () {
-                      //     stateController.navigateToAIScreen();
-                      //   },
-                      //   text: 'Chat with AI',
-                      //   type: ButtonType.tertiary,
-                      // ),
                       // SquareButton(
                       //   onPressed: () {
                       //     // context.router.push(const HomeRoute());

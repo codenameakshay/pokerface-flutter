@@ -27,10 +27,7 @@ import 'package:flutter/foundation.dart';
 /// The [startingPoint] and [curve] arguments must not be null.
 class BottomSheetSuspendedCurve extends Curve {
   /// Creates a suspended curve.
-  const BottomSheetSuspendedCurve(
-    this.startingPoint, {
-    this.curve = Curves.easeOutCubic,
-  });
+  const BottomSheetSuspendedCurve(this.startingPoint, {this.curve = Curves.easeOutCubic});
 
   /// The progress value at which [curve] should begin.
   ///

@@ -117,15 +117,8 @@ class ModalBottomSheet extends StatefulWidget {
   /// This API available as a convenience for a Material compliant bottom sheet
   /// animation. If alternative animation durations are required, a different
   /// animation controller could be provided.
-  static AnimationController createAnimationController(
-    TickerProvider vsync, {
-    Duration? duration,
-  }) {
-    return AnimationController(
-      duration: duration ?? _bottomSheetDuration,
-      debugLabel: 'BottomSheet',
-      vsync: vsync,
-    );
+  static AnimationController createAnimationController(TickerProvider vsync, {Duration? duration}) {
+    return AnimationController(duration: duration ?? _bottomSheetDuration, debugLabel: 'BottomSheet', vsync: vsync);
   }
 }
 
@@ -217,10 +210,7 @@ class ModalBottomSheetState extends State<ModalBottomSheet> with TickerProviderS
   void _handleDragEnd(double velocity) async {
     assert(widget.enableDrag, 'Dragging is disabled');
 
-    animationCurve = BottomSheetSuspendedCurve(
-      widget.animationController.value,
-      curve: _defaultCurve,
-    );
+    animationCurve = BottomSheetSuspendedCurve(widget.animationController.value, curve: _defaultCurve);
 
     if (_dismissUnderway || !isDragging) return;
     isDragging = false;
@@ -269,9 +259,11 @@ class ModalBottomSheetState extends State<ModalBottomSheet> with TickerProviderS
     // ignore: invalid_use_of_protected_member
     if (_scrollController.positions.length > 1) {
       // ignore: invalid_use_of_protected_member
-      scrollPosition = _scrollController.positions.firstWhere((p) => p.isScrollingNotifier.value,
-          // ignore: invalid_use_of_protected_member
-          orElse: () => _scrollController.positions.first);
+      scrollPosition = _scrollController.positions.firstWhere(
+        (p) => p.isScrollingNotifier.value,
+        // ignore: invalid_use_of_protected_member
+        orElse: () => _scrollController.positions.first,
+      );
     } else {
       scrollPosition = _scrollController.position;
     }
@@ -340,27 +332,18 @@ class ModalBottomSheetState extends State<ModalBottomSheet> with TickerProviderS
 
   @override
   Widget build(BuildContext context) {
-    final bounceAnimation = CurvedAnimation(
-      parent: _bounceDragController,
-      curve: Curves.easeOutSine,
-    );
+    final bounceAnimation = CurvedAnimation(parent: _bounceDragController, curve: Curves.easeOutSine);
 
     var child = widget.child;
     if (widget.containerBuilder != null) {
-      child = widget.containerBuilder!(
-        context,
-        widget.animationController,
-        child,
-      );
+      child = widget.containerBuilder!(context, widget.animationController, child);
     }
 
     child = AnimatedBuilder(
       animation: widget.animationController,
       builder: (context, Widget? child) {
         assert(child != null);
-        final animationValue = animationCurve.transform(
-          widget.animationController.value,
-        );
+        final animationValue = animationCurve.transform(widget.animationController.value);
 
         final draggableChild = !widget.enableDrag
             ? child
@@ -390,10 +373,7 @@ class ModalBottomSheetState extends State<ModalBottomSheet> with TickerProviderS
               );
         return ClipRect(
           child: CustomSingleChildLayout(
-            delegate: _ModalBottomSheetLayout(
-              animationValue,
-              widget.expanded,
-            ),
+            delegate: _ModalBottomSheetLayout(animationValue, widget.expanded),
             child: draggableChild,
           ),
         );
@@ -401,10 +381,7 @@ class ModalBottomSheetState extends State<ModalBottomSheet> with TickerProviderS
       child: RepaintBoundary(child: child),
     );
 
-    return ScrollToTopStatusBarHandler(
-      scrollController: _scrollController,
-      child: child,
-    );
+    return ScrollToTopStatusBarHandler(scrollController: _scrollController, child: child);
   }
 }
 

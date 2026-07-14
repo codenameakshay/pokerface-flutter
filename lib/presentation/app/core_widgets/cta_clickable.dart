@@ -5,13 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
 
 class CtaClickable extends StatefulWidget {
-  const CtaClickable({
-    super.key,
-    required this.child,
-    this.onPressed,
-    this.onLongPress,
-    this.enabled = true,
-  });
+  const CtaClickable({super.key, required this.child, this.onPressed, this.onLongPress, this.enabled = true});
 
   final Widget child;
   final VoidCallback? onPressed;
@@ -41,42 +35,22 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
     opacityAnimation = Tween<double>(
       begin: 1,
       end: 0.5,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.linearToEaseOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.linearToEaseOut));
 
     scaleAnimation = Tween<double>(
       begin: 1,
       end: 1,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.linearToEaseOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.linearToEaseOut));
 
     verticalOffsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: Offset.fromDirection(pi / 2, 0.1),
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.linearToEaseOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.linearToEaseOut));
 
     horizontalOffsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: Offset.fromDirection(0, 0.01),
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.linearToEaseOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.linearToEaseOut));
   }
 
   @override
@@ -120,18 +94,12 @@ class _CtaClickableState extends State<CtaClickable> with TickerProviderStateMix
                 position: verticalOffsetAnimation,
                 child: ScaleTransition(
                   scale: scaleAnimation,
-                  child: FadeTransition(
-                    opacity: opacityAnimation,
-                    child: widget.child,
-                  ),
+                  child: FadeTransition(opacity: opacityAnimation, child: widget.child),
                 ),
               ),
             ),
           )
-        : ColorFiltered(
-            colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcATop),
-            child: widget.child,
-          );
+        : ColorFiltered(colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcATop), child: widget.child);
   }
 
   @override

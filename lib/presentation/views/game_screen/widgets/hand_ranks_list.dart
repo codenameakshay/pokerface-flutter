@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _HandRanksList extends ConsumerWidget {
-  const _HandRanksList({
-    required this.params,
-  });
+  const _HandRanksList({required this.params});
 
   final _VSControllerParams params;
 
@@ -30,15 +28,8 @@ class _HandRanksList extends ConsumerWidget {
                   backgroundColor: theme.colors.background,
                   headerBuilder: (context, isExpanded) => Column(
                     children: [
-                      _HandRankHeader(
-                        hand: groupedHands.pokerHands[0],
-                        params: params,
-                      ),
-                      _HandPreview(
-                        hand: groupedHands.pokerHands[0],
-                        params: params,
-                        widthMultiplier: 0.6,
-                      ),
+                      _HandRankHeader(hand: groupedHands.pokerHands[0], params: params),
+                      _HandPreview(hand: groupedHands.pokerHands[0], params: params, widthMultiplier: 0.6),
                       24.toAutoScaledHeight.toVerticalSizedBox,
                     ],
                   ),
@@ -47,13 +38,13 @@ class _HandRanksList extends ConsumerWidget {
                       for (final hand in groupedHands.pokerHands) ...[
                         24.toAutoScaledHeight.toVerticalSizedBox,
                         _HandPreview(hand: hand, params: params),
-                      ]
+                      ],
                     ],
                   ),
                   canTapOnHeader: true,
                   isExpanded: groupedHands.isExpaned,
                 ),
-              ]
+              ],
             ],
           );
   }

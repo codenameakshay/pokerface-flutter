@@ -17,12 +17,11 @@ class StackCardsState extends ConsumerState<StackCards> with SingleTickerProvide
   void initState() {
     super.initState();
     // pick random 25 from all without Face Cards from available front cards
-    cards = List.generate(
-      Platform.isAndroid ? 10 : 25,
-      (index) => Cards.any,
+    cards = List.generate(Platform.isAndroid ? 10 : 25, (index) => Cards.any);
+    cardKeys = List<GlobalKey<DiagonalMovingCardState>>.generate(
+      cards.length,
+      (_) => GlobalKey<DiagonalMovingCardState>(),
     );
-    cardKeys =
-        List<GlobalKey<DiagonalMovingCardState>>.generate(cards.length, (_) => GlobalKey<DiagonalMovingCardState>());
   }
 
   void randomizeCards() {

@@ -19,128 +19,76 @@ abstract class ThemeText {
   TextStyle? get overline;
 
   TextTheme get textTheme => TextTheme(
-        displayLarge: headline1,
-        displayMedium: headline2,
-        displaySmall: headline3,
-        headlineMedium: headline4,
-        headlineSmall: headline5,
-        titleLarge: headline6,
-        titleMedium: subtitle1,
-        titleSmall: subtitle2,
-        bodyLarge: bodyText1,
-        bodyMedium: bodyText2,
-        labelLarge: button,
-        bodySmall: caption,
-        labelSmall: overline,
-      );
+    displayLarge: headline1,
+    displayMedium: headline2,
+    displaySmall: headline3,
+    headlineMedium: headline4,
+    headlineSmall: headline5,
+    titleLarge: headline6,
+    titleMedium: subtitle1,
+    titleSmall: subtitle2,
+    bodyLarge: bodyText1,
+    bodyMedium: bodyText2,
+    labelLarge: button,
+    bodySmall: caption,
+    labelSmall: overline,
+  );
 }
 
 class _ThemeTextImpl implements ThemeText {
   @override
-  TextStyle? get headline1 => GoogleFonts.inter(
-        fontSize: 96,
-        fontWeight: FontWeight.w300,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get headline1 => GoogleFonts.inter(fontSize: 96, fontWeight: FontWeight.w300, letterSpacing: -0.4);
 
   @override
-  TextStyle? get headline2 => GoogleFonts.inter(
-        fontSize: 60,
-        fontWeight: FontWeight.w300,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get headline2 => GoogleFonts.inter(fontSize: 60, fontWeight: FontWeight.w300, letterSpacing: -0.4);
 
   @override
-  TextStyle? get headline3 => GoogleFonts.inter(
-        fontSize: 48,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get headline3 => GoogleFonts.inter(fontSize: 48, fontWeight: FontWeight.w400, letterSpacing: -0.4);
 
   @override
-  TextStyle? get headline4 => GoogleFonts.inter(
-        fontSize: 34,
-        fontWeight: FontWeight.w500,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get headline4 => GoogleFonts.inter(fontSize: 34, fontWeight: FontWeight.w500, letterSpacing: -0.4);
 
   @override
-  TextStyle? get headline5 => GoogleFonts.inter(
-        fontSize: 24,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get headline5 => GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w400, letterSpacing: -0.4);
 
   @override
-  TextStyle? get headline6 => GoogleFonts.inter(
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get headline6 => GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: -0.4);
 
   @override
-  TextStyle? get subtitle1 => GoogleFonts.inter(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get subtitle1 => GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: -0.4);
 
   @override
-  TextStyle? get subtitle2 => GoogleFonts.inter(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get subtitle2 => GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: -0.4);
 
   @override
-  TextStyle? get bodyText1 => GoogleFonts.inter(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get bodyText1 => GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: -0.4);
 
   @override
-  TextStyle? get bodyText2 => GoogleFonts.inter(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get bodyText2 => GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: -0.4);
 
   @override
-  TextStyle? get button => GoogleFonts.inter(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get button => GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: -0.4);
 
   @override
-  TextStyle? get caption => GoogleFonts.inter(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get caption => GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: -0.4);
 
   @override
-  TextStyle? get overline => GoogleFonts.inter(
-        fontSize: 10,
-        fontWeight: FontWeight.w400,
-        letterSpacing: -0.4,
-      );
+  TextStyle? get overline => GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: -0.4);
 
   @override
   TextTheme get textTheme => TextTheme(
-        displayLarge: headline1,
-        displayMedium: headline2,
-        displaySmall: headline3,
-        headlineMedium: headline4,
-        headlineSmall: headline5,
-        titleLarge: headline6,
-        titleMedium: subtitle1,
-        titleSmall: subtitle2,
-        bodyLarge: bodyText1,
-        bodyMedium: bodyText2,
-        labelLarge: button,
-        bodySmall: caption,
-        labelSmall: overline,
-      );
+    displayLarge: headline1,
+    displayMedium: headline2,
+    displaySmall: headline3,
+    headlineMedium: headline4,
+    headlineSmall: headline5,
+    titleLarge: headline6,
+    titleMedium: subtitle1,
+    titleSmall: subtitle2,
+    bodyLarge: bodyText1,
+    bodyMedium: bodyText2,
+    labelLarge: button,
+    bodySmall: caption,
+    labelSmall: overline,
+  );
 }

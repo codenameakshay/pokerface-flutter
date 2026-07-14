@@ -56,17 +56,15 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
       onPopInvoked: (didPop) {
         if (state.selectedCards.isNotEmpty) {
           MyAppX.showToast(
-              message:
-                  'Selected cards: ${state.selectedCards.map((e) => '${e.suit.emoji}${e.rank.emoji}').join(', ')}');
+            message: 'Selected cards: ${state.selectedCards.map((e) => '${e.suit.emoji}${e.rank.emoji}').join(', ')}',
+          );
         }
       },
       child: ProviderScope(
         overrides: [_paramsProvider.overrideWithValue(params)],
         child: Scaffold(
           body: DecoratedBox(
-            decoration: BoxDecoration(
-              color: theme.colors.background,
-            ),
+            decoration: BoxDecoration(color: theme.colors.background),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -75,10 +73,7 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
                   child: Column(
                     children: [
                       32.toAutoScaledHeight.toVerticalSizedBox,
-                      Text(
-                        'Select your card',
-                        style: theme.themeText.headline4,
-                      ),
+                      Text('Select your card', style: theme.themeText.headline4),
                       16.toAutoScaledHeight.toVerticalSizedBox,
                       for (final entry in cardsMap.entries) ...[
                         16.toAutoScaledHeight.toVerticalSizedBox,
@@ -89,11 +84,7 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
                                 vertical: 2.toAutoScaledHeight,
                                 horizontal: 16.toAutoScaledWidth,
                               ),
-                              child: Text(
-                                entry.key,
-                                textAlign: TextAlign.left,
-                                style: theme.themeText.caption,
-                              ),
+                              child: Text(entry.key, textAlign: TextAlign.left, style: theme.themeText.caption),
                             ),
                           ],
                         ),
@@ -127,7 +118,7 @@ class _SelectCardsBottomSheetState extends ConsumerState<SelectCardsBottomSheet>
                       onPressed: () => MyAppX.router.pop(state.selectedCards),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _TopUserCards extends ConsumerWidget {
-  const _TopUserCards({
-    required this.params,
-  });
+  const _TopUserCards({required this.params});
 
   final _VSControllerParams params;
 
@@ -19,7 +17,7 @@ class _TopUserCards extends ConsumerWidget {
         decoration: ShapeDecoration(
           color: theme.colors.background,
           shape: DashedBorder(
-            color: theme.colors.secondary.withOpacity(0.1),
+            color: theme.colors.secondary.withValues(alpha: 0.1),
             dashWidth: 12,
             dashSpace: 4,
             strokeWidth: 2,
@@ -42,10 +40,7 @@ class _TopUserCards extends ConsumerWidget {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.1),
-                                width: 2,
-                              ),
+                              border: Border.all(color: Colors.black.withValues(alpha: 0.1), width: 2),
                             ),
                             child: Text(
                               ' ${e.suit.emoji} ${e.rank.emoji} ',
@@ -67,10 +62,7 @@ class _TopUserCards extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: bulb.isOn ? bulb.onColor : bulb.offColor,
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: bulb.borderColor,
-                      width: 2,
-                    ),
+                    border: Border.all(color: bulb.borderColor, width: 2),
                   ),
                 ),
               ],

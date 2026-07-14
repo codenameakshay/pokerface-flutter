@@ -24,11 +24,14 @@ final _paramsProvider = Provider<_VSControllerParams>((ref) {
   throw UnimplementedError();
 });
 
-final _vsProvider =
-    StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
-  final stateController = _VSController(
-    params: params,
-  )..initState(params.context, params.theme);
+final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((
+  ref,
+  params,
+) {
+  final pending = ref.read(pendingCallInputsProvider);
+  final stateController = _VSController(params: params)
+    ..seedCallInputs(pending)
+    ..initState(params.context, params.theme);
 
   return stateController;
 });
@@ -40,8 +43,9 @@ class _ViewState {
     required this.generateTime,
     required this.streetLight,
     required this.loadingState,
-    required this.showAIChat,
-    required this.aiChatHistory,
+    required this.equity,
+    required this.pot,
+    required this.toCall,
   });
 
   final List<Card> houseCards;
@@ -49,19 +53,23 @@ class _ViewState {
   final Stopwatch? generateTime;
   final StreetLight streetLight;
   final LoadingState loadingState;
-  final bool showAIChat;
-  final List<Content> aiChatHistory;
+  final EquityResult equity;
+
+  /// Optional "Should I call?" inputs. Zero means "not entered".
+  final double pot;
+  final double toCall;
 
   _ViewState.initial()
-      : this(
-          houseCards: [],
-          generatedHands: [],
-          generateTime: null,
-          streetLight: StreetLight(bulbs: []),
-          loadingState: LoadingState.init,
-          showAIChat: false,
-          aiChatHistory: [],
-        );
+    : this(
+        houseCards: [],
+        generatedHands: [],
+        generateTime: null,
+        streetLight: StreetLight(bulbs: []),
+        loadingState: LoadingState.init,
+        equity: const EquityResult.empty(),
+        pot: 0,
+        toCall: 0,
+      );
 
   _ViewState copyWith({
     List<Card>? houseCards,
@@ -69,8 +77,9 @@ class _ViewState {
     Stopwatch? generateTime,
     StreetLight? streetLight,
     LoadingState? loadingState,
-    bool? showAIChat,
-    List<Content>? aiChatHistory,
+    EquityResult? equity,
+    double? pot,
+    double? toCall,
   }) {
     return _ViewState(
       houseCards: houseCards ?? this.houseCards,
@@ -78,16 +87,15 @@ class _ViewState {
       generateTime: generateTime ?? this.generateTime,
       streetLight: streetLight ?? this.streetLight,
       loadingState: loadingState ?? this.loadingState,
-      showAIChat: showAIChat ?? this.showAIChat,
-      aiChatHistory: aiChatHistory ?? this.aiChatHistory,
+      equity: equity ?? this.equity,
+      pot: pot ?? this.pot,
+      toCall: toCall ?? this.toCall,
     );
   }
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController({
-    required this.params,
-  }) : super(_ViewState.initial());
+  _VSController({required this.params}) : super(_ViewState.initial());
   _VSControllerParams params;
 
   void initState(BuildContext context, ThemeState theme) {
@@ -97,20 +105,20 @@ class _VSController extends StateNotifier<_ViewState> {
         bulbs: [
           Bulb(
             isOn: false,
-            borderColor: theme.colors.onPrimary.withOpacity(0.1),
-            offColor: theme.colors.primary.withOpacity(0.2),
+            borderColor: theme.colors.onPrimary.withValues(alpha: 0.1),
+            offColor: theme.colors.primary.withValues(alpha: 0.2),
             onColor: theme.colors.primary,
           ),
           Bulb(
             isOn: false,
-            borderColor: theme.colors.onWarning.withOpacity(0.1),
-            offColor: theme.colors.warning.withOpacity(0.2),
+            borderColor: theme.colors.onWarning.withValues(alpha: 0.1),
+            offColor: theme.colors.warning.withValues(alpha: 0.2),
             onColor: theme.colors.warning,
           ),
           Bulb(
             isOn: false,
-            borderColor: theme.colors.onError.withOpacity(0.1),
-            offColor: theme.colors.error.withOpacity(0.2),
+            borderColor: theme.colors.onError.withValues(alpha: 0.1),
+            offColor: theme.colors.error.withValues(alpha: 0.2),
             onColor: theme.colors.error,
           ),
         ],
@@ -122,19 +130,52 @@ class _VSController extends StateNotifier<_ViewState> {
 
   Future<void> reGenHands(BuildContext context, List<Card> cards) async {
     state = state.copyWith(generateTime: Stopwatch()..start(), loadingState: LoadingState.loading);
-    final generatedHands = await MyAppX.isolateManager.runFindTopNHands(cards, 20);
+
+    final holeCards = params.userSelectedCards;
+    final board = state.houseCards;
+    final opponents = params.numberOfPlayers.round() - 1;
+
+    // Run the top-hands search and the win-equity simulation on their worker
+    // isolates concurrently.
+    final handsFuture = MyAppX.isolateManager.runFindTopNHands(cards, 20);
+    final equityFuture = holeCards.length == 2 && opponents >= 1
+        ? MyAppX.isolateManager.runCalculateEquity(holeCards: holeCards, board: board, opponents: opponents)
+        : Future<EquityResult>.value(const EquityResult.empty());
+
+    final generatedHands = await handsFuture;
+    final equity = await equityFuture;
+
     final groupedHands = generatedHands.map((e) => GroupedHands(pokerHands: e, isExpaned: false)).toList();
+
     state = state.copyWith(
       generatedHands: groupedHands,
-      streetLight: state.streetLight.copyWith(
-        bulbs: state.streetLight.bulbs
-            .map((e) => e.copyWith(
-                isOn: groupedHands[0].pokerHands[0].handRankStatus + 1 == state.streetLight.bulbs.indexOf(e)))
-            .toList(),
-      ),
+      equity: equity,
+      streetLight: _streetLightForEquity(equity),
     );
     state.generateTime?.stop();
     state = state.copyWith(loadingState: LoadingState.success);
+  }
+
+  /// Lights the green / amber / red bulb from the player's win equity: green at
+  /// 50%+, amber at 25–50%, red below 25%. No bulb lights until a simulation
+  /// has run.
+  StreetLight _streetLightForEquity(EquityResult equity) {
+    final bulbs = state.streetLight.bulbs;
+    int litIndex;
+    if (equity.iterations == 0) {
+      litIndex = -1;
+    } else if (equity.equity >= 0.5) {
+      litIndex = 0;
+    } else if (equity.equity >= 0.25) {
+      litIndex = 1;
+    } else {
+      litIndex = 2;
+    }
+    return state.streetLight.copyWith(
+      bulbs: [
+        for (var i = 0; i < bulbs.length; i++) bulbs[i].copyWith(isOn: i == litIndex),
+      ],
+    );
   }
 
   void toggleExpand(int index, bool isExpanded) {
@@ -147,12 +188,15 @@ class _VSController extends StateNotifier<_ViewState> {
     state = state.copyWith(generatedHands: newGeneratedHands);
   }
 
-  void toggleAIChat() {
-    state = state.copyWith(showAIChat: !state.showAIChat);
-  }
+  void setPot(double value) => state = state.copyWith(pot: value);
 
-  void updateAIChatHistory(List<Content> newHistory) {
-    state = state.copyWith(aiChatHistory: newHistory);
+  void setToCall(double value) => state = state.copyWith(toCall: value);
+
+  /// Seeds the "Should I call?" fields from values entered in the start sheet.
+  void seedCallInputs(CallInputs? pending) {
+    if (pending != null) {
+      state = state.copyWith(pot: pending.pot, toCall: pending.toCall);
+    }
   }
 
   Future<List<Card>?> showSelectCardsBottomSheet(BuildContext context, List<Card>? selectedCards) async {
@@ -181,11 +225,4 @@ class _VSController extends StateNotifier<_ViewState> {
     final totalCards = params.userSelectedCards + cards;
     reGenHands(context, totalCards);
   }
-
-  String get inputPrompt =>
-      """You are a Texas Hold'em Poker expert. You will be given a query by the user, and your task is to resolve it in the best possible way. The current hand of the user is ${params.userSelectedCards.map((e) => '${e.rank.name} of ${e.suit.name}').join(", ")}.${state.houseCards.isNotEmpty ? ' Currently open house cards are ${state.houseCards.map((e) => '${e.rank.name} of ${e.suit.name},').join(", ")}.' : 'No house cards are currently open.'}
-
--------------------
-
-""";
 }

@@ -12,10 +12,7 @@ class ThemeBooter extends Booter<void> {
     log('⚠️ThemeBooter: booting');
     // This is required in order to make the status bar and app color same in Android.
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
-      ),
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent, systemNavigationBarColor: Colors.transparent),
     );
     log('⚠️ThemeBooter: booted');
   }

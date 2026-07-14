@@ -24,18 +24,10 @@ class CardPreview extends ConsumerWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         border: userCards.contains(card)
-            ? Border.all(
-                color: theme.colors.primary,
-                width: 2,
-                strokeAlign: BorderSide.strokeAlignInside,
-              )
+            ? Border.all(color: theme.colors.primary, width: 2, strokeAlign: BorderSide.strokeAlignInside)
             : houseCards.contains(card)
-                ? Border.all(
-                    color: theme.colors.error,
-                    width: 2,
-                    strokeAlign: BorderSide.strokeAlignInside,
-                  )
-                : null,
+            ? Border.all(color: theme.colors.error, width: 2, strokeAlign: BorderSide.strokeAlignInside)
+            : null,
       ),
       child: CardsPNG.drawCard(card.image.png, fit: BoxFit.cover),
     );

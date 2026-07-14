@@ -343,24 +343,26 @@ List<List<Card>> generate5CardCombinations(List<Card> cards) {
   return combinations;
 }
 
+/// Returns the strongest 5-card [PokerHand] that can be made from the given
+/// cards (typically the 7 cards of a Texas Hold'em showdown, but any set of
+/// 5+ cards works).
+///
+/// Uses [compareHands] so ties within a rank are broken correctly by kickers
+/// (e.g. picking the higher of two possible straights), rather than comparing
+/// only the coarse [HandRank] category.
 PokerHand findBestHand(List<Card> sevenCards) {
   final combinations = generate5CardCombinations(sevenCards);
   PokerHand? bestHand;
-  HandRank bestRank = HandRank.highCard; // Start with the lowest possible rank
-  List<Card> bestCombination = [];
 
-  for (var combination in combinations) {
-    var hand = PokerHand(cards: combination);
-    var rank = hand.evaluateHand();
-
-    if (bestHand == null || rank.index < bestRank.index) {
+  for (final combination in combinations) {
+    final hand = PokerHand(cards: combination);
+    if (bestHand == null || compareHands(hand, bestHand) > 0) {
       bestHand = hand;
-      bestRank = rank;
-      bestCombination = combination;
     }
   }
 
-  return PokerHand(cards: bestCombination);
+  // Fewer than 5 cards yields no 5-card combination; fall back to the input.
+  return bestHand ?? PokerHand(cards: sevenCards);
 }
 
 List<PokerHand> findAllHands(List<Card> sevenCards) {

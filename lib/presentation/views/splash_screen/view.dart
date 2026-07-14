@@ -26,24 +26,11 @@ class SplashView extends ConsumerWidget {
     return ColoredBox(
       color: theme.colors.background,
       child: Center(
-        child: Image.asset(
-          Assets.images.splashIcon.path,
-          width: 255,
-          fit: BoxFit.cover,
-        )
+        child: Image.asset(Assets.images.splashIcon.path, width: 255, fit: BoxFit.cover)
             .animate()
-            .animate(
-              onPlay: (controller) => controller.repeat(),
-            )
-            .then(
-              delay: const Duration(
-                milliseconds: 200,
-              ),
-            )
-            .shimmer(
-              duration: const Duration(seconds: 1),
-              color: Colors.white30,
-            ),
+            .animate(onPlay: (controller) => controller.repeat())
+            .then(delay: const Duration(milliseconds: 200))
+            .shimmer(duration: const Duration(seconds: 1), color: Colors.white30),
       ),
     );
   }

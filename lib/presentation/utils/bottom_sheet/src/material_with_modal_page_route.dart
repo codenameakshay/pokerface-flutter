@@ -9,12 +9,7 @@ class MaterialWithModalsPageRoute<T> extends MaterialPageRoute<T> {
   ///
   /// The values of [builder], [maintainState], and [fullScreenDialog] must not
   /// be null.
-  MaterialWithModalsPageRoute({
-    required super.builder,
-    super.settings,
-    super.maintainState,
-    super.fullscreenDialog,
-  });
+  MaterialWithModalsPageRoute({required super.builder, super.settings, super.maintainState, super.fullscreenDialog});
 
   ModalSheetRoute? _nextModalRoute;
 
@@ -44,7 +39,11 @@ class MaterialWithModalsPageRoute<T> extends MaterialPageRoute<T> {
 
   @override
   Widget buildTransitions(
-      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     final theme = Theme.of(context).pageTransitionsTheme;
     final nextRoute = _nextModalRoute;
     if (nextRoute != null) {

@@ -6,16 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokerface/presentation/utils/bottom_sheet/modal_bottom_sheet.dart';
 
-final themes = ThemeType.values
-    .map(
-      (e) => {
-        'name': e.name,
-        'label': e.label,
-        'type': e,
-        'is_dark': e.isDark,
-      },
-    )
-    .toList();
+final themes = ThemeType.values.map((e) => {'name': e.name, 'label': e.label, 'type': e, 'is_dark': e.isDark}).toList();
 
 class ChangeAppThemeSheet extends ConsumerWidget {
   const ChangeAppThemeSheet({super.key});
@@ -28,12 +19,7 @@ class ChangeAppThemeSheet extends ConsumerWidget {
     return SafeArea(
       top: false,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          16.toAutoScaledWidth,
-          0,
-          16.toAutoScaledWidth,
-          0.toAutoScaledHeight,
-        ),
+        padding: EdgeInsets.fromLTRB(16.toAutoScaledWidth, 0, 16.toAutoScaledWidth, 0.toAutoScaledHeight),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -52,13 +38,7 @@ class ChangeAppThemeSheet extends ConsumerWidget {
       'Change app theme',
       textAlign: TextAlign.center,
       style: theme.themeText.headline4,
-    )
-        .animate(
-          delay: const Duration(
-            milliseconds: 100,
-          ),
-        )
-        .fadeIn();
+    ).animate(delay: const Duration(milliseconds: 100)).fadeIn();
   }
 
   Widget _buildThemes(ThemeState theme, BuildContext context, ThemeType currentSelectedTheme) {
@@ -74,8 +54,8 @@ class ChangeAppThemeSheet extends ConsumerWidget {
       padding: EdgeInsets.only(bottom: 64.toAutoScaledHeight),
       itemBuilder: (context, index) {
         return Clickable(
-          onPressed: () async {
-            await MyAppX.router.pop(themes[index]['type']);
+          onPressed: () {
+            MyAppX.router.pop(themes[index]['type']);
           },
           child: _buildIcon(theme, index, currentSelectedTheme),
         );
@@ -92,22 +72,12 @@ class ChangeAppThemeSheet extends ConsumerWidget {
           themes[index]['label'] as String? ?? '',
           style: theme.themeText.caption?.copyWith(),
           textAlign: TextAlign.center,
-        )
-            .animate(
-              delay: Duration(
-                milliseconds: 400 + (10 * index),
-              ),
-            )
-            .fadeIn(),
+        ).animate(delay: Duration(milliseconds: 400 + (10 * index))).fadeIn(),
       ),
     );
   }
 
-  Widget _buildIcon(
-    ThemeState theme,
-    int index,
-    ThemeType currentSelectedTheme,
-  ) {
+  Widget _buildIcon(ThemeState theme, int index, ThemeType currentSelectedTheme) {
     final isSelected = ((themes[index]['type'] as ThemeType? ?? ThemeType.olive) == currentSelectedTheme);
     return Column(
       children: [
@@ -115,11 +85,11 @@ class ChangeAppThemeSheet extends ConsumerWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.toAutoScaledWidth),
             border: Border.all(
-              color: isSelected ? theme.colors.primary.withOpacity(0.7) : theme.colors.secondaryContainer,
+              color: isSelected ? theme.colors.primary.withValues(alpha: 0.7) : theme.colors.secondaryContainer,
               width: 2.toAutoScaledWidth,
               strokeAlign: BorderSide.strokeAlignInside,
             ),
-            color: isSelected ? theme.colors.primary.withOpacity(0.7) : theme.colors.secondaryContainer,
+            color: isSelected ? theme.colors.primary.withValues(alpha: 0.7) : theme.colors.secondaryContainer,
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(6.toAutoScaledWidth),
@@ -141,20 +111,11 @@ class ChangeAppThemeSheet extends ConsumerWidget {
                 ).createShader(bounds);
               },
               blendMode: BlendMode.xor,
-              child: Image.asset(
-                Assets.images.other.whiteDeck2.path,
-                fit: BoxFit.contain,
-              ),
+              child: Image.asset(Assets.images.other.whiteDeck2.path, fit: BoxFit.contain),
             ),
           ),
-        )
-            .animate(
-              delay: Duration(
-                milliseconds: 200 + (10 * index),
-              ),
-            )
-            .fadeIn(),
-        _buildIconLabel(theme, index)
+        ).animate(delay: Duration(milliseconds: 200 + (10 * index))).fadeIn(),
+        _buildIconLabel(theme, index),
       ],
     );
   }

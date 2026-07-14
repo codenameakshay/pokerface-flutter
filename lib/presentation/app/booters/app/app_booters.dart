@@ -1,26 +1,21 @@
 part of '../../app.dart';
 
-final _appBooterProvider = StateNotifierProvider<AppBooter, AppBootStatus>(
-  (ref) {
-    final appBooter = AppBooter().._bootUp();
+final _appBooterProvider = StateNotifierProvider<AppBooter, AppBootStatus>((ref) {
+  final appBooter = AppBooter().._bootUp();
 
-    final removeListener = appBooter.addListener((state) {
-      log('⚠️AppBooter: ${state.name}');
-    });
+  final removeListener = appBooter.addListener((state) {
+    log('⚠️AppBooter: ${state.name}');
+  });
 
-    ref.onDispose(() {
-      appBooter._bootDown();
-      removeListener();
-    });
+  ref.onDispose(() {
+    appBooter._bootDown();
+    removeListener();
+  });
 
-    return appBooter;
-  },
-);
+  return appBooter;
+});
 
-enum AppBootStatus {
-  booting,
-  booted,
-}
+enum AppBootStatus { booting, booted }
 
 class AppBooter extends StateNotifier<AppBootStatus> {
   AppBooter() : super(AppBootStatus.booting);
@@ -31,7 +26,6 @@ class AppBooter extends StateNotifier<AppBootStatus> {
       PrefsBooter.instance.bootUp(),
       ThemeBooter.instance.bootUp(),
       MyAppX.soundPlayer.initClickSoundEffect(),
-      dotenv.load(fileName: ".env"),
       // PurchaseBooter.instance.bootUp(),
       // FlutterDownloader.initialize(),
       // WallpaperBooter.instance.bootUp(),
@@ -57,34 +51,19 @@ class AppBooter extends StateNotifier<AppBootStatus> {
     const isFirstTimeKey = 'isFirstTimeUser#2.0.0+42';
     try {
       if (await MyAppX.prefs.exists(key: isFirstTimeKey)) {
-        final isFirstTimeUser = await MyAppX.prefs.retrieve(
-              key: isFirstTimeKey,
-              decoder: (p0) => p0 == 'true',
-            ) ??
-            false;
+        final isFirstTimeUser =
+            await MyAppX.prefs.retrieve(key: isFirstTimeKey, decoder: (p0) => p0 == 'true') ?? false;
         if (isFirstTimeUser) {
-          await MyAppX.router.replace(
-            const HomeRoute(),
-          );
+          await MyAppX.router.replace(const HomeRoute());
         } else {
-          await MyAppX.prefs.store(
-            key: isFirstTimeKey,
-            data: true,
-            encoder: (p0) => p0.toString(),
-            overwrite: true,
-          );
+          await MyAppX.prefs.store(key: isFirstTimeKey, data: true, encoder: (p0) => p0.toString(), overwrite: true);
           await MyAppX.router.replace(
             // const OnboardingRoute(),
             const HomeRoute(),
           );
         }
       } else {
-        await MyAppX.prefs.store(
-          key: isFirstTimeKey,
-          data: true,
-          encoder: (p0) => p0.toString(),
-          overwrite: true,
-        );
+        await MyAppX.prefs.store(key: isFirstTimeKey, data: true, encoder: (p0) => p0.toString(), overwrite: true);
         await MyAppX.router.replace(
           // const OnboardingRoute(),
           const HomeRoute(),

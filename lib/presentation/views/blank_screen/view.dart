@@ -16,24 +16,15 @@ class BlankView extends ConsumerStatefulWidget {
 class _BlankViewState extends ConsumerState<BlankView> {
   @override
   void initState() {
-    Future.delayed(
-      Duration.zero,
-      () {
-        widget.onInit?.call().then(
-              (value) => MyAppX.router.pop(value),
-            );
-      },
-    );
+    Future.delayed(Duration.zero, () {
+      widget.onInit?.call().then((value) => MyAppX.router.pop(value));
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = ref.watch(MyAppX.theme.current);
-    return Scaffold(
-      body: ColoredBox(
-        color: theme.colors.background,
-      ),
-    );
+    return Scaffold(body: ColoredBox(color: theme.colors.background));
   }
 }

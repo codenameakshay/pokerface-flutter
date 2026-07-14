@@ -5,20 +5,13 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class DrawDot extends StatelessWidget {
-  const DrawDot.circular({
-    super.key,
-    required double dotSize,
-    required this.color,
-  })  : width = dotSize,
-        height = dotSize,
-        circular = true;
+  const DrawDot.circular({super.key, required double dotSize, required this.color})
+    : width = dotSize,
+      height = dotSize,
+      circular = true;
 
-  const DrawDot.elliptical({
-    super.key,
-    required this.width,
-    required this.height,
-    required this.color,
-  }) : circular = false;
+  const DrawDot.elliptical({super.key, required this.width, required this.height, required this.color})
+    : circular = false;
   final double width;
   final double height;
   final bool circular;
@@ -80,10 +73,7 @@ class SwivelDot extends StatelessWidget {
           visible: controller.value <= thirdInterval,
           child: Transform.rotate(
             origin: rotationOrigin,
-            angle: Tween<double>(
-              begin: 0,
-              end: left ? math.pi / 5 : -math.pi / 5,
-            )
+            angle: Tween<double>(begin: 0, end: left ? math.pi / 5 : -math.pi / 5)
                 .animate(
                   CurvedAnimation(
                     parent: controller,
@@ -95,20 +85,14 @@ class SwivelDot extends StatelessWidget {
                   ),
                 )
                 .value,
-            child: DrawDot.circular(
-              color: color,
-              dotSize: dotSize,
-            ),
+            child: DrawDot.circular(color: color, dotSize: dotSize),
           ),
         ),
         Visibility(
           visible: controller.value >= thirdInterval,
           child: Transform.rotate(
             origin: rotationOrigin,
-            angle: Tween<double>(
-              begin: left ? math.pi / 5 : -math.pi / 5,
-              end: 0,
-            )
+            angle: Tween<double>(begin: left ? math.pi / 5 : -math.pi / 5, end: 0)
                 .animate(
                   CurvedAnimation(
                     parent: controller,
@@ -120,10 +104,7 @@ class SwivelDot extends StatelessWidget {
                   ),
                 )
                 .value,
-            child: DrawDot.circular(
-              color: color,
-              dotSize: dotSize,
-            ),
+            child: DrawDot.circular(color: color, dotSize: dotSize),
           ),
         ),
       ],
@@ -132,11 +113,7 @@ class SwivelDot extends StatelessWidget {
 }
 
 class NewtonCradle extends StatefulWidget {
-  const NewtonCradle({
-    super.key,
-    required this.size,
-    required this.color,
-  });
+  const NewtonCradle({super.key, required this.size, required this.color});
   final double size;
   final Color color;
 
@@ -151,10 +128,7 @@ class _NewtonCradleState extends State<NewtonCradle> with SingleTickerProviderSt
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..repeat();
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000))..repeat();
   }
 
   @override
@@ -164,7 +138,7 @@ class _NewtonCradleState extends State<NewtonCradle> with SingleTickerProviderSt
     final color = widget.color;
     return AnimatedBuilder(
       animation: _animationController,
-      builder: (_, __) => SizedBox(
+      builder: (_, _) => SizedBox(
         width: widget.size,
         height: widget.size,
         child: Row(
@@ -180,14 +154,8 @@ class _NewtonCradleState extends State<NewtonCradle> with SingleTickerProviderSt
               thirdInterval: 0.30,
               fourthInterval: 0.50,
             ),
-            DrawDot.circular(
-              dotSize: dotSize,
-              color: color,
-            ),
-            DrawDot.circular(
-              dotSize: dotSize,
-              color: color,
-            ),
+            DrawDot.circular(dotSize: dotSize, color: color),
+            DrawDot.circular(dotSize: dotSize, color: color),
             SwivelDot.right(
               color: color,
               controller: _animationController,

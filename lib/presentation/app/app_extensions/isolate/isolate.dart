@@ -7,11 +7,38 @@ class IsolateManager {
   static IsolateManager get instance => _instance;
 
   Future<List<List<PokerHand>>> runFindTopNHands(List<Card> knownCards, int n) async {
-    final jsonCards = knownCards.map((e) => e.toJson()).toList();
-    final jsonResult = await Isolate.run(() => findTopNHands(jsonCards, n));
+    // Card / PokerHand are plain immutable data, so they are sent to and from
+    // the worker isolate directly. (The previous toJson/fromJson round-trip was
+    // broken: toJson leaves nested CardImage objects unserialized, which then
+    // fail the `as Map` cast on the way back.)
+    return Isolate.run(() => findTopNHands(knownCards, n));
+  }
 
-    final result = jsonResult.map((e) => e.map((e) => PokerHand.fromJson(e)).toList()).toList();
-
-    return result;
+  /// Runs the Monte Carlo win-equity simulation on a worker isolate so the
+  /// heavy computation never blocks the UI.
+  ///
+  /// The RNG is seeded deterministically from the known cards, so an identical
+  /// situation always yields the same percentage instead of flickering by a
+  /// point or two between recomputes. 5000 trials keeps the estimate within
+  /// ~1% while staying fast enough to rerun on every card reveal.
+  Future<EquityResult> runCalculateEquity({
+    required List<Card> holeCards,
+    required List<Card> board,
+    required int opponents,
+    int iterations = 5000,
+  }) async {
+    var seed = opponents;
+    for (final card in [...holeCards, ...board]) {
+      seed = seed * 53 + card.rank.index * 4 + card.suit.index;
+    }
+    return Isolate.run(
+      () => calculateEquity(
+        holeCards: holeCards,
+        board: board,
+        opponents: opponents,
+        iterations: iterations,
+        random: Random(seed),
+      ),
+    );
   }
 }

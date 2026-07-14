@@ -11,18 +11,12 @@ enum ConfettiType { celebrate, snow }
 typedef ConfettiDismissCallback = void Function();
 
 class ConfettiAction {
-  const ConfettiAction({
-    required this.child,
-  });
+  const ConfettiAction({required this.child});
   final Widget child;
 }
 
 class ConfettiDetails {
-  const ConfettiDetails({
-    required this.type,
-    this.duration,
-    this.onDismissed,
-  });
+  const ConfettiDetails({required this.type, this.duration, this.onDismissed});
   final ConfettiType type;
   final ConfettiDismissCallback? onDismissed;
 
@@ -54,11 +48,7 @@ class ConfettiController {
     Duration? duration = const Duration(seconds: 5),
     ConfettiDismissCallback? onDismissed,
   }) {
-    final confettiDetails = ConfettiDetails(
-      type: type,
-      duration: duration,
-      onDismissed: onDismissed,
-    );
+    final confettiDetails = ConfettiDetails(type: type, duration: duration, onDismissed: onDismissed);
     listener?.hideConfetti();
     listener?.showConfetti(confettiDetails);
   }
@@ -73,11 +63,7 @@ class ConfettiController {
     Duration? duration = const Duration(seconds: 5),
     ConfettiDismissCallback? onDismissed,
   }) {
-    final confettiDetails = ConfettiDetails(
-      type: type,
-      duration: duration,
-      onDismissed: onDismissed,
-    );
+    final confettiDetails = ConfettiDetails(type: type, duration: duration, onDismissed: onDismissed);
     listener?.hideConfetti();
     listener?.showConfetti(confettiDetails);
     Future.delayed(const Duration(seconds: 5), () {
@@ -91,10 +77,7 @@ class ConfettiController {
 }
 
 class ConfettiProvider extends StatefulWidget {
-  const ConfettiProvider({
-    super.key,
-    this.child,
-  });
+  const ConfettiProvider({super.key, this.child});
   final Widget? child;
 
   @override
@@ -109,12 +92,7 @@ class _ConfettiProviderState extends State<ConfettiProvider>
 
   bool isDisposed = false;
 
-  late AnimationController controller = AnimationController(
-    vsync: this,
-    duration: const Duration(
-      seconds: 5,
-    ),
-  );
+  late AnimationController controller = AnimationController(vsync: this, duration: const Duration(seconds: 5));
 
   @override
   void didChangeDependencies() {
@@ -139,10 +117,7 @@ class _ConfettiProviderState extends State<ConfettiProvider>
           if (widget.child != null) widget.child!,
           if (confettiDetails != null)
             IgnorePointer(
-              child: AnimatedConfetti(
-                confettiDetails: confettiDetails!,
-                controller: controller,
-              ),
+              child: AnimatedConfetti(confettiDetails: confettiDetails!, controller: controller),
             ),
         ],
       ),
@@ -151,27 +126,22 @@ class _ConfettiProviderState extends State<ConfettiProvider>
 
   @override
   Future<void> showConfetti(ConfettiDetails details) async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) async {
-        setState(() {
-          confettiDetails = details;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      setState(() {
+        confettiDetails = details;
+      });
+
+      await controller.forward();
+
+      final duration = confettiDetails?.duration;
+
+      if (duration != null) {
+        timer?.cancel();
+        timer = Timer.periodic(duration, (timer) {
+          hideConfetti();
         });
-
-        await controller.forward();
-
-        final duration = confettiDetails?.duration;
-
-        if (duration != null) {
-          timer?.cancel();
-          timer = Timer.periodic(
-            duration,
-            (timer) {
-              hideConfetti();
-            },
-          );
-        }
-      },
-    );
+      }
+    });
   }
 
   @override
@@ -190,11 +160,7 @@ class _ConfettiProviderState extends State<ConfettiProvider>
 }
 
 class AnimatedConfetti extends StatelessWidget {
-  const AnimatedConfetti({
-    super.key,
-    required this.confettiDetails,
-    required this.controller,
-  });
+  const AnimatedConfetti({super.key, required this.confettiDetails, required this.controller});
   final ConfettiDetails confettiDetails;
   final AnimationController controller;
 
@@ -204,12 +170,7 @@ class AnimatedConfetti extends StatelessWidget {
       child: SizedBox.expand(
         child: FittedBox(
           fit: BoxFit.cover,
-          child: Lottie.asset(
-            getConfettiByType(),
-            repeat: false,
-            controller: controller,
-            fit: BoxFit.fill,
-          ),
+          child: Lottie.asset(getConfettiByType(), repeat: false, controller: controller, fit: BoxFit.fill),
         ),
       ),
     );

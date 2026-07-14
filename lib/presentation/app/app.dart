@@ -13,7 +13,6 @@ import 'package:pokerface/presentation/app/booters/theme/theme_booter.dart';
 import 'package:pokerface/presentation/app/core_widgets/confetti/confetti.dart';
 import 'package:pokerface/presentation/app/core_widgets/in_app_notification/in_app_notification.dart';
 import 'package:pokerface/presentation/app/core_widgets/url_builder.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'booters/app/app_booters.dart';
 
@@ -84,10 +83,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       color: currentTheme.colors.primary,
       routerDelegate: AutoRouterDelegate(
         MyAppX.router,
-        navigatorObservers: () => [
-          MyAppX.routeObserver,
-          MyAppX.pageRouteObserver,
-        ],
+        navigatorObservers: () => [MyAppX.routeObserver, MyAppX.pageRouteObserver],
       ),
       theme: ThemeData.from(
         colorScheme: currentTheme.colors.colorScheme,
@@ -106,9 +102,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           },
           child: ConfettiProvider(
             // adding toast provider here, so that it is visible on the top
-            child: ToastProvider(
-              child: child ?? Container(),
-            ),
+            child: ToastProvider(child: child ?? Container()),
           ),
         );
       },
@@ -119,10 +113,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 class CustomError extends ConsumerWidget {
   final FlutterErrorDetails errorDetails;
 
-  const CustomError({
-    super.key,
-    required this.errorDetails,
-  });
+  const CustomError({super.key, required this.errorDetails});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -134,16 +125,9 @@ class CustomError extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.images.splashIcon.image(
-              width: 100,
-              height: 100,
-            ),
+            Assets.images.splashIcon.image(width: 100, height: 100),
             16.toAutoScaledHeight.toVerticalSizedBox,
-            Text(
-              'Oops! Something went wrong!',
-              textAlign: TextAlign.center,
-              style: theme.themeText.headline6,
-            ),
+            Text('Oops! Something went wrong!', textAlign: TextAlign.center, style: theme.themeText.headline6),
             8.toAutoScaledHeight.toVerticalSizedBox,
             Text(
               'Screenshot this page, and send it to the developer at',
@@ -155,11 +139,9 @@ class CustomError extends ConsumerWidget {
             16.toAutoScaledHeight.toVerticalSizedBox,
             Container(
               decoration: BoxDecoration(
-                color: theme.colors.errorContainer.withOpacity(0.1),
+                color: theme.colors.errorContainer.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(
-                  color: theme.colors.errorContainer,
-                ),
+                border: Border.all(color: theme.colors.errorContainer),
               ),
               padding: const EdgeInsets.all(8),
               child: Column(
@@ -190,7 +172,7 @@ class CustomError extends ConsumerWidget {
               'Note: Please be assured, we are already working on it!',
               textAlign: TextAlign.center,
               style: theme.themeText.caption,
-            )
+            ),
           ],
         ),
       ),

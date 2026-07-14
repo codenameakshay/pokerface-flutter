@@ -5,7 +5,7 @@ class _ThemeColorsLightRedImpl implements ThemeColors {
   Color get primary => colorScheme.primary;
 
   @override
-  Color get background => colorScheme.background;
+  Color get background => colorScheme.surface;
 
   @override
   Brightness get brightness => colorScheme.brightness;
@@ -17,7 +17,7 @@ class _ThemeColorsLightRedImpl implements ThemeColors {
   Color get errorContainer => colorScheme.errorContainer;
 
   @override
-  Color get onBackground => colorScheme.onBackground;
+  Color get onBackground => colorScheme.onSurface;
 
   @override
   Color get onError => colorScheme.onError;
@@ -71,7 +71,5 @@ class _ThemeColorsLightRedImpl implements ThemeColors {
   Color get warning => const Color(0xFFEBB252);
 
   @override
-  ColorScheme get colorScheme => ColorScheme.fromSeed(
-        seedColor: Colors.red,
-      );
+  ColorScheme get colorScheme => ColorScheme.fromSeed(seedColor: Colors.red);
 }

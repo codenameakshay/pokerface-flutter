@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:pokerface/data/models/card.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
@@ -13,10 +14,10 @@ import 'package:pokerface/presentation/views/start_game_bottom_sheet/view.dart';
 part 'intrinsic_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page|Screen|View,Route')
-class IntrinsicRouter extends _$IntrinsicRouter {
+class IntrinsicRouter extends RootStackRouter {
   @override
   RouteType get defaultRouteType => const RouteType.adaptive(); //.cupertino, .adaptive ..etc
 
   @override
-  final List<AutoRoute> routes = MyAppRoutesRegistry.routes;
+  List<AutoRoute> get routes => MyAppRoutesRegistry.routes;
 }

@@ -28,26 +28,14 @@ class SimpleStorageImpl implements SimpleStorage {
     bool createIfNotExisting = true,
   }) async {
     if (await exists(key: key)) {
-      await store<T>(
-        key: key,
-        data: updatedData,
-        encoder: encoder,
-        overwrite: true,
-      );
+      await store<T>(key: key, data: updatedData, encoder: encoder, overwrite: true);
     } else if (createIfNotExisting) {
-      await store<T>(
-        key: key,
-        data: updatedData,
-        encoder: encoder,
-      );
+      await store<T>(key: key, data: updatedData, encoder: encoder);
     }
   }
 
   @override
-  Future<T?> retrieve<T>({
-    required String key,
-    required PersistentStorageDecoder<T> decoder,
-  }) async {
+  Future<T?> retrieve<T>({required String key, required PersistentStorageDecoder<T> decoder}) async {
     await _obtainOrCreateDatabase();
 
     final retrievedData = _prefs?.getString(key);

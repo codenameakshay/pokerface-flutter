@@ -5,7 +5,7 @@ class _ThemeColorsLightRedTornadoImpl implements ThemeColors {
   Color get primary => colorScheme.primary;
 
   @override
-  Color get background => colorScheme.background;
+  Color get background => colorScheme.surface;
 
   @override
   Brightness get brightness => colorScheme.brightness;
@@ -17,7 +17,7 @@ class _ThemeColorsLightRedTornadoImpl implements ThemeColors {
   Color get errorContainer => colorScheme.errorContainer;
 
   @override
-  Color get onBackground => colorScheme.onBackground;
+  Color get onBackground => colorScheme.onSurface;
 
   @override
   Color get onError => colorScheme.onError;
@@ -72,34 +72,32 @@ class _ThemeColorsLightRedTornadoImpl implements ThemeColors {
 
   @override
   ColorScheme get colorScheme => const ColorScheme(
-        brightness: Brightness.light,
-        primary: Color(0xffc62828),
-        onPrimary: Color(0xffffffff),
-        primaryContainer: Color(0xffffcdd2),
-        onPrimaryContainer: Color(0xff141112),
-        secondary: Color(0xffc2185b),
-        onSecondary: Color(0xffffffff),
-        secondaryContainer: Color(0xfffce4ec),
-        onSecondaryContainer: Color(0xff141314),
-        tertiary: Color(0xffad1457),
-        onTertiary: Color(0xffffffff),
-        tertiaryContainer: Color(0xfff8bbd0),
-        onTertiaryContainer: Color(0xff141011),
-        error: Color(0xff790000),
-        onError: Color(0xffffffff),
-        errorContainer: Color(0xfff1d8d8),
-        onErrorContainer: Color(0xff141212),
-        background: Color(0xfffcf7f7),
-        onBackground: Color(0xff090909),
-        surface: Color(0xfffcf7f7),
-        onSurface: Color(0xff090909),
-        surfaceVariant: Color(0xfffaefef),
-        onSurfaceVariant: Color(0xff131212),
-        outline: Color(0xff565656),
-        shadow: Color(0xff000000),
-        inverseSurface: Color(0xff171111),
-        onInverseSurface: Color(0xfff5f5f5),
-        inversePrimary: Color(0xffffc1c1),
-        surfaceTint: Color(0xffc62828),
-      );
+    brightness: Brightness.light,
+    primary: Color(0xffc62828),
+    onPrimary: Color(0xffffffff),
+    primaryContainer: Color(0xffffcdd2),
+    onPrimaryContainer: Color(0xff141112),
+    secondary: Color(0xffc2185b),
+    onSecondary: Color(0xffffffff),
+    secondaryContainer: Color(0xfffce4ec),
+    onSecondaryContainer: Color(0xff141314),
+    tertiary: Color(0xffad1457),
+    onTertiary: Color(0xffffffff),
+    tertiaryContainer: Color(0xfff8bbd0),
+    onTertiaryContainer: Color(0xff141011),
+    error: Color(0xff790000),
+    onError: Color(0xffffffff),
+    errorContainer: Color(0xfff1d8d8),
+    onErrorContainer: Color(0xff141212),
+    surface: Color(0xfffcf7f7),
+    onSurface: Color(0xff090909),
+    surfaceContainerHighest: Color(0xfffaefef),
+    onSurfaceVariant: Color(0xff131212),
+    outline: Color(0xff565656),
+    shadow: Color(0xff000000),
+    inverseSurface: Color(0xff171111),
+    onInverseSurface: Color(0xfff5f5f5),
+    inversePrimary: Color(0xffffc1c1),
+    surfaceTint: Color(0xffc62828),
+  );
 }

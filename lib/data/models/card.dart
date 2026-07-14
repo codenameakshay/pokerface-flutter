@@ -93,12 +93,8 @@ extension RankExtension on Rank {
 }
 
 @freezed
-class Card with _$Card {
-  const factory Card({
-    required Rank rank,
-    required Suit suit,
-    required CardImage image,
-  }) = _Card;
+abstract class Card with _$Card {
+  const factory Card({required Rank rank, required Suit suit, required CardImage image}) = _Card;
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 }

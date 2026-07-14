@@ -1,9 +1,7 @@
 part of '../view.dart';
 
 class _BottomHouseCards extends ConsumerWidget {
-  const _BottomHouseCards({
-    required this.params,
-  });
+  const _BottomHouseCards({required this.params});
 
   final _VSControllerParams params;
 
@@ -19,12 +17,11 @@ class _BottomHouseCards extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _AIChatButton(params: params),
           Container(
             decoration: ShapeDecoration(
               color: theme.colors.background,
               shape: DashedBorder(
-                color: theme.colors.secondary.withOpacity(0.1),
+                color: theme.colors.secondary.withValues(alpha: 0.1),
                 dashWidth: 12,
                 dashSpace: 4,
                 strokeWidth: 2,

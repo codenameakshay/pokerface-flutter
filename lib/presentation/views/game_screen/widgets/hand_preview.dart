@@ -1,11 +1,7 @@
 part of '../view.dart';
 
 class _HandPreview extends ConsumerWidget {
-  const _HandPreview({
-    required this.hand,
-    this.widthMultiplier = 0.8,
-    required this.params,
-  });
+  const _HandPreview({required this.hand, this.widthMultiplier = 0.8, required this.params});
 
   final PokerHand hand;
   final double widthMultiplier;

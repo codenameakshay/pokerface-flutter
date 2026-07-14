@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokerface/gen/assets.gen.dart';
 import 'package:pokerface/presentation/app/app_extensions/app_extension.dart';
@@ -17,12 +16,7 @@ class AboutSheet extends ConsumerWidget {
     return SafeArea(
       top: false,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          16.toAutoScaledWidth,
-          0,
-          16.toAutoScaledWidth,
-          0.toAutoScaledHeight,
-        ),
+        padding: EdgeInsets.fromLTRB(16.toAutoScaledWidth, 0, 16.toAutoScaledWidth, 0.toAutoScaledHeight),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -64,13 +58,7 @@ class AboutSheet extends ConsumerWidget {
   }
 
   Widget _buildDivider() {
-    return const Divider()
-        .animate(
-          delay: const Duration(
-            milliseconds: 350,
-          ),
-        )
-        .fadeIn();
+    return const Divider().animate(delay: const Duration(milliseconds: 350)).fadeIn();
   }
 
   Widget _buildMadeByIcons(ThemeState theme) {
@@ -114,21 +102,11 @@ class AboutSheet extends ConsumerWidget {
           color: theme.colors.onBackground,
         ),
         textAlign: TextAlign.center,
-      )
-          .animate(
-            delay: const Duration(
-              milliseconds: 600,
-            ),
-          )
-          .fadeIn(),
+      ).animate(delay: const Duration(milliseconds: 600)).fadeIn(),
     );
   }
 
-  Widget _buildAboutText(
-    ThemeState theme, {
-    required String heading,
-    required String body,
-  }) {
+  Widget _buildAboutText(ThemeState theme, {required String heading, required String body}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.toAutoScaledWidth, vertical: 8.toAutoScaledHeight),
       child: Column(
@@ -151,18 +129,12 @@ class AboutSheet extends ConsumerWidget {
               fontFamily: GoogleFonts.inter().fontFamily,
               fontWeight: FontWeight.w400,
               fontSize: theme.fontSizes.s9,
-              color: theme.colors.onBackground.withOpacity(0.8),
+              color: theme.colors.onBackground.withValues(alpha: 0.8),
             ),
-          )
+          ),
         ],
       ),
-    )
-        .animate(
-          delay: const Duration(
-            milliseconds: 300,
-          ),
-        )
-        .fadeIn();
+    ).animate(delay: const Duration(milliseconds: 300)).fadeIn();
   }
 
   Widget _buildCodenameAKText(ThemeState theme) {
@@ -175,13 +147,7 @@ class AboutSheet extends ConsumerWidget {
         color: theme.colors.onBackground,
       ),
       textAlign: TextAlign.center,
-    )
-        .animate(
-          delay: const Duration(
-            milliseconds: 650,
-          ),
-        )
-        .fadeIn();
+    ).animate(delay: const Duration(milliseconds: 650)).fadeIn();
   }
 
   Widget _buildCodenameAKIcon() {
@@ -193,17 +159,7 @@ class AboutSheet extends ConsumerWidget {
             Assets.images.codenameakshay.path,
             width: 32.toAutoScaledWidth,
             height: 32.toAutoScaledWidth,
-          )
-              .animate()
-              .then(
-                delay: const Duration(
-                  milliseconds: 1000,
-                ),
-              )
-              .fadeIn()
-              .blur(
-                end: const Offset(14, 14),
-              ),
+          ).animate().then(delay: const Duration(milliseconds: 1000)).fadeIn().blur(end: const Offset(14, 14)),
         ),
         Clickable(
           onPressed: () => launchUrl(
@@ -212,30 +168,18 @@ class AboutSheet extends ConsumerWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.toAutoScaledWidth),
-            child: Image.asset(
-              Assets.images.codenameakshay.path,
-              width: 32.toAutoScaledWidth,
-              height: 32.toAutoScaledWidth,
-              fit: BoxFit.cover,
-            )
-                .animate(
-                  delay: const Duration(
-                    milliseconds: 600,
-                  ),
-                )
-                .fadeIn()
-                .animate(
-                  onPlay: (controller) => controller.repeat(),
-                )
-                .then(
-                  delay: const Duration(
-                    milliseconds: 200,
-                  ),
-                )
-                .shimmer(
-                  duration: const Duration(seconds: 1),
-                  color: Colors.white30,
-                ),
+            child:
+                Image.asset(
+                      Assets.images.codenameakshay.path,
+                      width: 32.toAutoScaledWidth,
+                      height: 32.toAutoScaledWidth,
+                      fit: BoxFit.cover,
+                    )
+                    .animate(delay: const Duration(milliseconds: 600))
+                    .fadeIn()
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .then(delay: const Duration(milliseconds: 200))
+                    .shimmer(duration: const Duration(seconds: 1), color: Colors.white30),
           ),
         ),
       ],
@@ -252,13 +196,7 @@ class AboutSheet extends ConsumerWidget {
         color: theme.colors.onBackground,
       ),
       textAlign: TextAlign.center,
-    )
-        .animate(
-          delay: const Duration(
-            milliseconds: 550,
-          ),
-        )
-        .fadeIn();
+    ).animate(delay: const Duration(milliseconds: 550)).fadeIn();
   }
 
   Widget _buildHashStudiosIcon(ThemeState theme) {
@@ -270,23 +208,13 @@ class AboutSheet extends ConsumerWidget {
             Assets.images.hashStudios.path,
             width: 32.toAutoScaledWidth,
             height: 32.toAutoScaledWidth,
-          )
-              .animate()
-              .then(
-                delay: const Duration(
-                  milliseconds: 900,
-                ),
-              )
-              .fadeIn()
-              .blur(
-                end: const Offset(14, 14),
-              ),
+          ).animate().then(delay: const Duration(milliseconds: 900)).fadeIn().blur(end: const Offset(14, 14)),
         ),
         DecoratedBox(
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: theme.colors.onBackground.withOpacity(0.1),
+                color: theme.colors.onBackground.withValues(alpha: 0.1),
                 blurRadius: 10.toAutoScaledWidth,
                 spreadRadius: -4.toAutoScaledWidth,
                 offset: const Offset(0, 4),
@@ -300,39 +228,21 @@ class AboutSheet extends ConsumerWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.toAutoScaledWidth),
-              child: Image.asset(
-                Assets.images.hashStudios.path,
-                width: 31.toAutoScaledWidth,
-                height: 31.toAutoScaledWidth,
-                fit: BoxFit.cover,
-              )
-                  .animate(
-                    delay: const Duration(
-                      milliseconds: 500,
-                    ),
-                  )
-                  .fadeIn()
-                  .animate(
-                    onPlay: (controller) => controller.repeat(),
-                  )
-                  .then(
-                    delay: const Duration(
-                      milliseconds: 200,
-                    ),
-                  )
-                  .shimmer(
-                    duration: const Duration(seconds: 1),
-                    color: Colors.white30,
-                  ),
+              child:
+                  Image.asset(
+                        Assets.images.hashStudios.path,
+                        width: 31.toAutoScaledWidth,
+                        height: 31.toAutoScaledWidth,
+                        fit: BoxFit.cover,
+                      )
+                      .animate(delay: const Duration(milliseconds: 500))
+                      .fadeIn()
+                      .animate(onPlay: (controller) => controller.repeat())
+                      .then(delay: const Duration(milliseconds: 200))
+                      .shimmer(duration: const Duration(seconds: 1), color: Colors.white30),
             ),
           ),
-        )
-            .animate(
-              delay: const Duration(
-                milliseconds: 500,
-              ),
-            )
-            .fadeIn(),
+        ).animate(delay: const Duration(milliseconds: 500)).fadeIn(),
       ],
     );
   }
@@ -347,13 +257,7 @@ class AboutSheet extends ConsumerWidget {
         color: theme.colors.onBackground,
       ),
       textAlign: TextAlign.center,
-    )
-        .animate(
-          delay: const Duration(
-            milliseconds: 400,
-          ),
-        )
-        .fadeIn();
+    ).animate(delay: const Duration(milliseconds: 400)).fadeIn();
   }
 
   Widget _buildDescription(ThemeState theme) {
@@ -366,16 +270,10 @@ class AboutSheet extends ConsumerWidget {
           fontFamily: GoogleFonts.inter().fontFamily,
           fontWeight: FontWeight.w400,
           fontSize: theme.fontSizes.s9,
-          color: theme.colors.onBackground.withOpacity(0.8),
+          color: theme.colors.onBackground.withValues(alpha: 0.8),
         ),
       ),
-    )
-        .animate(
-          delay: const Duration(
-            milliseconds: 300,
-          ),
-        )
-        .fadeIn();
+    ).animate(delay: const Duration(milliseconds: 300)).fadeIn();
   }
 
   Widget _buildAppNameAndVersion(ThemeState theme) {
@@ -397,33 +295,24 @@ class AboutSheet extends ConsumerWidget {
         Transform.scale(
           scale: 0.8,
           child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 4.toAutoScaledWidth,
-              vertical: 2.toAutoScaledHeight,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 4.toAutoScaledWidth, vertical: 2.toAutoScaledHeight),
             decoration: BoxDecoration(
-              color: theme.colors.onBackground.withOpacity(0.2),
+              color: theme.colors.onBackground.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(400.toAutoScaledWidth),
             ),
             child: Text(
-              'v0.0.1+7',
+              'v2.0.0+9',
               style: theme.themeText.bodyText2?.copyWith(
                 fontFamily: GoogleFonts.inter().fontFamily,
                 fontWeight: FontWeight.w600,
                 fontSize: theme.fontSizes.s9,
-                color: theme.colors.onBackground.withOpacity(0.6),
+                color: theme.colors.onBackground.withValues(alpha: 0.6),
               ),
             ),
           ),
         ),
       ],
-    )
-        .animate(
-          delay: const Duration(
-            milliseconds: 200,
-          ),
-        )
-        .fadeIn();
+    ).animate(delay: const Duration(milliseconds: 200)).fadeIn();
   }
 
   Widget _buildAppIcon() {
@@ -436,17 +325,7 @@ class AboutSheet extends ConsumerWidget {
             Assets.images.appIconPng.path,
             width: 48.toAutoScaledWidth,
             height: 48.toAutoScaledHeight,
-          )
-              .animate()
-              .then(
-                delay: const Duration(
-                  milliseconds: 500,
-                ),
-              )
-              .fadeIn()
-              .blur(
-                end: const Offset(14, 14),
-              ),
+          ).animate().then(delay: const Duration(milliseconds: 500)).fadeIn().blur(end: const Offset(14, 14)),
         ),
         Row(
           children: [
@@ -455,24 +334,12 @@ class AboutSheet extends ConsumerWidget {
               onPressed: MyAppX.showSnow,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.toAutoScaledWidth),
-                child: Image.asset(
-                  Assets.images.appIconPng.path,
-                  width: 48.toAutoScaledWidth,
-                )
+                child: Image.asset(Assets.images.appIconPng.path, width: 48.toAutoScaledWidth)
                     .animate()
                     .fadeIn()
-                    .animate(
-                      onPlay: (controller) => controller.repeat(),
-                    )
-                    .then(
-                      delay: const Duration(
-                        milliseconds: 200,
-                      ),
-                    )
-                    .shimmer(
-                      duration: const Duration(seconds: 1),
-                      color: Colors.white30,
-                    ),
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .then(delay: const Duration(milliseconds: 200))
+                    .shimmer(duration: const Duration(seconds: 1), color: Colors.white30),
               ),
             ),
             const Spacer(),

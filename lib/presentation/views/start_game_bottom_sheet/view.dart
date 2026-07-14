@@ -34,20 +34,14 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
       overrides: [_paramsProvider.overrideWithValue(params)],
       child: Scaffold(
         body: DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.colors.background,
-          ),
+          decoration: BoxDecoration(color: theme.colors.background),
           child: SingleChildScrollView(
             controller: ModalScrollController.of(context),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 32.toAutoScaledHeight.toVerticalSizedBox,
-                Text(
-                  'Select your hand',
-                  textAlign: TextAlign.center,
-                  style: theme.themeText.headline4,
-                ),
+                Text('Select your hand', textAlign: TextAlign.center, style: theme.themeText.headline4),
                 16.toAutoScaledHeight.toVerticalSizedBox,
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -85,20 +79,38 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                   ),
                 ),
                 32.toAutoScaledHeight.toVerticalSizedBox,
-                Text(
-                  'Open cards (${state.openCards.round()})',
-                  textAlign: TextAlign.center,
-                  style: theme.themeText.headline4,
-                ),
+                Text('Should I call? (optional)', textAlign: TextAlign.center, style: theme.themeText.headline4),
+                12.toAutoScaledHeight.toVerticalSizedBox,
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.toAutoScaledWidth),
-                  child: Slider(
-                    value: state.openCards,
-                    divisions: 4,
-                    onChanged: stateController.changeOpenCards,
-                    max: 5,
-                    min: 1,
-                    label: state.openCards.round().toString(),
+                  padding: EdgeInsets.symmetric(horizontal: 32.toAutoScaledWidth),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          textAlign: TextAlign.center,
+                          onChanged: (t) => stateController.setPot(double.tryParse(t) ?? 0),
+                          decoration: InputDecoration(
+                            labelText: 'Pot',
+                            isDense: true,
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                      ),
+                      16.toAutoScaledWidth.toHorizontalSizedBox,
+                      Expanded(
+                        child: TextField(
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          textAlign: TextAlign.center,
+                          onChanged: (t) => stateController.setToCall(double.tryParse(t) ?? 0),
+                          decoration: InputDecoration(
+                            labelText: 'To call',
+                            isDense: true,
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 32.toAutoScaledHeight.toVerticalSizedBox,
@@ -108,7 +120,8 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                     onPressed: () => MyAppX.router.pop({
                       'userSelectedCards': state.selectedCards,
                       'numberOfPlayers': state.numberOfPlayers,
-                      'numberOfHouseCards': state.openCards,
+                      'pot': state.pot,
+                      'toCall': state.toCall,
                     }),
                     text: 'Start game',
                     enabled: state.selectedCards.length >= 2,
@@ -122,7 +135,7 @@ class _StartGameBottomSheetState extends ConsumerState<StartGameBottomSheet> {
                     textAlign: TextAlign.center,
                     style: theme.themeText.caption?.copyWith(
                       fontSize: 8.toAutoScaledWidth,
-                      color: theme.colors.onBackground.withOpacity(0.5),
+                      color: theme.colors.onBackground.withValues(alpha: 0.5),
                     ),
                   ),
                 ),

@@ -12,50 +12,39 @@ final _paramsProvider = Provider<_VSControllerParams>((ref) {
   throw UnimplementedError();
 });
 
-final _vsProvider =
-    StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
-  final stateController = _VSController(
-    params: params,
-  )..initState();
+final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((
+  ref,
+  params,
+) {
+  final stateController = _VSController(params: params)..initState();
 
   return stateController;
 });
 
 class _ViewState {
-  _ViewState({
-    required this.selectedCards,
-    required this.numberOfPlayers,
-    required this.openCards,
-  });
+  _ViewState({required this.selectedCards, required this.numberOfPlayers, required this.pot, required this.toCall});
 
   final List<Card> selectedCards;
   final double numberOfPlayers;
-  final double openCards;
 
-  _ViewState.initial()
-      : this(
-          selectedCards: [],
-          numberOfPlayers: 4,
-          openCards: 5,
-        );
+  /// Optional "Should I call?" inputs. Zero means "not entered".
+  final double pot;
+  final double toCall;
 
-  _ViewState copyWith({
-    List<Card>? selectedCards,
-    double? numberOfPlayers,
-    double? openCards,
-  }) {
+  _ViewState.initial() : this(selectedCards: [], numberOfPlayers: 4, pot: 0, toCall: 0);
+
+  _ViewState copyWith({List<Card>? selectedCards, double? numberOfPlayers, double? pot, double? toCall}) {
     return _ViewState(
       selectedCards: selectedCards ?? this.selectedCards,
       numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
-      openCards: openCards ?? this.openCards,
+      pot: pot ?? this.pot,
+      toCall: toCall ?? this.toCall,
     );
   }
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController({
-    required this.params,
-  }) : super(_ViewState.initial());
+  _VSController({required this.params}) : super(_ViewState.initial());
   _VSControllerParams params;
 
   void initState() {}
@@ -65,10 +54,7 @@ class _VSController extends StateNotifier<_ViewState> {
       context: context,
       isDismissible: false,
       enableDrag: false,
-      builder: (context) => SelectCardsBottomSheet(
-        initialSelectedCards: selectedCards ?? [],
-        maxCards: 2,
-      ),
+      builder: (context) => SelectCardsBottomSheet(initialSelectedCards: selectedCards ?? [], maxCards: 2),
     );
   }
 
@@ -80,9 +66,7 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   void setCards(List<Card> cards) {
-    state = state.copyWith(
-      selectedCards: cards,
-    );
+    state = state.copyWith(selectedCards: cards);
   }
 
   void resetSelectedCards() {
@@ -90,16 +74,12 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   void changeNumberOfPlayers(double value) {
-    state = state.copyWith(
-      numberOfPlayers: value,
-    );
+    state = state.copyWith(numberOfPlayers: value);
   }
 
-  void changeOpenCards(double value) {
-    state = state.copyWith(
-      openCards: value,
-    );
-  }
+  void setPot(double value) => state = state.copyWith(pot: value);
+
+  void setToCall(double value) => state = state.copyWith(toCall: value);
 
   // @override
   // void dispose() {

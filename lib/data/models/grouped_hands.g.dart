@@ -6,13 +6,12 @@ part of 'grouped_hands.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$GroupedHandsImpl _$$GroupedHandsImplFromJson(Map<String, dynamic> json) => _$GroupedHandsImpl(
-      isExpaned: json['isExpaned'] as bool,
-      pokerHands:
-          (json['pokerHands'] as List<dynamic>).map((e) => PokerHand.fromJson(e as Map<String, dynamic>)).toList(),
-    );
+_GroupedHands _$GroupedHandsFromJson(Map<String, dynamic> json) => _GroupedHands(
+  isExpaned: json['isExpaned'] as bool,
+  pokerHands: (json['pokerHands'] as List<dynamic>).map((e) => PokerHand.fromJson(e as Map<String, dynamic>)).toList(),
+);
 
-Map<String, dynamic> _$$GroupedHandsImplToJson(_$GroupedHandsImpl instance) => <String, dynamic>{
-      'isExpaned': instance.isExpaned,
-      'pokerHands': instance.pokerHands,
-    };
+Map<String, dynamic> _$GroupedHandsToJson(_GroupedHands instance) => <String, dynamic>{
+  'isExpaned': instance.isExpaned,
+  'pokerHands': instance.pokerHands,
+};

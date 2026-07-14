@@ -13,10 +13,7 @@ class _EventBrokerImplX implements EventBrokerX {
   /// If [filter] for a given listener returns `true`, that listener will be selected
   /// for this event's target.
   @override
-  void emitEvent(
-    EventX event, {
-    EventListenersFilter? filter,
-  }) {
+  void emitEvent(EventX event, {EventListenersFilter? filter}) {
     late final List<EventListener> specificListeners;
 
     if (filter != null) {
@@ -36,18 +33,16 @@ class _EventBrokerImplX implements EventBrokerX {
   /// A.K.A one-time listeners that haven't added [KeepAliveEventListenerMixin]
   /// mixin with themselves.
   void _removeOneTimeListeners() {
-    listeners.removeWhere(
-      (listener) {
-        late final bool isRemovable;
+    listeners.removeWhere((listener) {
+      late final bool isRemovable;
 
-        if (listener is KeepAliveEventListenerMixin) {
-          isRemovable = false;
-        } else {
-          isRemovable = true;
-        }
+      if (listener is KeepAliveEventListenerMixin) {
+        isRemovable = false;
+      } else {
+        isRemovable = true;
+      }
 
-        return isRemovable;
-      },
-    );
+      return isRemovable;
+    });
   }
 }

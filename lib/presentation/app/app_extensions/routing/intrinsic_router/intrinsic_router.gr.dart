@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -9,79 +10,6 @@
 
 part of 'intrinsic_router.dart';
 
-abstract class _$IntrinsicRouter extends RootStackRouter {
-  // ignore: unused_element
-  _$IntrinsicRouter({super.navigatorKey});
-
-  @override
-  final Map<String, PageFactory> pagesMap = {
-    BlankRoute.name: (routeData) {
-      final args = routeData.argsAs<BlankRouteArgs>(orElse: () => const BlankRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: BlankView(
-          key: args.key,
-          onInit: args.onInit,
-        ),
-      );
-    },
-    CardPhotoRoute.name: (routeData) {
-      final args = routeData.argsAs<CardPhotoRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: CardPhotoView(
-          key: args.key,
-          onInit: args.onInit,
-          card: args.card,
-          isSelected: args.isSelected,
-        ),
-      );
-    },
-    GameRoute.name: (routeData) {
-      final args = routeData.argsAs<GameRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: GameView(
-          key: args.key,
-          userSelectedCards: args.userSelectedCards,
-          numberOfPlayers: args.numberOfPlayers,
-          numberOfHouseCards: args.numberOfHouseCards,
-        ),
-      );
-    },
-    HomeRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const HomeView(),
-      );
-    },
-    SelectCardsBottomSheetRoute.name: (routeData) {
-      final args = routeData.argsAs<SelectCardsBottomSheetRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: SelectCardsBottomSheet(
-          key: args.key,
-          initialSelectedCards: args.initialSelectedCards,
-          maxCards: args.maxCards,
-          disabledCards: args.disabledCards,
-        ),
-      );
-    },
-    SplashRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const SplashView(),
-      );
-    },
-    StartGameBottomSheetRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const StartGameBottomSheet(),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [BlankView]
 class BlankRoute extends PageRouteInfo<BlankRouteArgs> {
@@ -90,24 +18,26 @@ class BlankRoute extends PageRouteInfo<BlankRouteArgs> {
     Future<dynamic> Function()? onInit,
     List<PageRouteInfo>? children,
   }) : super(
-          BlankRoute.name,
-          args: BlankRouteArgs(
-            key: key,
-            onInit: onInit,
-          ),
-          initialChildren: children,
-        );
+         BlankRoute.name,
+         args: BlankRouteArgs(key: key, onInit: onInit),
+         initialChildren: children,
+       );
 
   static const String name = 'BlankRoute';
 
-  static const PageInfo<BlankRouteArgs> page = PageInfo<BlankRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<BlankRouteArgs>(
+        orElse: () => const BlankRouteArgs(),
+      );
+      return BlankView(key: args.key, onInit: args.onInit);
+    },
+  );
 }
 
 class BlankRouteArgs {
-  const BlankRouteArgs({
-    this.key,
-    this.onInit,
-  });
+  const BlankRouteArgs({this.key, this.onInit});
 
   final Key? key;
 
@@ -117,6 +47,16 @@ class BlankRouteArgs {
   String toString() {
     return 'BlankRouteArgs{key: $key, onInit: $onInit}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! BlankRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
 
 /// generated route for
@@ -129,19 +69,30 @@ class CardPhotoRoute extends PageRouteInfo<CardPhotoRouteArgs> {
     required bool isSelected,
     List<PageRouteInfo>? children,
   }) : super(
-          CardPhotoRoute.name,
-          args: CardPhotoRouteArgs(
-            key: key,
-            onInit: onInit,
-            card: card,
-            isSelected: isSelected,
-          ),
-          initialChildren: children,
-        );
+         CardPhotoRoute.name,
+         args: CardPhotoRouteArgs(
+           key: key,
+           onInit: onInit,
+           card: card,
+           isSelected: isSelected,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'CardPhotoRoute';
 
-  static const PageInfo<CardPhotoRouteArgs> page = PageInfo<CardPhotoRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CardPhotoRouteArgs>();
+      return CardPhotoView(
+        key: args.key,
+        onInit: args.onInit,
+        card: args.card,
+        isSelected: args.isSelected,
+      );
+    },
+  );
 }
 
 class CardPhotoRouteArgs {
@@ -164,6 +115,18 @@ class CardPhotoRouteArgs {
   String toString() {
     return 'CardPhotoRouteArgs{key: $key, onInit: $onInit, card: $card, isSelected: $isSelected}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CardPhotoRouteArgs) return false;
+    return key == other.key &&
+        card == other.card &&
+        isSelected == other.isSelected;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ card.hashCode ^ isSelected.hashCode;
 }
 
 /// generated route for
@@ -176,19 +139,30 @@ class GameRoute extends PageRouteInfo<GameRouteArgs> {
     required double numberOfHouseCards,
     List<PageRouteInfo>? children,
   }) : super(
-          GameRoute.name,
-          args: GameRouteArgs(
-            key: key,
-            userSelectedCards: userSelectedCards,
-            numberOfPlayers: numberOfPlayers,
-            numberOfHouseCards: numberOfHouseCards,
-          ),
-          initialChildren: children,
-        );
+         GameRoute.name,
+         args: GameRouteArgs(
+           key: key,
+           userSelectedCards: userSelectedCards,
+           numberOfPlayers: numberOfPlayers,
+           numberOfHouseCards: numberOfHouseCards,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'GameRoute';
 
-  static const PageInfo<GameRouteArgs> page = PageInfo<GameRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<GameRouteArgs>();
+      return GameView(
+        key: args.key,
+        userSelectedCards: args.userSelectedCards,
+        numberOfPlayers: args.numberOfPlayers,
+        numberOfHouseCards: args.numberOfHouseCards,
+      );
+    },
+  );
 }
 
 class GameRouteArgs {
@@ -211,25 +185,48 @@ class GameRouteArgs {
   String toString() {
     return 'GameRouteArgs{key: $key, userSelectedCards: $userSelectedCards, numberOfPlayers: $numberOfPlayers, numberOfHouseCards: $numberOfHouseCards}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! GameRouteArgs) return false;
+    return key == other.key &&
+        const ListEquality<Card>().equals(
+          userSelectedCards,
+          other.userSelectedCards,
+        ) &&
+        numberOfPlayers == other.numberOfPlayers &&
+        numberOfHouseCards == other.numberOfHouseCards;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^
+      const ListEquality<Card>().hash(userSelectedCards) ^
+      numberOfPlayers.hashCode ^
+      numberOfHouseCards.hashCode;
 }
 
 /// generated route for
 /// [HomeView]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
-      : super(
-          HomeRoute.name,
-          initialChildren: children,
-        );
+    : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HomeView();
+    },
+  );
 }
 
 /// generated route for
 /// [SelectCardsBottomSheet]
-class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRouteArgs> {
+class SelectCardsBottomSheetRoute
+    extends PageRouteInfo<SelectCardsBottomSheetRouteArgs> {
   SelectCardsBottomSheetRoute({
     Key? key,
     List<Card> initialSelectedCards = const [],
@@ -237,19 +234,30 @@ class SelectCardsBottomSheetRoute extends PageRouteInfo<SelectCardsBottomSheetRo
     List<Card> disabledCards = const [],
     List<PageRouteInfo>? children,
   }) : super(
-          SelectCardsBottomSheetRoute.name,
-          args: SelectCardsBottomSheetRouteArgs(
-            key: key,
-            initialSelectedCards: initialSelectedCards,
-            maxCards: maxCards,
-            disabledCards: disabledCards,
-          ),
-          initialChildren: children,
-        );
+         SelectCardsBottomSheetRoute.name,
+         args: SelectCardsBottomSheetRouteArgs(
+           key: key,
+           initialSelectedCards: initialSelectedCards,
+           maxCards: maxCards,
+           disabledCards: disabledCards,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'SelectCardsBottomSheetRoute';
 
-  static const PageInfo<SelectCardsBottomSheetRouteArgs> page = PageInfo<SelectCardsBottomSheetRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SelectCardsBottomSheetRouteArgs>();
+      return SelectCardsBottomSheet(
+        key: args.key,
+        initialSelectedCards: args.initialSelectedCards,
+        maxCards: args.maxCards,
+        disabledCards: args.disabledCards,
+      );
+    },
+  );
 }
 
 class SelectCardsBottomSheetRouteArgs {
@@ -272,32 +280,56 @@ class SelectCardsBottomSheetRouteArgs {
   String toString() {
     return 'SelectCardsBottomSheetRouteArgs{key: $key, initialSelectedCards: $initialSelectedCards, maxCards: $maxCards, disabledCards: $disabledCards}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SelectCardsBottomSheetRouteArgs) return false;
+    return key == other.key &&
+        const ListEquality<Card>().equals(
+          initialSelectedCards,
+          other.initialSelectedCards,
+        ) &&
+        maxCards == other.maxCards &&
+        const ListEquality<Card>().equals(disabledCards, other.disabledCards);
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^
+      const ListEquality<Card>().hash(initialSelectedCards) ^
+      maxCards.hashCode ^
+      const ListEquality<Card>().hash(disabledCards);
 }
 
 /// generated route for
 /// [SplashView]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
-      : super(
-          SplashRoute.name,
-          initialChildren: children,
-        );
+    : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SplashView();
+    },
+  );
 }
 
 /// generated route for
 /// [StartGameBottomSheet]
 class StartGameBottomSheetRoute extends PageRouteInfo<void> {
   const StartGameBottomSheetRoute({List<PageRouteInfo>? children})
-      : super(
-          StartGameBottomSheetRoute.name,
-          initialChildren: children,
-        );
+    : super(StartGameBottomSheetRoute.name, initialChildren: children);
 
   static const String name = 'StartGameBottomSheetRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StartGameBottomSheet();
+    },
+  );
 }

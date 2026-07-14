@@ -20,11 +20,11 @@ final _paramsProvider = Provider<_VSControllerParams>((ref) {
   throw UnimplementedError();
 });
 
-final _vsProvider =
-    StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((ref, params) {
-  final stateController = _VSController(
-    params: params,
-  )..initState();
+final _vsProvider = StateNotifierProvider.autoDispose.family<_VSController, _ViewState, _VSControllerParams>((
+  ref,
+  params,
+) {
+  final stateController = _VSController(params: params)..initState();
 
   return stateController;
 });
@@ -37,16 +37,12 @@ class _ViewState {
   _ViewState.initial() : this(selectedCards: []);
 
   _ViewState copyWith({List<Card>? selectedCards}) {
-    return _ViewState(
-      selectedCards: selectedCards ?? this.selectedCards,
-    );
+    return _ViewState(selectedCards: selectedCards ?? this.selectedCards);
   }
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController({
-    required this.params,
-  }) : super(_ViewState.initial());
+  _VSController({required this.params}) : super(_ViewState.initial());
   _VSControllerParams params;
 
   void initState() {
@@ -54,12 +50,8 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   Future<void> showCardPreview(Card card) async {
-    final data = await MyAppX.router.push(
-      CardPhotoRoute(
-        card: card,
-        isSelected: state.selectedCards.contains(card),
-      ),
-    ) as bool?;
+    final data =
+        await MyAppX.router.push(CardPhotoRoute(card: card, isSelected: state.selectedCards.contains(card))) as bool?;
 
     if (data == true) {
       if (state.selectedCards.contains(card)) {

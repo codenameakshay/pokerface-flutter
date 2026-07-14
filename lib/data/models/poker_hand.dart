@@ -81,10 +81,8 @@ extension HandRankExtension on HandRank {
 }
 
 @freezed
-class PokerHand with _$PokerHand {
-  factory PokerHand({
-    required List<Card> cards,
-  }) = _PokerHand;
+abstract class PokerHand with _$PokerHand {
+  factory PokerHand({required List<Card> cards}) = _PokerHand;
 
   factory PokerHand.fromJson(Map<String, dynamic> json) => _$PokerHandFromJson(json);
 }
@@ -125,50 +123,60 @@ extension PokerHandExtension on PokerHand {
   }
 
   HandRank evaluateHand() {
-    bool isStraight = this.isStraight || isStraightWithAceLow;
+    // Compute the expensive derived values once. The getters below each rebuild
+    // a map/set/sorted-list on every access, and evaluateHand is called millions
+    // of times during equity simulation, so recomputing them is the hot path.
+    final Map<Rank, int> counts = rankCounts;
+    final Iterable<int> countValues = counts.values;
+    final bool flush = isFlush;
 
-    // Check for Royal Flush
-    if (isFlush && isStraight && cards.any((card) => card.rank == Rank.ace)) {
+    // A "high" straight is five consecutive ranks (at most Ten-to-Ace); the
+    // Ace-low "wheel" (A-2-3-4-5) is detected separately via isStraightWithAceLow.
+    final bool highStraight = isStraight;
+    final bool anyStraight = highStraight || isStraightWithAceLow;
+
+    // Royal Flush is the Ten-to-Ace straight flush: a *high* straight that
+    // contains an Ace — the only such run is T-J-Q-K-A. This deliberately
+    // excludes the Ace-low "steel wheel" (A-2-3-4-5 suited), which contains an
+    // Ace but is only a five-high straight flush.
+    if (flush && highStraight && counts.containsKey(Rank.ace)) {
       return HandRank.royalFlush;
     }
 
-    // Check for Straight Flush
-    if (isFlush && isStraight) {
+    // Straight Flush (includes the Ace-low steel wheel).
+    if (flush && anyStraight) {
       return HandRank.straightFlush;
     }
 
-    // Check for Four of a Kind
-    if (hasFourOfAKind) {
+    final bool hasFour = countValues.any((count) => count == 4);
+    if (hasFour) {
       return HandRank.fourOfAKind;
     }
 
-    // Check for Full House
-    if (hasThreeOfAKind && rankCounts.values.any((count) => count == 2)) {
+    final bool hasThree = countValues.any((count) => count == 3);
+    final int pairCount = countValues.where((count) => count == 2).length;
+    if (hasThree && pairCount >= 1) {
       return HandRank.fullHouse;
     }
 
-    // Check for Flush
-    if (isFlush) {
+    if (flush) {
       return HandRank.flush;
     }
 
-    // Check for Straight or Straight with Ace Low
-    if (isStraight) {
+    // Straight or Straight with Ace Low (the wheel).
+    if (anyStraight) {
       return HandRank.straight;
     }
 
-    // Check for Three of a Kind
-    if (hasThreeOfAKind) {
+    if (hasThree) {
       return HandRank.threeOfAKind;
     }
 
-    // Check for Two Pairs
-    if (rankCounts.values.where((count) => count == 2).length == 2) {
+    if (pairCount == 2) {
       return HandRank.twoPairs;
     }
 
-    // Check for One Pair
-    if (hasPair) {
+    if (pairCount == 1) {
       return HandRank.onePair;
     }
 
@@ -235,9 +243,10 @@ extension PokerHandExtension on PokerHand {
   }
 
   bool isWheel(List<Card> sortedCards) {
-    // Implement logic to detect a wheel (Ace to Five straight)
-    // Placeholder implementation
-    return false;
+    // A "wheel" is the Ace-to-Five straight (A-2-3-4-5), where the Ace plays
+    // low. Detect it by the exact set of ranks present, independent of order.
+    final ranks = sortedCards.map((card) => card.rank).toSet();
+    return ranks.containsAll(const [Rank.ace, Rank.two, Rank.three, Rank.four, Rank.five]);
   }
 
   double get probability {
@@ -267,8 +276,6 @@ extension PokerHandExtension on PokerHand {
       case HandRank.highCard:
         // Excluding all other hand types
         return (1302540.0 - 5108.0) / 2598960.0;
-      default:
-        return 0.0; // For unimplemented or unrecognized hand types
     }
   }
 
@@ -295,8 +302,6 @@ extension PokerHandExtension on PokerHand {
         return 1;
       case HandRank.highCard:
         return 1;
-      default:
-        return -1; // For unimplemented or unrecognized hand types
     }
   }
 
