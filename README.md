@@ -1,6 +1,6 @@
 # <div align="center"><img src="android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="icon" width=30> Pokerface</div>
 
-<div align="center">Pokerface is an open-source wallpapers app for Android/iOS. It is built with Dart on top of Google's Flutter Framework. It helps one to understand and play Texas Hold'em Poker better.
+<div align="center">Pokerface is an open-source Texas Hold'em poker assistant for Android/iOS. It is built with Dart on top of Google's Flutter Framework. It helps one to understand and play Texas Hold'em Poker better.
 
 ![flutter](https://img.shields.io/badge/Flutter-Framework-green?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-Language-blue?logo=dart)
@@ -31,7 +31,7 @@ https://github.com/codenameakshay/pokerface-flutter/assets/60510869/463a0294-07e
 
 ## About The Project
 
-Pokerface is a mobile application developed using Flutter, designed to help poker players of all levels improve their game. It offers a range of tools and resources, from hand odds calculation to strategy tips tailored to your playing style. It can find the best hand depending on current hand and board cards, calculate the odds of winning, and suggest the best move to make.
+Pokerface is a mobile application developed using Flutter, designed to help poker players of all levels improve their game. It shows your real win probability against the table, tells you in plain language whether you're ahead and which card you need to improve your hand, and includes an optional pot-odds helper to decide whether a call is worth it. It also finds the best hands you can make from your current cards and the community cards.
 
 ### Built With
 
@@ -45,13 +45,6 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 - Flutter: Make sure you have Flutter installed on your machine. To install Flutter, follow the instructions on the [Flutter official website](https://flutter.dev/docs/get-started/install).
-- Gemini API: The app uses the Gemini API to use Gemini Pro model inside the app. You will need to create an account on the [Gemini website](https://aistudio.google.com/app/apikey) and generate an API key to use the app.
-
-Paste the API key in the `.env` file in the root of the project.
-
-```.env
-GOOGLE_GENERATIVE_AI_KEY=YOUR_API_KEY
-```
 
 ### Installation
 
@@ -81,10 +74,10 @@ GOOGLE_GENERATIVE_AI_KEY=YOUR_API_KEY
 
 ## Features
 
-- Hand Calculator: Calculate the best cards with your current hand in real-time.
-- AI Assitance: Get suggestions on the best move to make, based on your current hand and the house cards.
-- Odds Calculator: Calculate the odds of winning with your current hand and the house cards.
-- Strategy Tips: Get tips and tricks to improve your game, tailored to your playing style.
+- Win Probability: See your real chance of winning the hand — a Monte Carlo simulation against the number of players at the table — updated as each community card is revealed.
+- Plain-Language Verdict: A jargon-free read on the hand (winning, too close to call, or behind), plus which card you need to improve.
+- Should I Call?: An optional pot-odds helper that tells you whether a call is worth it, based on the pot and the amount to call.
+- Best Hand Finder: See the best hands you can make from your current cards and the community cards, in real time.
 - Themes: Choose from a range of themes to customize the app to your liking.
 
 It also features a lot of easter eggs and cool animations to make the app more fun and engaging.
@@ -114,7 +107,6 @@ Contributions are what make the open-source community such an amazing place to l
 - [ ] Dynamic app icons
 - [ ] Calculate score for each game
 - [ ] Store win/loss of each game
-- [ ] Integrate AI into more features
 - [ ] Premium subscription
 - [ ] Onboarding
 
