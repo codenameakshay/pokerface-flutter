@@ -46,7 +46,7 @@ class _EquityPanel extends ConsumerWidget {
           Text(
             verdict.message,
             textAlign: TextAlign.center,
-            style: theme.themeText.headline4?.copyWith(color: accent, fontWeight: FontWeight.bold),
+            style: theme.themeText.headline5?.copyWith(color: accent, fontWeight: FontWeight.bold),
           ),
           4.toAutoScaledHeight.toVerticalSizedBox,
           Text(
@@ -55,7 +55,7 @@ class _EquityPanel extends ConsumerWidget {
             style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.6)),
           ),
           if (hintLine != null) ...[
-            12.toAutoScaledHeight.toVerticalSizedBox,
+            8.toAutoScaledHeight.toVerticalSizedBox,
             Text(
               hintLine,
               textAlign: TextAlign.center,

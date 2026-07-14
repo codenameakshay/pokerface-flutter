@@ -1,8 +1,8 @@
 part of '../view.dart';
 
-/// Optional "Should I call?" helper: enter the pot and the amount to call, and
-/// it says whether calling is worth it based on your win chance. Leaving the
-/// fields blank changes nothing else on the screen.
+/// Optional "Should I call?" helper. Collapsed to a single tappable line by
+/// default so it stays out of the way; tap it to enter the pot and the amount
+/// to stay in and get a plain call/fold verdict.
 class _CallHelper extends ConsumerStatefulWidget {
   const _CallHelper({required this.params});
 
@@ -15,6 +15,7 @@ class _CallHelper extends ConsumerStatefulWidget {
 class _CallHelperState extends ConsumerState<_CallHelper> {
   late final TextEditingController _potController;
   late final TextEditingController _callController;
+  late bool _expanded;
 
   @override
   void initState() {
@@ -22,6 +23,8 @@ class _CallHelperState extends ConsumerState<_CallHelper> {
     final state = ref.read(_vsProvider(widget.params));
     _potController = TextEditingController(text: state.pot > 0 ? _format(state.pot) : '');
     _callController = TextEditingController(text: state.toCall > 0 ? _format(state.toCall) : '');
+    // Open automatically if the start sheet already provided values.
+    _expanded = state.pot > 0 || state.toCall > 0;
   }
 
   @override
@@ -36,10 +39,30 @@ class _CallHelperState extends ConsumerState<_CallHelper> {
   @override
   Widget build(BuildContext context) {
     final theme = ref.watch(MyAppX.theme.current);
+
+    if (!_expanded) {
+      return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => setState(() => _expanded = true),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 4.toAutoScaledHeight),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Should I call?',
+                style: theme.themeText.subtitle2?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.6)),
+              ),
+              Icon(Icons.keyboard_arrow_down, size: 18, color: theme.colors.onBackground.withValues(alpha: 0.6)),
+            ],
+          ),
+        ),
+      );
+    }
+
     final state = ref.watch(_vsProvider(widget.params));
     final controller = ref.read(_vsProvider(widget.params).notifier);
     final equity = state.equity;
-
     final advice = equity.iterations == 0
         ? null
         : callAdvice(winEquity: equity.equity, pot: state.pot, toCall: state.toCall);
@@ -49,41 +72,45 @@ class _CallHelperState extends ConsumerState<_CallHelper> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => setState(() => _expanded = false),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Should I call?',
+                  style: theme.themeText.subtitle1?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.8)),
+                ),
+                Icon(Icons.keyboard_arrow_up, size: 18, color: theme.colors.onBackground.withValues(alpha: 0.6)),
+              ],
+            ),
+          ),
+          6.toAutoScaledHeight.toVerticalSizedBox,
           Text(
-            'Should I call?',
+            'How much is in the pot, and what it costs you to stay in?',
             textAlign: TextAlign.center,
-            style: theme.themeText.headline6?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.8)),
+            style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.5)),
           ),
           12.toAutoScaledHeight.toVerticalSizedBox,
           Row(
             children: [
               Expanded(child: _field('Pot', _potController, controller.setPot, theme)),
-              16.toAutoScaledWidth.toHorizontalSizedBox,
-              Expanded(child: _field('To call', _callController, controller.setToCall, theme)),
+              12.toAutoScaledWidth.toHorizontalSizedBox,
+              Expanded(child: _field('To stay in', _callController, controller.setToCall, theme)),
             ],
           ),
           if (advice != null) ...[
-            12.toAutoScaledHeight.toVerticalSizedBox,
+            10.toAutoScaledHeight.toVerticalSizedBox,
             Text(
-              advice.worthCalling ? 'Worth calling ✓' : 'Better to fold ✗',
+              advice.worthCalling
+                  ? "Worth calling ✓  ·  you're ${(advice.winEquity * 100).round()}%, need ${(advice.requiredEquity * 100).round()}%"
+                  : "Better to fold ✗  ·  you're ${(advice.winEquity * 100).round()}%, need ${(advice.requiredEquity * 100).round()}%",
               textAlign: TextAlign.center,
-              style: theme.themeText.subtitle1?.copyWith(
+              style: theme.themeText.subtitle2?.copyWith(
                 color: advice.worthCalling ? theme.colors.primary : theme.colors.error,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            4.toAutoScaledHeight.toVerticalSizedBox,
-            Text(
-              advice.worthCalling
-                  ? 'you win often enough to make it pay'
-                  : "you'd need to win more often than you will",
-              textAlign: TextAlign.center,
-              style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.6)),
-            ),
-            Text(
-              "you're ${(advice.winEquity * 100).round()}%, need ${(advice.requiredEquity * 100).round()}%",
-              textAlign: TextAlign.center,
-              style: theme.themeText.caption?.copyWith(color: theme.colors.onBackground.withValues(alpha: 0.4)),
             ),
           ],
         ],
